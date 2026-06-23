@@ -1,8 +1,8 @@
 {
-  "osoba": {
-    "imie": "Michał",
-    "nazwisko": "Sokołowski",
-    "opis": [
+  "person": {
+    "firstName": "Michał",
+    "lastName": "Sokołowski",
+    "description": [
       "inżynier oprogramowania",
       "starszy programista PHP",
       "weryfikacja kodu",
@@ -18,170 +18,206 @@
       "Biegły w programowaniu front-endowym i full-stackowym, z doskonałą znajomością JavaScript, HTML, CSS, TypeScript, Angular i Vue. Posiada wysokie umiejętności w zakresie SQL, ze specjalizacją w PostgreSQL i MySQL, a także doświadczenie w tworzeniu silników stron internetowych i zautomatyzowanych systemów raportowania z wykorzystaniem PHP, bash i skryptów cron. Dba o jakość poprzez testowanie zarówno ręczne, jak i automatyczne.",
       "Posiadam wykształcenie w zakresie sztucznej inteligencji (sieci neuronowe) oraz wdrażania uczenia maszynowego, uzupełnione współcześnie o wiedzę o LLM/AI. Biegle posługuję się środowiskami Windows i Linux, posiadam praktyczne doświadczenie w zarządzaniu serwerami Linux oraz ich optymalizacji. Dążę do dostarczania innowacyjnych rozwiązań, które łączą technologię, biznes i ludzi, zapewniając spójne i wartościowe wyniki."
     ],
-    "GitHub": "https://github.com/sokol-44/",
-    "LinkedIN": "https://www.linkedin.com/in/micha%C5%82-soko%C5%82owski-0033516/",
-    "pasje": {
+    "github": "https://github.com/sokol-44/",
+    "linkedin": "https://www.linkedin.com/in/micha%C5%82-soko%C5%82owski-0033516/",
+    "passions": {
       "pl": "Pozazawodowe pasje Michała, od gier RPG, żeglarstwa po mikroelektronikę i ogrodnictwo.",
       "en": "Michał's non-professional passions, from RPG games and sailing to microelectronics and gardening."
     }
   },
-  "edukacja": [
+  "education": [
     {
-      "data": {
+      "date": {
         "start": "09.2010",
         "end": "05.2011"
       },
-      "instytucja": "Warszawska Wyższa Szkoła Informatyki",
-      "typ": "studia podyplomowe",
-      "kierunek": "Studia podyplomowe: Zarządzanie projektami informatycznymi: PMI–PMBOK, OGC–PRINCE2",
-      "potwierdzenie": "obroniona praca dyplomowa (Zarządzanie zespołem projektowym)"
+      "institution": "Warszawska Wyższa Szkoła Informatyki",
+      "type": "studia podyplomowe",
+      "major": "Studia podyplomowe: Zarządzanie projektami informatycznymi: PMI–PMBOK, OGC–PRINCE2",
+      "confirmation": "obroniona praca dyplomowa (Zarządzanie zespołem projektowym)"
     },
     {
-      "data": {
+      "date": {
         "start": "02.1997",
         "end": "02.2009"
       },
-      "instytucja": "Politechnika Warszawska",
-      "typ": "studia wyższe",
-      "kierunek": "Studia wyższe: Wydział Informatyki i Technik Informacyjnych",
-      "potwierdzenie": "obroniona praca dyplomowa (magister inżynier)"
+      "institution": "Politechnika Warszawska",
+      "type": "studia wyższe",
+      "major": "Studia wyższe: Wydział Informatyki i Technik Informacyjnych",
+      "confirmation": "obroniona praca dyplomowa (magister inżynier)"
     },
     {
-      "data": {
+      "date": {
         "start": "09.1992",
         "end": "06.1996"
       },
-      "typ": "liceum ogólnokształcące",
-      "instytucja": "XLV Liceum Ogólnokształcące im. Romualda Traugutta w Warszawie",
-      "kierunek": "Profil Matematyczno-Fizyczny z rozszerzoną informatyką",
-      "potwierdzenie": "matura"
+      "institution": "XLV Liceum Ogólnokształcące im. Romualda Traugutta w Warszawie",
+      "type": "liceum ogólnokształcące",
+      "major": "Profil Matematyczno-Fizyczny z rozszerzoną informatyką",
+      "confirmation": "matura"
     }
   ],
-  "dodatkowe_kursy_i_certyfikaty": [
+  "certificates": [
     {
       "id": "cert-1",
-      "data": "06.2026",
-      "czas_trwania_godziny": "3",
-      "instytucja": "Eskadra Bielika",
-      "nazwa": "Eskadra Bielika",
-      "informacje": "Jak postawić lokalny model RAG w oparciu o Dockera, Bielika i Ollame",
-      "technologie_i_obowiazki": ["AI", "LLM"]
+      "date": "06.2026",
+      "durationHours": "3",
+      "institution": "Eskadra Bielika",
+      "name": "Eskadra Bielika",
+      "info": "Jak postawić lokalny model RAG w oparciu o Dockera, Bielika i Ollame",
+      "technologiesAndDuties": [
+        "AI",
+        "LLM"
+      ]
     },
     {
       "id": "cert-2",
-      "data": "06.2026",
-      "czas_trwania_godziny": "2.5",
-      "instytucja": "Niebezpiecznik",
-      "nazwa": "Vibe Coding",
-      "informacje": "Rynkowe i szybkie podejście do asystentów AI w programowaniu.",
-      "technologie_i_obowiazki": ["AI", "Vibe Coding"]
+      "date": "06.2026",
+      "durationHours": "2.5",
+      "institution": "Niebezpiecznik",
+      "name": "Vibe Coding",
+      "info": "Rynkowe i szybkie podejście do asystentów AI w programowaniu.",
+      "technologiesAndDuties": [
+        "AI",
+        "Vibe Coding"
+      ]
     },
     {
       "id": "cert-3",
-      "data": "06.2026",
-      "instytucja": "Google",
-      "czas_trwania_godziny": "140",
-      "nazwa": "Umiejętności Jutra AI",
-      "informacje": "Strategiczne wdrażanie AI w firmie bez ślepego ulegania 'hype’owi'.",
-      "technologie_i_obowiazki": ["LLM", "AI", "Vibe Coding"]
+      "date": "06.2026",
+      "durationHours": "140",
+      "institution": "Google",
+      "name": "Umiejętności Jutra AI",
+      "info": "Strategiczne wdrażanie AI w firmie bez ślepego ulegania 'hype’owi'.",
+      "technologiesAndDuties": [
+        "LLM",
+        "AI",
+        "Vibe Coding"
+      ]
     },
     {
       "id": "cert-4",
-      "data": "05.2026",
-      "czas_trwania_godziny": "140",
-      "instytucja": "DataWorkshop",
-      "nazwa": "Practical LLM",
-      "informacje": "Zaawansowane informacje, wraz z przykładami, o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON) oraz użyciu w połączeniu z klasycznymi aplikacjami i hurtowniami danych.",
-      "technologie_i_obowiazki": ["nauczanie maszynowe", "deterministryczne użycie LLM", "LLM", "Python", "AI"]
+      "date": "05.2026",
+      "durationHours": "140",
+      "institution": "DataWorkshop",
+      "name": "Practical LLM",
+      "info": "Zaawansowane informacje, wraz z przykładami, o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON) oraz użyciu w połączeniu z klasycznymi aplikacjami i hurtowniami danych.",
+      "technologiesAndDuties": [
+        "nauczanie maszynowe",
+        "deterministryczne użycie LLM",
+        "LLM",
+        "Python",
+        "AI"
+      ]
     },
     {
       "id": "cert-5",
-      "data": "02.2026",
-      "czas_trwania_godziny": "12",
-      "instytucja": "DataWorkshop",
-      "nazwa": "DWthon LLM",
-      "informacje": "Podstawowe informacje o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON).",
-      "technologie_i_obowiazki": ["deterministryczne użycie LLM", "LLM", "Python", "AI"]
+      "date": "02.2026",
+      "durationHours": "12",
+      "institution": "DataWorkshop",
+      "name": "DWthon LLM",
+      "info": "Podstawowe informacje o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON).",
+      "technologiesAndDuties": [
+        "deterministryczne użycie LLM",
+        "LLM",
+        "Python",
+        "AI"
+      ]
     },
     {
       "id": "cert-6",
-      "data": "08.2011",
-      "czas_trwania_godziny": "144",
-      "instytucja": "Project Management Institute",
-      "nazwa": "Project Management – CAPM",
-      "informacje": "Uznawany na całym świecie certyfikat dla początkujących, przyznawany przez Project Management Institute (PMI). Potwierdza on pracodawcom podstawową znajomość zasad, metodologii i ram zarządzania projektami, dzięki czemu jest idealnym rozwiązaniem dla osób ubiegających się o stanowiska na niższym szczeblu, takie jak koordynator projektu lub asystent kierownika projektu",
-      "technologie_i_obowiazki": ["manager projektów", "zarządzanie zespołem projektowym"]
+      "date": "08.2011",
+      "durationHours": "144",
+      "institution": "Project Management Institute",
+      "name": "Project Management – CAPM",
+      "info": "Uznawany na całym świecie certyfikat dla początkujących, przyznawany przez Project Management Institute (PMI). Potwierdza on pracodawcom podstawową znajomość zasad, metodologii i ram zarządzania projektami, dzięki czemu jest idealnym rozwiązaniem dla osób ubiegających się o stanowiska na niższym szczeblu, takie jak koordynator projektu lub asystent kierownika projektu",
+      "technologiesAndDuties": [
+        "manager projektów",
+        "zarządzanie zespołem projektowym"
+      ]
     },
     {
       "id": "cert-7",
-      "data": "06.2010",
-      "czas_trwania_godziny": "48",
-      "instytucja": "Linux Professional Institute",
-      "nazwa": "LPIC–1",
-      "informacje": "Pierwszy stopień w wielopoziomowej ścieżce certyfikacji Linux Professional Institute. Potwierdza on fundamentalne umiejętności w zakresie administracji systemami Linux, posługiwania się wierszem poleceń, instalacji oprogramowania oraz podstaw sieci",
-      "technologie_i_obowiazki": ["administrator systemów Linux"]
+      "date": "06.2010",
+      "durationHours": "48",
+      "institution": "Linux Professional Institute",
+      "name": "LPIC–1",
+      "info": "Pierwszy stopień w wielopoziomowej ścieżce certyfikacji Linux Professional Institute. Potwierdza on fundamentalne umiejętności w zakresie administracji systemami Linux, posługiwania się wierszem poleceń, instalacji oprogramowania oraz podstaw sieci",
+      "technologiesAndDuties": [
+        "administrator systemów Linux"
+      ]
     },
     {
       "id": "cert-8",
-      "data": "05.2007",
-      "czas_trwania_godziny": "6",
-      "instytucja": "Microsoft",
-      "nazwa": "Microsoft Office Project Server 2007, Managing Projects",
-      "technologie_i_obowiazki": ["manager projektów"]
+      "date": "05.2007",
+      "durationHours": "6",
+      "institution": "Microsoft",
+      "name": "Microsoft Office Project Server 2007, Managing Projects",
+      "technologiesAndDuties": [
+        "manager projektów"
+      ]
     },
     {
       "id": "cert-9",
-      "data": "06.2010",
-      "czas_trwania_godziny": "8",
-      "instytucja": "SUSE Linux",
-      "nazwa": "SUSE Linux Enterprise Server 10 Fundamentals (3071)",
-      "technologie_i_obowiazki": ["administrator systemów Linux"]
+      "date": "06.2010",
+      "durationHours": "8",
+      "institution": "SUSE Linux",
+      "name": "SUSE Linux Enterprise Server 10 Fundamentals (3071)",
+      "technologiesAndDuties": [
+        "administrator systemów Linux"
+      ]
     },
     {
       "id": "cert-10",
-      "data": "06.2010",
-      "czas_trwania_godziny": "8",
-      "instytucja": "SUSE Linux",
-      "nazwa": "SUSE Linux Enterprise Server 10 Administration (3072)",
-      "technologie_i_obowiazki": ["administrator systemów Linux"]
+      "date": "06.2010",
+      "durationHours": "8",
+      "institution": "SUSE Linux",
+      "name": "SUSE Linux Enterprise Server 10 Administration (3072)",
+      "technologiesAndDuties": [
+        "administrator systemów Linux"
+      ]
     },
     {
       "id": "cert-11",
-      "data": "06.2010",
-      "czas_trwania_godziny": "8",
-      "instytucja": "SUSE Linux",
-      "nazwa": "SUSE Linux Enterprise Server 10 Advanced Administration (3073)",
-      "technologie_i_obowiazki": ["administrator systemów Linux"]
+      "date": "06.2010",
+      "durationHours": "8",
+      "institution": "SUSE Linux",
+      "name": "SUSE Linux Enterprise Server 10 Advanced Administration (3073)",
+      "technologiesAndDuties": [
+        "administrator systemów Linux"
+      ]
     },
     {
       "id": "cert-12",
-      "data": "06.2010",
-      "czas_trwania_godziny": "8",
-      "instytucja": "SUSE Linux",
-      "nazwa": "SUSE Linux Enterprise Server 10: Networking Services (3074)",
-      "technologie_i_obowiazki": ["administrator systemów Linux"]
+      "date": "06.2010",
+      "durationHours": "8",
+      "institution": "SUSE Linux",
+      "name": "SUSE Linux Enterprise Server 10: Networking Services (3074)",
+      "technologiesAndDuties": [
+        "administrator systemów Linux"
+      ]
     }
   ],
-  "zatrudnienie": [
+  "employment": [
     {
       "id": "job-1",
-      "data": {
+      "date": {
         "start": "03.2024",
         "end": "10.2025"
       },
-      "firma": "ALAB laboratoria Sp. z o.o.",
-      "stanowisko": {
+      "company": "ALAB laboratoria Sp. z o.o.",
+      "position": {
         "pl": "Starszy programista PHP",
         "en": "Senior PHP Developer"
       },
-      "obowiazki": [
+      "duties": [
         "Zapewnienie najlepszej ścieżki migracji między starą a nową stroną: klienci, archiwami zakupów i wyników badań",
         "Modernizacja nowej strony opartej na frameworku Laravel tworzenie i modyfikacja struktur danych.",
         "Integracja z wewnętrznymi i zewnętrznymi dostawcami API.",
         "Wsparcie w testach ręcznych i tworzenie testów automatycznych.",
         "Optymalizacja zapytań w SQL i Eloquent ORM"
       ],
-      "technologie": [
+      "technologies": [
         "PHP",
         "Eloquent ORM",
         "Laravel",
@@ -196,22 +232,27 @@
         "AWS Redshift",
         "AWS AppFlow"
       ],
-      "wersje": {
-        "PHP": ["8.x"],
-        "Laravel": ["8", "9"]
+      "versions": {
+        "PHP": [
+          "8.x"
+        ],
+        "Laravel": [
+          "8",
+          "9"
+        ]
       },
-      "glowne_projekty": [
+      "mainProjects": [
         "ALAB Laboratoria (nowa strona)",
         "ALAB Laboratoria (stara strona)",
         "ALAB Laboratoria (Business Intelligence)"
       ],
-      "wzorce_projektowe": [
+      "designPatterns": [
         "Strategy",
         "Singleton",
         "Factory",
         "Service Layer"
       ],
-      "techniki_developerskie": [
+      "devMethodologies": [
         "DDD",
         "ORM",
         "SOLID",
@@ -222,20 +263,20 @@
     },
     {
       "id": "job-2",
-      "data": {
+      "date": {
         "start": "01.2021",
         "end": "01.2023"
       },
-      "firma": "ZenSystem Home Automation",
-      "stanowisko": {
+      "company": "ZenSystem Home Automation",
+      "position": {
         "pl": "Programista",
         "en": "Developer"
       },
-      "obowiazki": [
+      "duties": [
         "Modernizacja aplikacji www do automatyki domowej opartej na AngularJS obsługującej komputery stacjonarne/urządzenia mobilne.",
         "Tworzenie uniwersalnej aplikacji mobilnej (Android/iOS) opartej na frameworku Ionic Framework i Angular."
       ],
-      "technologie": [
+      "technologies": [
         "JavaScript",
         "TypeScript",
         "AngularJS",
@@ -246,23 +287,23 @@
         "PHP",
         "MySQL"
       ],
-      "glowne_projekty": [
+      "mainProjects": [
         "ZenSystemFarm",
         "RoofMaster"
       ]
     },
     {
       "id": "job-3",
-      "data": {
+      "date": {
         "start": "09.2015",
         "end": "03.2025"
       },
-      "firma": "HBZ Sp. z o.o.",
-      "stanowisko": {
+      "company": "HBZ Sp. z o.o.",
+      "position": {
         "pl": "Współwłaściciel/Członek zarządu",
         "en": "Co-owner / Board Member"
       },
-      "obowiazki": [
+      "duties": [
         "manager projektów",
         "zarządzanie zespołem projektowym",
         "dyrektor działu rozwoju",
@@ -274,7 +315,7 @@
         "fullstack developer",
         "pozyskiwanie danych (data scrapping)"
       ],
-      "technologie": [
+      "technologies": [
         "PHP",
         "Zend Framework 1",
         "Symfony",
@@ -293,7 +334,34 @@
         "PLD Linux Distribution",
         "Borg Backup"
       ],
-      "glowne_projekty": [
+      "versions": {
+        "PHP": [
+          "5.x",
+          "7.x",
+          "8.x"
+        ],
+        "Symfony": [
+          "4.x",
+          "6.x"
+        ],
+        "Zend Framework": [
+          "1.x"
+        ],
+        "Ubuntu": [
+          "14.04",
+          "16.04",
+          "18.04",
+          "22.04"
+        ],
+        "Red Hat": [
+          "6.x"
+        ],
+        "CentOs": [
+          "6.x",
+          "8.x"
+        ]
+      },
+      "mainProjects": [
         "ALAB Laboratoria (stara strona)",
         "ALAB Laboratoria (Business Intelligence)",
         "ATRAX",
@@ -301,32 +369,24 @@
         "Mikado B2B–Shop",
         "Motoricus.com, Aaltonen.pl",
         "TKN–CONNECT"
-      ],
-      "wersje": {
-        "PHP": ["5.x", "7.x", "8.x"],
-        "Symfony": ["4.x", "6.x"],
-        "Zend Framework": ["1.x"],
-        "Ubuntu": ["14.04", "16.04", "18.04", "22.04"],
-        "Red Hat": ["6.x"],
-        "CentOs": ["6.x", "8.x"]
-      }
+      ]
     },
     {
       "id": "job-4",
-      "data": {
+      "date": {
         "start": "07.2007",
         "end": "08.2015"
       },
-      "firma": "2MNET Sp. z o.o.",
-      "stanowisko": {
+      "company": "2MNET Sp. z o.o.",
+      "position": {
         "pl": "Tworzenie stron www, Administrator systemów Linux",
         "en": "Web Development, Linux System Administrator"
       },
-      "obowiazki": [
+      "duties": [
         "Administracja serwerami Linux (Ubuntu, Red Hat/CentOs)",
         "Tworzenie stron www (PHP/JS/HTML/CSS)"
       ],
-      "technologie": [
+      "technologies": [
         "Linux",
         "Ubuntu",
         "Red Hat",
@@ -337,76 +397,84 @@
         "Shell",
         "JavaScript"
       ],
-      "glowne_projekty": [
+      "versions": {
+        "PHP": [
+          "5.x",
+          "7.x"
+        ],
+        "Ubuntu": [
+          "12.04",
+          "14.04"
+        ],
+        "Symfony": [
+          "4.x"
+        ]
+      },
+      "mainProjects": [
         "Szukaj–Lektora",
         "Motoricus.com, Aaltonen.pl"
-      ],
-      "wersje": {
-        "PHP": ["5.x", "7.x"],
-        "Ubuntu": ["12.04", "14.04"],
-        "Symfony": ["4.x"]
-      }
+      ]
     },
     {
       "id": "job-5",
-      "data": {
+      "date": {
         "start": "11.2004",
         "end": "05.2007"
       },
-      "firma": "VisualTeam s.c.",
-      "stanowisko": {
+      "company": "VisualTeam s.c.",
+      "position": {
         "pl": "Handlowiec i manager projektów",
         "en": "Sales Representative & Project Manager"
       },
-      "obowiazki": [
+      "duties": [
         "Sprzedaż (na starcie)",
         "manager projektów (później)",
         "tworzenie specyfikacji (później)",
         "Helpdesk IT (później)"
       ],
-      "technologie": [
+      "technologies": [
         "PHP"
       ],
-      "glowne_projekty": [
+      "mainProjects": [
         "Szukaj–Lektora"
       ]
     },
     {
       "id": "job-6",
-      "data": {
+      "date": {
         "start": "05.2004",
         "end": "06.2004"
       },
-      "firma": "eAkcess S.A.",
-      "stanowisko": {
+      "company": "eAkcess S.A.",
+      "position": {
         "pl": "Wsparcie prezentacji najnowszych technologii",
         "en": "Support for Presentation of Latest Technologies"
       },
-      "obowiazki": [
+      "duties": [
         "administracja bb forum",
         "pozyskiwanie danych (data scrapping)",
         "wsparcie podczas prezentacji nowoczesnego systemu komunikacji w firmie"
       ],
-      "technologie": [
+      "technologies": [
         "PHP",
         "Hyper-V"
       ]
     },
     {
       "id": "job-7",
-      "data": {
+      "date": {
         "start": "02.1997",
         "end": "02.2009"
       },
-      "firma": "Politechnika Warszawska",
-      "stanowisko": {
+      "company": "Politechnika Warszawska",
+      "position": {
         "pl": "student",
         "en": "student"
       },
-      "obowiazki": [
+      "duties": [
         "nauka"
       ],
-      "technologie": [
+      "technologies": [
         "C",
         "HTML",
         "Shell",
@@ -422,38 +490,38 @@
     },
     {
       "id": "job-8",
-      "data": {
+      "date": {
         "start": "09.1992",
         "end": "06.1996"
       },
-      "firma": "XLV Liceum Ogólnokształcące im. Romualda Traugutta w Warszawie",
-      "stanowisko": {
+      "company": "XLV Liceum Ogólnokształcące im. Romualda Traugutta w Warszawie",
+      "position": {
         "pl": "uczeń",
         "en": "student"
       },
-      "obowiazki": [
+      "duties": [
         "nauka"
       ],
-      "technologie": [
+      "technologies": [
         "Pascal",
         "Clipper"
       ]
     }
   ],
-  "glowne_projekty": [
+  "projects": [
     {
       "id": "proj-1",
-      "nazwa": "ALAB Laboratoria (Business Intelligence)",
+      "name": "ALAB Laboratoria (Business Intelligence)",
       "url": "https://alab.pl",
-      "firma": [
+      "company": [
         "ALAB laboratoria Sp. z o.o."
       ],
-      "data": {
+      "date": {
         "start": "03.2024",
         "end": "10.2025"
       },
-      "opis": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
-      "technologie": [
+      "description": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
+      "technologies": [
         "PHP",
         "AWS Redshift",
         "user.com",
@@ -462,7 +530,7 @@
         "Shell",
         "Message Queues"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "8.x"
         ]
@@ -470,17 +538,17 @@
     },
     {
       "id": "proj-2",
-      "nazwa": "ALAB Laboratoria (nowa strona)",
+      "name": "ALAB Laboratoria (nowa strona)",
       "url": "https://alab.pl",
-      "firma": [
+      "company": [
         "ALAB laboratoria Sp. z o.o."
       ],
-      "data": {
+      "date": {
         "start": "03.2024",
         "end": "10.2025"
       },
-      "opis": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
-      "technologie": [
+      "description": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
+      "technologies": [
         "PHP",
         "Laravel",
         "PHPUnit",
@@ -497,7 +565,7 @@
         "Omnibus",
         "Shell"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "8.x"
         ]
@@ -505,17 +573,17 @@
     },
     {
       "id": "proj-3",
-      "nazwa": "RoofMaster",
+      "name": "RoofMaster",
       "url": "https://www.dachholding.com/roofmaster",
-      "firma": [
+      "company": [
         "ZenSystem Home Automation"
       ],
-      "data": {
+      "date": {
         "start": "10.2019",
         "end": "03.2023"
       },
-      "opis": "Projektowanie aplikacji mobilnej dla systemów Android/iOS, zawierającej: kalkulatory więźb dachowych i wsporników, katalog offline oraz wyświetlanie dokumentacji.",
-      "technologie": [
+      "description": "Projektowanie aplikacji mobilnej dla systemów Android/iOS, zawierającej: kalkulatory więźb dachowych i wsporników, katalog offline oraz wyświetlanie dokumentacji.",
+      "technologies": [
         "Ionic Framework",
         "Apache Cordova",
         "Angular",
@@ -529,16 +597,16 @@
     },
     {
       "id": "proj-4",
-      "nazwa": "ZenSystemFarm",
-      "firma": [
+      "name": "ZenSystemFarm",
+      "company": [
         "ZenSystem Home Automation"
       ],
-      "data": {
+      "date": {
         "start": "10.2019",
         "end": "03.2023"
       },
-      "opis": "Aplikacja internetowa do zarządzania i automatyzacji zadań gospodarstwa domowego powiązana z systemami sterowania.",
-      "technologie": [
+      "description": "Aplikacja internetowa do zarządzania i automatyzacji zadań gospodarstwa domowego powiązana z systemami sterowania.",
+      "technologies": [
         "AngularJS",
         "JavaScript",
         "HTML",
@@ -549,18 +617,18 @@
     },
     {
       "id": "proj-5",
-      "nazwa": "Mikado B2B–Shop",
+      "name": "Mikado B2B–Shop",
       "url": "https://b2b.mikado.pl/",
-      "firma": [
+      "company": [
         "HBZ Sp. z o.o.",
         "Freelancer"
       ],
-      "data": {
+      "date": {
         "start": "09.2019",
         "end": "03.2024"
       },
-      "opis": "Wdrożenie, rozwój i utrzymanie back-end systemu B2B, integracja z zewnętrznymi systemami sprzedaży (iERP) za pomocą API w technologii SOAP. Udostępnianie API (SOAP i REST) podmiotom zewnętrznym. Projektowanie od podstaw danych i struktur baz danych.",
-      "technologie": [
+      "description": "Wdrożenie, rozwój i utrzymanie back-end systemu B2B, integracja z zewnętrznymi systemami sprzedaży (iERP) za pomocą API w technologii SOAP. Udostępnianie API (SOAP i REST) podmiotom zewnętrznym. Projektowanie od podstaw danych i struktur baz danych.",
+      "technologies": [
         "PHP",
         "Symfony",
         "MySQL",
@@ -569,7 +637,7 @@
         "Redis",
         "administrator systemów Linux"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "7.x",
           "8.x"
@@ -582,18 +650,18 @@
     },
     {
       "id": "proj-6",
-      "nazwa": "ATRAX",
+      "name": "ATRAX",
       "url": "https://atrax.com.pl/",
-      "data": {
-        "start": "02.2018",
-        "end": "03.2024"
-      },
-      "firma": [
+      "company": [
         "HBZ Sp. z o.o.",
         "Freelancer"
       ],
-      "opis": "Indywidualne dostosowanie silnika 'TKN–CONNECT' z nową filozofią sprzedaży, metodami płatności i metodami wyszukiwania. Przeprojektowanie integracji z zewnętrznymi systemami sprzedaży (WFMAG) z wykorzystaniem technologii SOAP.",
-      "technologie": [
+      "date": {
+        "start": "02.2018",
+        "end": "03.2024"
+      },
+      "description": "Indywidualne dostosowanie silnika 'TKN–CONNECT' z nową filozofią sprzedaży, metodami płatności i metodami wyszukiwania. Przeprojektowanie integracji z zewnętrznymi systemami sprzedaży (WFMAG) z wykorzystaniem technologii SOAP.",
+      "technologies": [
         "PHP",
         "JavaScript",
         "HTML",
@@ -606,18 +674,18 @@
     },
     {
       "id": "proj-7",
-      "nazwa": "ALAB Laboratoria (stara strona)",
+      "name": "ALAB Laboratoria (stara strona)",
       "url": "https://sklep.alablaboratoria.pl",
-      "data": {
-        "start": "09.2015",
-        "end": "10.2025"
-      },
-      "firma": [
+      "company": [
         "HBZ Sp. z o.o.",
         "ALAB laboratoria Sp. z o.o."
       ],
-      "opis": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, refaktoring, integracja z systemami zewnętrznymi (za pośrednictwem REST API i bezpośrednich połączeń z bazą danych).",
-      "technologie": [
+      "date": {
+        "start": "09.2015",
+        "end": "10.2025"
+      },
+      "description": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, refaktoring, integracja z systemami zewnętrznymi (za pośrednictwem REST API i bezpośrednich połączeń z bazą danych).",
+      "technologies": [
         "PHP",
         "JavaScript",
         "HTML",
@@ -630,29 +698,29 @@
         "Borg backup",
         "administrator systemów Linux"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "5.x",
           "7.x"
         ]
       },
-      "wyrozniajajace_sie_elementy": [
+      "notableFeatures": [
         "Wysoka jakość kodu skutkująca brakiem skutecznych ataków.",
         "Wysoka wydajność, bez konieczności użycia dużych zasobów czy też hostingu AWS."
       ]
     },
     {
       "id": "proj-8",
-      "nazwa": "Motoricus.com, Aaltonen.pl",
-      "data": {
+      "name": "Motoricus.com, Aaltonen.pl",
+      "company": [
+        "HBZ Sp. z o.o."
+      ],
+      "date": {
         "start": "09.2015",
         "end": "05.2017"
       },
-      "firma": [
-        "HBZ Sp. z o.o."
-      ],
-      "opis": "Rozwój i utrzymanie systemów B2B i B2C firmy sprzedającej opony samochodowe. Integracja z systemami zewnętrznymi i hurtownią danych (części samochodowe).",
-      "technologie": [
+      "description": "Rozwój i utrzymanie systemów B2B i B2C firmy sprzedającej opony samochodowe. Integracja z systemami zewnętrznymi i hurtownią danych (części samochodowe).",
+      "technologies": [
         "PHP",
         "JavaScript",
         "Zend Framework 1",
@@ -667,7 +735,7 @@
         "Borg backup",
         "administrator systemów Linux"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "5.x",
           "7.x"
@@ -676,17 +744,17 @@
     },
     {
       "id": "proj-9",
-      "nazwa": "Sklep B2B zarządzany z systemu ERP",
+      "name": "Sklep B2B zarządzany z systemu ERP",
       "url": "https://github.com/sokol-44/erp-managed-b2b-shop",
-      "data": {
+      "company": [
+        "HBZ Sp. z o.o."
+      ],
+      "date": {
         "start": "03.2010",
         "end": "03.2014"
       },
-      "firma": [
-        "HBZ Sp. z o.o."
-      ],
-      "opis": "Opracowane od zera wyspecjalizowane webowe rozszerzenie serwerowych systemów ERP. Celowo nie posiada internetowego panelu administracyjnego; cała treść, użytkownicy, katalogi produktów, ceny oraz zarządzanie zapasami are obsłużone zewnętrznie za pośrednictwem interfejsu SOAP API.",
-      "technologie": [
+      "description": "Opracowane od zera wyspecjalizowane webowe rozszerzenie serwerowych systemów ERP. Celowo nie posiada internetowego panelu administracyjnego; cała treść, użytkownicy, katalogi produktów, ceny oraz zarządzanie zapasami are obsłużone zewnętrznie za pośrednictwem interfejsu SOAP API.",
+      "technologies": [
         "PHP",
         "JavaScript",
         "HTML",
@@ -696,37 +764,37 @@
         "Import Cenników",
         "SOAP API"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "5.x"
         ]
       },
-      "wzorce_projektowe": [
+      "designPatterns": [
         "Repository",
         "Strategy",
         "Singleton",
         "Factory",
         "Service Layer"
       ],
-      "wyrozniajajace_sie_elementy": [
+      "notableFeatures": [
         "Samodzielne opracowanie i zastosowanie wzorców projektowych.",
         "Lekka i skuteczna architektura umożliwiająca wysoką wydajność, mimo ograniczeń serwerów w momencie powstania."
       ]
     },
     {
       "id": "proj-10",
-      "nazwa": "TKN–CONNECT",
+      "name": "TKN–CONNECT",
       "url": "https://tkn-connect.pl/",
-      "data": {
-        "start": "09.2015",
-        "end": "12.2025"
-      },
-      "firma": [
+      "company": [
         "HBZ Sp. z o.o.",
         "Freelancer"
       ],
-      "opis": "Wdrożenie, rozwój i utrzymanie systemu B2B, integracja z zewnętrznymi systemami sprzedaży (WFMAG, iERP) oraz API w technologii SOAP, dynamiczne ustalanie cen na podstawie aktualnego kursu wymiany walut.",
-      "technologie": [
+      "date": {
+        "start": "09.2015",
+        "end": "12.2025"
+      },
+      "description": "Wdrożenie, rozwój i utrzymanie systemu B2B, integracja z zewnętrznymi systemami sprzedaży (WFMAG, iERP) oraz API w technologii SOAP, dynamiczne ustalanie cen na podstawie aktualnego kursu wymiany walut.",
+      "technologies": [
         "PHP",
         "JavaScript",
         "HTML",
@@ -741,7 +809,7 @@
         "Shell",
         "administrator systemów Linux"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "5.x",
           "7.x"
@@ -750,20 +818,20 @@
     },
     {
       "id": "proj-11",
-      "nazwa": "Szukaj–Lektora",
+      "name": "Szukaj–Lektora",
       "url": "https://szukaj-lektora.pl/",
-      "data": {
-        "start": "02.2007",
-        "end": "06.2026"
-      },
-      "firma": [
+      "company": [
         "VisualTeam s.c.",
         "2MNET Sp. z o.o.",
         "HBZ Sp. z o.o.",
         "Freelancer"
       ],
-      "opis": "Przejęcie szkieletu aplikacji, stworzenie i rozwinięcie portalu społecznościowego służącego do łączenia nauczycieli języków obcych poszukujących pracy ze szkołami poszukującymi pracowników oraz osobami indywidualnie poszukującymi lektorów.",
-      "technologie": [
+      "date": {
+        "start": "02.2007",
+        "end": "06.2026"
+      },
+      "description": "Przejęcie szkieletu aplikacji, stworzenie i rozwinięcie portalu społecznościowego służącego do łączenia nauczycieli języków obcych poszukujących pracy ze szkołami poszukującymi pracowników oraz osobami indywidualnie poszukującymi lektorów.",
+      "technologies": [
         "PHP",
         "JavaScript",
         "HTML",
@@ -781,7 +849,7 @@
         "SPF",
         "pozycjonowanie"
       ],
-      "wersje": {
+      "versions": {
         "PHP": [
           "5.x"
         ],
@@ -790,7 +858,7 @@
           "5.x"
         ]
       },
-      "wyrozniajajace_sie_elementy": [
+      "notableFeatures": [
         "Samodzielne opracowanie systemu mailingowego dostosowanego do zasad Google ze skonfigurowanymi elementami DKIM, DMARC, SPF.",
         "Modyfikacja zmniejszająca obciążenie lektorów poszukujących pracy. Dzięki grupowaniu ofert zmniejszenie maksymalnej ilości e-maili do jednego dziennie.",
         "Wysyłka ponad 50000 e-maili tygodniowo i do ponad 10000 e-maili dziennie, na 'shared hosting' oferowanym przez nazwa.pl w 2007r.",
@@ -801,61 +869,217 @@
       ]
     }
   ],
-  "umiejetnosci": [
-    { "nazwa": "PHP", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "bash", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "awk", "stopien_zaawansowania": "średni" },
-    { "nazwa": "C", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Java", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "JavaScript", "stopien_zaawansowania": "średni" },
-    { "nazwa": "TypeScript", "stopien_zaawansowania": "średni" },
-    { "nazwa": "SQL", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "Zend Framework 1", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Laravel", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Symfony", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Eloquent ORM", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Doctrine ORM", "stopien_zaawansowania": "średni" },
-    { "nazwa": "jQuery", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Angular", "stopien_zaawansowania": "średni" },
-    { "nazwa": "AngularJS", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Vue.js", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "composer", "stopien_zaawansowania": "średni" },
-    { "nazwa": "scss", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Matlab", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "AI Prompt", "stopien_zaawansowania": "średni" },
-    { "nazwa": "SOAP API", "stopien_zaawansowania": "średni" },
-    { "nazwa": "REST API", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Copilot", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "SelfHosting", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Python", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "RabbitMQ", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "Redis", "stopien_zaawansowania": "średni" },
-    { "nazwa": "GIT", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "GitLab", "stopien_zaawansowania": "średni" },
-    { "nazwa": "MySQL", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "PostgreSQL", "stopien_zaawansowania": "średni" },
-    { "nazwa": "MS SQL", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Red Hat Linux", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "Debian", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "Ubuntu", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "Alpine", "stopien_zaawansowania": "średni" },
-    { "nazwa": "ISPconfig", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "VirtualBox", "stopien_zaawansowania": "średni" },
-    { "nazwa": "VMWare", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Hyper–V", "stopien_zaawansowania": "średni" },
-    { "nazwa": "Docker", "stopien_zaawansowania": "średni" },
-    { "nazwa": "AWS S3", "stopien_zaawansowania": "średni" },
-    { "nazwa": "AWS Redshift", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "AWS Lambda", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "AWS AppFlow", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "DKIM", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "DMARC", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "SPF", "stopien_zaawansowania": "zaawansowane" },
-    { "nazwa": "pozycjonowanie", "stopien_zaawansowania": "podstawowy" },
-    { "nazwa": "english", "stopien_zaawansowania": "komunikatywny" },
-    { "nazwa": "russian", "stopien_zaawansowania": "podstawowy" }
+  "skills": [
+    {
+      "name": "PHP",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "bash",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "awk",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "C",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Java",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "JavaScript",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "TypeScript",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "SQL",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Zend Framework 1",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Laravel",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Symfony",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Eloquent ORM",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Doctrine ORM",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "jQuery",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Angular",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "AngularJS",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Vue.js",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "composer",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "scss",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Matlab",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "AI Prompt",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "SOAP API",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "REST API",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Copilot",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "SelfHosting",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Python",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "RabbitMQ",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Redis",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "GIT",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "GitLab",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "MySQL",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "PostgreSQL",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "MS SQL",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Red Hat Linux",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Debian",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Ubuntu",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Alpine",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "ISPconfig",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "VirtualBox",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "VMWare",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Hyper–V",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Docker",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "AWS S3",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "AWS Redshift",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "AWS Lambda",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "AWS AppFlow",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "DKIM",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "DMARC",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "SPF",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "pozycjonowanie",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "english",
+      "proficiencyLevel": "komunikatywny"
+    },
+    {
+      "name": "russian",
+      "proficiencyLevel": "podstawowy"
+    }
   ],
-  "dodatkowe_umiejetnosci_i_hobby": [
+  "additionalSkillsAndHobbies": [
     "Prawo jazdy: kategoria B",
     "Uprawnienia do nurkowania: PADI Open Water Diver",
     "Certyfikat operatora wózka widłowego: II WJO, UDT",
@@ -868,107 +1092,570 @@
     "Żeglarstwo: Żeglarz jachtowy",
     "WOPR: Młodszy ratownik (nieużywane)"
   ],
-  "slowniki_uzytych_technologii": {
-    "jezyki_programowania_i_skryptowe": [
-      { "nazwa": "PHP", "synonimy": ["Hypertext Preprocessor", "PHP8", "Laravel PHP"] },
-      { "nazwa": "Matlab", "synonimy": ["Matrix Laboratory"] },
-      { "nazwa": "bash", "synonimy": ["Bourne Again Shell", "shell scripting", "bash scripting"] },
-      { "nazwa": "awk", "synonimy": ["AWK tool", "text processing"] },
-      { "nazwa": "C", "synonimy": ["C Language", "ANSI C"] },
-      { "nazwa": "JavaScript", "synonimy": ["JS", "ECMAScript", "ES6"] },
-      { "nazwa": "TypeScript", "synonimy": ["TS", "Strict JS"] },
-      { "nazwa": "SQL", "synonimy": ["Structured Query Language", "Relational SQL"] },
-      { "nazwa": "HTML", "synonimy": ["HTML5", "HyperText Markup Language"] },
-      { "nazwa": "CSS", "synonimy": ["CSS3", "Cascading Style Sheets"] },
-      { "nazwa": "Python", "synonimy": ["Python3", "Py"] },
-      { "nazwa": "AutoHotkey", "synonimy": ["AHK"] }
+  "techDictionaries": {
+    "programmingLanguages": [
+      {
+        "name": "PHP",
+        "synonyms": [
+          "Hypertext Preprocessor",
+          "PHP8",
+          "Laravel PHP"
+        ]
+      },
+      {
+        "name": "Matlab",
+        "synonyms": [
+          "Matrix Laboratory"
+        ]
+      },
+      {
+        "name": "bash",
+        "synonyms": [
+          "Bourne Again Shell",
+          "shell scripting",
+          "bash scripting"
+        ]
+      },
+      {
+        "name": "awk",
+        "synonyms": [
+          "AWK tool",
+          "text processing"
+        ]
+      },
+      {
+        "name": "C",
+        "synonyms": [
+          "C Language",
+          "ANSI C"
+        ]
+      },
+      {
+        "name": "JavaScript",
+        "synonyms": [
+          "JS",
+          "ECMAScript",
+          "ES6"
+        ]
+      },
+      {
+        "name": "TypeScript",
+        "synonyms": [
+          "TS",
+          "Strict JS"
+        ]
+      },
+      {
+        "name": "SQL",
+        "synonyms": [
+          "Structured Query Language",
+          "Relational SQL"
+        ]
+      },
+      {
+        "name": "HTML",
+        "synonyms": [
+          "HTML5",
+          "HyperText Markup Language"
+        ]
+      },
+      {
+        "name": "CSS",
+        "synonyms": [
+          "CSS3",
+          "Cascading Style Sheets"
+        ]
+      },
+      {
+        "name": "Python",
+        "synonyms": [
+          "Python3",
+          "Py"
+        ]
+      },
+      {
+        "name": "AutoHotkey",
+        "synonyms": [
+          "AHK"
+        ]
+      }
     ],
-    "frameworki_i_biblioteki": [
-      { "nazwa": "Laravel", "synonimy": ["Laravel Framework", "PHP Laravel"] },
-      { "nazwa": "Zend Framework 1", "synonimy": ["ZF1", "Zend"] },
-      { "nazwa": "Symfony", "synonimy": ["Symfony Framework", "PHP Symfony"] },
-      { "nazwa": "Angular", "synonimy": ["Angular2+", "Angular Framework"] },
-      { "nazwa": "AngularJS", "synonimy": ["Angular 1.x", "Angular.js"] },
-      { "nazwa": "Ionic Framework", "synonimy": ["Ionic"] },
-      { "nazwa": "Apache Cordova", "synonimy": ["Cordova", "PhoneGap"] },
-      { "nazwa": "jQuery", "synonimy": ["jq", "JavaScript Library"] },
-      { "nazwa": "Vue.js", "synonimy": ["Vue", "VueJS"] },
-      { "nazwa": "Eloquent ORM", "synonimy": ["Eloquent", "Laravel ORM"] },
-      { "nazwa": "Doctrine ORM", "synonimy": ["Doctrine", "Symfony ORM"] }
+    "frameworksAndLibraries": [
+      {
+        "name": "Laravel",
+        "synonyms": [
+          "Laravel Framework",
+          "PHP Laravel"
+        ]
+      },
+      {
+        "name": "Zend Framework 1",
+        "synonyms": [
+          "ZF1",
+          "Zend"
+        ]
+      },
+      {
+        "name": "Symfony",
+        "synonyms": [
+          "Symfony Framework",
+          "PHP Symfony"
+        ]
+      },
+      {
+        "name": "Angular",
+        "synonyms": [
+          "Angular2+",
+          "Angular Framework"
+        ]
+      },
+      {
+        "name": "AngularJS",
+        "synonyms": [
+          "Angular 1.x",
+          "Angular.js"
+        ]
+      },
+      {
+        "name": "Ionic Framework",
+        "synonyms": [
+          "Ionic"
+        ]
+      },
+      {
+        "name": "Apache Cordova",
+        "synonyms": [
+          "Cordova",
+          "PhoneGap"
+        ]
+      },
+      {
+        "name": "jQuery",
+        "synonyms": [
+          "jq",
+          "JavaScript Library"
+        ]
+      },
+      {
+        "name": "Vue.js",
+        "synonyms": [
+          "Vue",
+          "VueJS"
+        ]
+      },
+      {
+        "name": "Eloquent ORM",
+        "synonyms": [
+          "Eloquent",
+          "Laravel ORM"
+        ]
+      },
+      {
+        "name": "Doctrine ORM",
+        "synonyms": [
+          "Doctrine",
+          "Symfony ORM"
+        ]
+      }
     ],
-    "bazy_danych_i_przechowywanie": [
-      { "nazwa": "PostgreSQL", "synonimy": ["Postgres", "PgSQL"] },
-      { "nazwa": "MySQL", "synonimy": ["My", "Oracle MySQL"] },
-      { "nazwa": "MS SQL", "synonimy": ["Microsoft SQL Server", "SQL Server", "T-SQL"] },
-      { "nazwa": "Firebird DB", "synonimy": ["Firebird", "FB SQL"] },
-      { "nazwa": "Redis", "synonimy": ["REmote DIctionary Server", "Redis Cache"] },
-      { "nazwa": "SQLite", "synonimy": ["SQLite3"] },
-      { "nazwa": "memcache", "synonimy": ["memcached"] }
+    "databasesAndStorage": [
+      {
+        "name": "PostgreSQL",
+        "synonyms": [
+          "Postgres",
+          "PgSQL"
+        ]
+      },
+      {
+        "name": "MySQL",
+        "synonyms": [
+          "My",
+          "Oracle MySQL"
+        ]
+      },
+      {
+        "name": "MS SQL",
+        "synonyms": [
+          "Microsoft SQL Server",
+          "SQL Server",
+          "T-SQL"
+        ]
+      },
+      {
+        "name": "Firebird DB",
+        "synonyms": [
+          "Firebird",
+          "FB SQL"
+        ]
+      },
+      {
+        "name": "Redis",
+        "synonyms": [
+          "REmote DIctionary Server",
+          "Redis Cache"
+        ]
+      },
+      {
+        "name": "SQLite",
+        "synonyms": [
+          "SQLite3"
+        ]
+      },
+      {
+        "name": "memcache",
+        "synonyms": [
+          "memcached"
+        ]
+      }
     ],
-    "Narzedzia_i_platformy_Cloud": [
-      { "nazwa": "AWS S3", "synonimy": ["Simple Storage Service", "S3"] },
-      { "nazwa": "AWS Redshift", "synonimy": ["Redshift", "Amazon Redshift"] },
-      { "nazwa": "AWS Lambda", "synonimy": ["Lambda", "Serverless Functions"] },
-      { "nazwa": "AWS AppFlow", "synonimy": ["AppFlow"] },
-      { "nazwa": "Redshift/QuickSight", "synonimy": ["Amazon QuickSight", "QuickSight"] },
-      { "nazwa": "Docker", "synonimy": ["Docker Containers", "Containerization"] },
-      { "nazwa": "VirtualBox", "synonimy": ["VBox", "Oracle VirtualBox"] },
-      { "nazwa": "VMWare", "synonimy": ["VMware Workstation", "vSphere"] },
-      { "nazwa": "Hyper–V", "synonimy": ["HyperV", "Microsoft Hyper-V"] }
+    "cloudToolsAndPlatforms": [
+      {
+        "name": "AWS S3",
+        "synonyms": [
+          "Simple Storage Service",
+          "S3"
+        ]
+      },
+      {
+        "name": "AWS Redshift",
+        "synonyms": [
+          "Redshift",
+          "Amazon Redshift"
+        ]
+      },
+      {
+        "name": "AWS Lambda",
+        "synonyms": [
+          "Lambda",
+          "Serverless Functions"
+        ]
+      },
+      {
+        "name": "AWS AppFlow",
+        "synonyms": [
+          "AppFlow"
+        ]
+      },
+      {
+        "name": "Redshift/QuickSight",
+        "synonyms": [
+          "Amazon QuickSight",
+          "QuickSight"
+        ]
+      },
+      {
+        "name": "Docker",
+        "synonyms": [
+          "Docker Containers",
+          "Containerization"
+        ]
+      },
+      {
+        "name": "VirtualBox",
+        "synonyms": [
+          "VBox",
+          "Oracle VirtualBox"
+        ]
+      },
+      {
+        "name": "VMWare",
+        "synonyms": [
+          "VMware Workstation",
+          "vSphere"
+        ]
+      },
+      {
+        "name": "Hyper–V",
+        "synonyms": [
+          "HyperV",
+          "Microsoft Hyper-V"
+        ]
+      }
     ],
-    "systemy_operacyjne_i_administracja": [
-      { "nazwa": "Linux", "synonimy": ["GNU/Linux", "Linux OS"] },
-      { "nazwa": "Ubuntu", "synonimy": ["Ubuntu Linux", "Canonical Ubuntu"] },
-      { "nazwa": "Red Hat", "synonimy": ["RHEL", "Red Hat Enterprise Linux"] },
-      { "nazwa": "CentOS", "synonimy": ["CentOS Linux", "Community Enterprise OS"] },
-      { "nazwa": "Debian", "synonimy": ["Debian GNU/Linux", "Debian OS"] },
-      { "nazwa": "Alpine", "synonimy": ["Alpine Linux", "Minimal Linux"] },
-      { "nazwa": "SUSE Linux Enterprise Server 10", "synonimy": ["SLES", "SLES 10"] },
-      { "nazwa": "ISPconfig", "synonimy": ["ISPConfig 3"] },
-      { "nazwa": "Borg backup", "synonimy": ["Borg", "BorgBackup"] }
+    "operatingSystemsAndAdmin": [
+      {
+        "name": "Linux",
+        "synonyms": [
+          "GNU/Linux",
+          "Linux OS"
+        ]
+      },
+      {
+        "name": "Ubuntu",
+        "synonyms": [
+          "Ubuntu Linux",
+          "Canonical Ubuntu"
+        ]
+      },
+      {
+        "name": "Red Hat",
+        "synonyms": [
+          "RHEL",
+          "Red Hat Enterprise Linux"
+        ]
+      },
+      {
+        "name": "CentOS",
+        "synonyms": [
+          "CentOS Linux",
+          "Community Enterprise OS"
+        ]
+      },
+      {
+        "name": "Debian",
+        "synonyms": [
+          "Debian GNU/Linux",
+          "Debian OS"
+        ]
+      },
+      {
+        "name": "Alpine",
+        "synonyms": [
+          "Alpine Linux",
+          "Minimal Linux"
+        ]
+      },
+      {
+        "name": "SUSE Linux Enterprise Server 10",
+        "synonyms": [
+          "SLES",
+          "SLES 10"
+        ]
+      },
+      {
+        "name": "ISPconfig",
+        "synonyms": [
+          "ISPConfig 3"
+        ]
+      },
+      {
+        "name": "Borg backup",
+        "synonyms": [
+          "Borg",
+          "BorgBackup"
+        ]
+      }
     ],
-    "protokoly_API_i_integracje": [
-      { "nazwa": "REST API", "synonimy": ["RESTful API", "REST JSON"] },
-      { "nazwa": "SOAP API", "synonimy": ["SOAP XML", "Simple Object Access Protocol"] },
-      { "nazwa": "Message Queues", "synonimy": ["MQ", "Queuing Systems"] },
-      { "nazwa": "Allegro.pl API", "synonimy": ["Allegro API", "WebAPI Allegro"] },
-      { "nazwa": "user.com", "synonimy": ["Usercom", "User.com Integration"] },
-      { "nazwa": "Google Analytics", "synonimy": ["GA", "GA4", "Universal Analytics"] },
-      { "nazwa": "Google Cloud Platform", "synonimy": ["GCP", "Google Cloud"] },
-      { "nazwa": "RSS", "synonimy": ["Really Simple Syndication", "RSS Feed"] }
+    "apiProtocolsAndIntegrations": [
+      {
+        "name": "REST API",
+        "synonyms": [
+          "RESTful API",
+          "REST JSON"
+        ]
+      },
+      {
+        "name": "SOAP API",
+        "synonyms": [
+          "SOAP XML",
+          "Simple Object Access Protocol"
+        ]
+      },
+      {
+        "name": "Message Queues",
+        "synonyms": [
+          "MQ",
+          "Queuing Systems"
+        ]
+      },
+      {
+        "name": "Allegro.pl API",
+        "synonyms": [
+          "Allegro API",
+          "WebAPI Allegro"
+        ]
+      },
+      {
+        "name": "user.com",
+        "synonyms": [
+          "Usercom",
+          "User.com Integration"
+        ]
+      },
+      {
+        "name": "Google Analytics",
+        "synonyms": [
+          "GA",
+          "GA4",
+          "Universal Analytics"
+        ]
+      },
+      {
+        "name": "Google Cloud Platform",
+        "synonyms": [
+          "GCP",
+          "Google Cloud"
+        ]
+      },
+      {
+        "name": "RSS",
+        "synonyms": [
+          "Really Simple Syndication",
+          "RSS Feed"
+        ]
+      }
     ],
-    "Uslugi_sieciowe_i_serwerowe": [
-      { "nazwa": "apache2", "synonimy": ["Apache HTTP Server", "httpd"] },
-      { "nazwa": "nginx", "synonimy": ["Engine-X", "NGINX Web Server"] },
-      { "nazwa": "postfix", "synonimy": ["Postfix MTA", "Mail Transfer Agent"] },
-      { "nazwa": "dovecot", "synonimy": ["Dovecot IMAP/POP3"] },
-      { "nazwa": "powerdns", "synonimy": ["PDNS", "PowerDNS Server"] },
-      { "nazwa": "TCP/IP", "synonimy": ["Transmission Control Protocol / Internet Protocol"] },
-      { "nazwa": "DHCP", "synonimy": ["Dynamic Host Configuration Protocol"] },
-      { "nazwa": "DNS", "synonimy": ["Domain Name System"] },
-      { "nazwa": "Routing", "synonimy": ["Network Routing", "IP Routing"] },
-      { "nazwa": "NAT", "synonimy": ["Network Address Translation"] },
-      { "nazwa": "VPN", "synonimy": ["Virtual Private Network"] },
-      { "nazwa": "SSL", "synonimy": ["TLS", "Secure Sockets Layer"] },
-      { "nazwa": "DKIM", "synonimy": ["DomainKeys Identified Mail"] },
-      { "nazwa": "DMARC", "synonimy": ["Domain-based Message Authentication"] },
-      { "nazwa": "SPF", "synonimy": ["Sender Policy Framework"] }
+    "networkAndServerServices": [
+      {
+        "name": "apache2",
+        "synonyms": [
+          "Apache HTTP Server",
+          "httpd"
+        ]
+      },
+      {
+        "name": "nginx",
+        "synonyms": [
+          "Engine-X",
+          "NGINX Web Server"
+        ]
+      },
+      {
+        "name": "postfix",
+        "synonyms": [
+          "Postfix MTA",
+          "Mail Transfer Agent"
+        ]
+      },
+      {
+        "name": "dovecot",
+        "synonyms": [
+          "Dovecot IMAP/POP3"
+        ]
+      },
+      {
+        "name": "powerdns",
+        "synonyms": [
+          "PDNS",
+          "PowerDNS Server"
+        ]
+      },
+      {
+        "name": "TCP/IP",
+        "synonyms": [
+          "Transmission Control Protocol / Internet Protocol"
+        ]
+      },
+      {
+        "name": "DHCP",
+        "synonyms": [
+          "Dynamic Host Configuration Protocol"
+        ]
+      },
+      {
+        "name": "DNS",
+        "synonyms": [
+          "Domain Name System"
+        ]
+      },
+      {
+        "name": "Routing",
+        "synonyms": [
+          "Network Routing",
+          "IP Routing"
+        ]
+      },
+      {
+        "name": "NAT",
+        "synonyms": [
+          "Network Address Translation"
+        ]
+      },
+      {
+        "name": "VPN",
+        "synonyms": [
+          "Virtual Private Network"
+        ]
+      },
+      {
+        "name": "SSL",
+        "synonyms": [
+          "TLS",
+          "Secure Sockets Layer"
+        ]
+      },
+      {
+        "name": "DKIM",
+        "synonyms": [
+          "DomainKeys Identified Mail"
+        ]
+      },
+      {
+        "name": "DMARC",
+        "synonyms": [
+          "Domain-based Message Authentication"
+        ]
+      },
+      {
+        "name": "SPF",
+        "synonyms": [
+          "Sender Policy Framework"
+        ]
+      }
     ],
-    "Inne_narzedzia": [
-      { "nazwa": "GIT", "synonimy": ["Git VCS", "Version Control"] },
-      { "nazwa": "GitLab", "synonimy": ["GitLab CI"] },
-      { "nazwa": "composer", "synonimy": ["Composer PHP"] },
-      { "nazwa": "SCSS", "synonimy": ["Sassy CSS", "SASS"] },
-      { "nazwa": "Copilot", "synonimy": ["GitHub Copilot", "AI Copilot"] },
-      { "nazwa": "Raspberry Pi", "synonimy": ["RPi", "RaspberryPi"] }
+    "otherTools": [
+      {
+        "name": "GIT",
+        "synonyms": [
+          "Git VCS",
+          "Version Control"
+        ]
+      },
+      {
+        "name": "GitLab",
+        "synonyms": [
+          "GitLab CI"
+        ]
+      },
+      {
+        "name": "composer",
+        "synonyms": [
+          "Composer PHP"
+        ]
+      },
+      {
+        "name": "SCSS",
+        "synonyms": [
+          "Sassy CSS",
+          "SASS"
+        ]
+      },
+      {
+        "name": "Copilot",
+        "synonyms": [
+          "GitHub Copilot",
+          "AI Copilot"
+        ]
+      },
+      {
+        "name": "Raspberry Pi",
+        "synonyms": [
+          "RPi",
+          "RaspberryPi"
+        ]
+      }
     ]
   },
-  "role_presets": [
+  "rolePresets": [
     {
       "id": "preset-1",
       "title": "Senior PHP / Backend Developer",
       "title_en": "Senior PHP / Backend Developer",
-      "tags": ["PHP", "Laravel", "Symfony", "Eloquent ORM", "Doctrine ORM", "MySQL", "PostgreSQL", "REST API", "SOAP API", "Redis", "SOLID", "DDD", "RabbitMQ"],
+      "tags": [
+        "PHP",
+        "Laravel",
+        "Symfony",
+        "Eloquent ORM",
+        "Doctrine ORM",
+        "MySQL",
+        "PostgreSQL",
+        "REST API",
+        "SOAP API",
+        "Redis",
+        "SOLID",
+        "DDD",
+        "RabbitMQ"
+      ],
       "description": "Stanowisko wymagające zaawansowanego modelowania baz danych, tworzenia stabilnych systemów e-commerce/B2B w PHP (Laravel/Symfony), integracji API oraz znajomości optymalizacji zapytań.",
       "description_en": "A position requiring advanced database modeling, building stable e-commerce/B2B systems in PHP (Laravel/Symfony), API integrations, and query optimization skills."
     },
@@ -976,7 +1663,25 @@
       "id": "preset-2",
       "title": "Inżynier DevOps / Administrator Systemów",
       "title_en": "DevOps Engineer / System Admin",
-      "tags": ["Linux", "Ubuntu", "Debian", "Red Hat", "CentOS", "Docker", "Borg Backup", "Shell", "bash", "SSH", "QEMU", "Hyper-V", "DNS", "DKIM", "DMARC", "SPF", "ISPconfig"],
+      "tags": [
+        "Linux",
+        "Ubuntu",
+        "Debian",
+        "Red Hat",
+        "CentOS",
+        "Docker",
+        "Borg Backup",
+        "Shell",
+        "bash",
+        "SSH",
+        "QEMU",
+        "Hyper-V",
+        "DNS",
+        "DKIM",
+        "DMARC",
+        "SPF",
+        "ISPconfig"
+      ],
       "description": "Rola skupiona na zarządzaniu serwerami Linux, automatyzacji zadań skryptami bash/shell, wdrażaniu strategii kopii bezpieczeństwa, konfiguracji DNS/serwerów pocztowych oraz konteneryzacji.",
       "description_en": "A role focused on managing Linux servers, automating tasks with bash/shell scripts, implementing backups, configuring DNS/mail servers, and containerization."
     },
@@ -984,7 +1689,21 @@
       "id": "preset-3",
       "title": "Fullstack Developer",
       "title_en": "Fullstack Developer",
-      "tags": ["PHP", "JavaScript", "TypeScript", "Angular", "AngularJS", "Ionic Framework", "HTML", "CSS", "MySQL", "PostgreSQL", "REST API", "jQuery", "Vue.js"],
+      "tags": [
+        "PHP",
+        "JavaScript",
+        "TypeScript",
+        "Angular",
+        "AngularJS",
+        "Ionic Framework",
+        "HTML",
+        "CSS",
+        "MySQL",
+        "PostgreSQL",
+        "REST API",
+        "jQuery",
+        "Vue.js"
+      ],
       "description": "Praca nad interfejsem użytkownika (Angular/Vue) zintegrowanym ze stabilnym zapleczem PHP oraz mobilnymi aplikacjami hybrydowymi (Ionic Framework/TypeScript).",
       "description_en": "Work on user interfaces (Angular/Vue) integrated with a stable PHP backend and hybrid mobile applications (Ionic Framework/TypeScript)."
     },
@@ -992,9 +1711,19 @@
       "id": "preset-4",
       "title": "Integrator AI / LLM & RAG",
       "title_en": "AI / LLM & RAG Integrator",
-      "tags": ["AI", "LLM", "Vibe Coding", "Practical LLM", "Python", "deterministryczne użycie LLM", "nauczanie maszynowe", "AI Prompt"],
+      "tags": [
+        "AI",
+        "LLM",
+        "Vibe Coding",
+        "Practical LLM",
+        "Python",
+        "deterministryczne użycie LLM",
+        "nauczanie maszynowe",
+        "AI Prompt"
+      ],
       "description": "Nowoczesna rola skupiona na integracji dużych modeli językowych (LLM) z systemami firmowymi, budowie baz RAG w oparciu o Python/Docker/Ollama oraz automatyzacji procesów biznesowych.",
       "description_en": "Modern role focused on integrating large language models (LLMs) with business applications, building RAG vector stores with Python/Docker/Ollama, and automating workflows."
     }
-  ]
+  ],
+  "recruiterNotes": {}
 }

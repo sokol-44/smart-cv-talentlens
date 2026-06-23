@@ -1,7 +1,13 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import React, { useState, useRef } from "react";
 import { CVData } from "../types";
-import { Database, FileJson, RefreshCw, Upload, Download, CheckCircle, AlertCircle, FileSpreadsheet, Eye, Lock } from "lucide-react";
-import { motion } from "motion/react";
+import { Database, Upload, Download, CheckCircle, AlertCircle, Eye, Lock } from "lucide-react";
 import { translate } from "../utils/translations";
 
 /**
@@ -15,6 +21,7 @@ interface LocalDbAdminProps {
   onResetDb: () => void;
   isDbModified: boolean;
   lang: "pl" | "en";
+  adminPasswords: string[];
 }
 
 /**
@@ -31,8 +38,9 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
   onResetDb,
   isDbModified,
   lang,
+  adminPasswords,
 }) => {
-  const [activeTable, setActiveTable] = useState<"zatrudnienie" | "glowne_projekty" | "dodatkowe_kursy_i_certyfikaty" | "umiejetnosci">("zatrudnienie");
+  const [activeTable, setActiveTable] = useState<"employment" | "projects" | "certificates" | "skills">("employment");
   const [importStatus, setImportStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -43,7 +51,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === "admin" || password === "m_sokolowski") {
+    if (adminPasswords.includes(password)) {
       setIsAuthenticated(true);
       setPassError("");
     } else {
@@ -72,7 +80,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
       try {
         const parsed = JSON.parse(event.target?.result as string);
         // Basic schema verification
-        if (parsed.osoba && parsed.zatrudnienie && parsed.glowne_projekty && parsed.umiejetnosci) {
+        if (parsed.osoba && parsed.employment && parsed.projects && parsed.skills) {
           onImportDb(parsed);
           setImportStatus({
             type: "success",
@@ -85,8 +93,8 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
           setImportStatus({
             type: "error",
             message: lang === "pl"
-              ? "Nieprawidłowy schemat CV! Plik musi zawierać pola osoba, zatrudnienie, glowne_projekty."
-              : "Invalid CV schema! The file must contain: osoba, zatrudnienie, glowne_projekty."
+              ? "Nieprawidłowy schemat CV! Plik musi zawierać pola osoba, employment, projects."
+              : "Invalid CV schema! The file must contain: osoba, employment, projects."
           });
         }
       } catch (err) {
@@ -107,7 +115,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
 
   if (!isAuthenticated) {
     return (
-      <div className="bg-slate-900 text-slate-100 rounded-3xl p-8 border border-slate-800 shadow-xl max-w-md mx-auto text-center my-12">
+      <div className="bg-slate-900 text-slate-100 rounded-3xl p-8 border border-slate-800 shadow-xl max-w-md mx-auto text-center my-12" id="db-admin-login-container">
         <div className="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-indigo-500/20">
           <Lock className="w-8 h-8 text-indigo-400" />
         </div>
@@ -153,7 +161,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
   }
 
   return (
-    <div className="bg-slate-900 text-slate-100 rounded-3xl p-6 border border-slate-800 shadow-xl">
+    <div className="bg-slate-900 text-slate-100 rounded-3xl p-6 border border-slate-800 shadow-xl" id="db-admin-panel-container">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
@@ -244,49 +252,49 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
       {/* Table selector Tabs */}
       <div className="flex border-b border-slate-800 mb-6 font-mono text-xs">
         <button
-          onClick={() => setActiveTable("zatrudnienie")}
+          onClick={() => setActiveTable("employment")}
           className={`px-4 py-2.5 font-semibold border-b-2 transition cursor-pointer ${
-            activeTable === "zatrudnienie"
+            activeTable === "employment"
               ? "border-indigo-400 text-indigo-300"
               : "border-transparent text-slate-500 hover:text-slate-300"
           }`}
         >
-          tabel_zatrudnienie ({cvData.zatrudnienie.length})
+          table_employment ({cvData.employment.length})
         </button>
         <button
-          onClick={() => setActiveTable("glowne_projekty")}
+          onClick={() => setActiveTable("projects")}
           className={`px-4 py-2.5 font-semibold border-b-2 transition cursor-pointer ${
-            activeTable === "glowne_projekty"
+            activeTable === "projects"
               ? "border-indigo-400 text-indigo-300"
               : "border-transparent text-slate-500 hover:text-slate-300"
           }`}
         >
-          tabel_glowne_projekty ({cvData.glowne_projekty.length})
+          table_projects ({cvData.projects.length})
         </button>
         <button
-          onClick={() => setActiveTable("dodatkowe_kursy_i_certyfikaty")}
+          onClick={() => setActiveTable("certificates")}
           className={`px-4 py-2.5 font-semibold border-b-2 transition cursor-pointer ${
-            activeTable === "dodatkowe_kursy_i_certyfikaty"
+            activeTable === "certificates"
               ? "border-indigo-400 text-indigo-300"
               : "border-transparent text-slate-500 hover:text-slate-300"
           }`}
         >
-          tabel_certyfikaty ({cvData.dodatkowe_kursy_i_certyfikaty.length})
+          table_certificates ({cvData.certificates.length})
         </button>
         <button
-          onClick={() => setActiveTable("umiejetnosci")}
+          onClick={() => setActiveTable("skills")}
           className={`px-4 py-2.5 font-semibold border-b-2 transition cursor-pointer ${
-            activeTable === "umiejetnosci"
+            activeTable === "skills"
               ? "border-indigo-400 text-indigo-300"
               : "border-transparent text-slate-500 hover:text-slate-300"
           }`}
         >
-          tabel_umiejetnosci ({cvData.umiejetnosci.length})
+          table_skills ({cvData.skills.length})
         </button>
       </div>
 
       {/* Raw Table Preview */}
-      <div className="bg-slate-950/80 rounded-2xl border border-slate-800 overflow-hidden">
+      <div className="bg-slate-950/80 rounded-2xl border border-slate-800 overflow-hidden animate-fade-in">
         <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
           <div className="flex items-center gap-1.5">
             <Eye className="w-3.5 h-3.5" />
@@ -296,17 +304,17 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
         </div>
 
         <div className="max-h-96 overflow-y-auto p-4 font-mono text-xs text-indigo-300">
-          {activeTable === "zatrudnienie" && (
-            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.zatrudnienie, null, 2)}</pre>
+          {activeTable === "employment" && (
+            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.employment, null, 2)}</pre>
           )}
-          {activeTable === "glowne_projekty" && (
-            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.glowne_projekty, null, 2)}</pre>
+          {activeTable === "projects" && (
+            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.projects, null, 2)}</pre>
           )}
-          {activeTable === "dodatkowe_kursy_i_certyfikaty" && (
-            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.dodatkowe_kursy_i_certyfikaty, null, 2)}</pre>
+          {activeTable === "certificates" && (
+            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.certificates, null, 2)}</pre>
           )}
-          {activeTable === "umiejetnosci" && (
-            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.umiejetnosci, null, 2)}</pre>
+          {activeTable === "skills" && (
+            <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.skills, null, 2)}</pre>
           )}
         </div>
       </div>

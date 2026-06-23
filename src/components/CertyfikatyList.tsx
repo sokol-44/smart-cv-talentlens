@@ -1,7 +1,13 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import React, { useState, useMemo } from "react";
-import { Certyfikat, LocalBookmarks, LocalNotes } from "../types";
-import { Award, Calendar, Clock, Search, Bookmark, MessageSquare, Save, Settings, ShieldCheck } from "lucide-react";
-import { motion } from "motion/react";
+import { Certificate, LocalBookmarks, LocalNotes } from "../types";
+import { Award, Calendar, Clock, Search, MessageSquare, Save, Settings, ShieldCheck } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -11,19 +17,19 @@ import { SupplementaryText } from "../utils/parentheses";
  * @interface CertyfikatyListProps
  */
 interface CertyfikatyListProps {
-  certs: Certyfikat[];
+  certs: Certificate[];
   bookmarks: LocalBookmarks;
   onToggleBookmark: (id: string) => void;
   notes: LocalNotes;
   onSaveNote: (id: string, textPl: string, textEn: string) => void;
-  onEditCert: (cert: Certyfikat) => void;
+  onEditCert: (cert: Certificate) => void;
   lang: "pl" | "en";
   isAdmin?: boolean;
 }
 
 /**
  * Component displaying the list of additional courses and certifications with search and recruitment note functions.
- * Allows filtering, bookmarking, and local modification of each item.
+ * Allows filtering and local modification of each item.
  *
  * @param {CertyfikatyListProps} props - Component props.
  * @returns {JSX.Element} The rendered certifications list component.
@@ -58,7 +64,7 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
   const availableYears = useMemo(() => {
     const years = new Set<string>();
     certs.forEach((c) => {
-      const yr = c.data.slice(-4);
+      const yr = c.date.slice(-4);
       if (/^\d{4}$/.test(yr)) {
         years.add(yr);
       }
@@ -68,13 +74,13 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
 
   const filteredCerts = useMemo(() => {
     return certs.filter((c) => {
-      const yr = c.data.slice(-4);
+      const yr = c.date.slice(-4);
       const matchesYear = selectedYear === "all" || yr === selectedYear;
       if (!matchesYear) return false;
 
-      const transName = translate(c.nazwa, lang);
-      const transInst = c.instytucja;
-      const transInfo = c.informacje ? translate(c.informacje, lang) : "";
+      const transName = translate(c.name, lang);
+      const transInst = c.institution;
+      const transInfo = c.info ? translate(c.info, lang) : "";
 
       const matchText =
         transName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -82,15 +88,15 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
         transInfo.toLowerCase().includes(searchTerm.toLowerCase());
 
       const matchTech =
-        c.technologie_i_obowiazki &&
-        c.technologie_i_obowiazki.some((t) => t.toLowerCase().includes(searchTerm.toLowerCase()));
+        c.technologiesAndDuties &&
+        c.technologiesAndDuties.some((t) => t.toLowerCase().includes(searchTerm.toLowerCase()));
 
       return matchText || matchTech;
     });
   }, [certs, searchTerm, selectedYear, lang]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" id="certifications-list-container">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -139,13 +145,12 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {filteredCerts.map((c) => {
-          const isBookmarked = !!bookmarks[c.id];
           const hasNote = !!(notes[c.id]?.pl || notes[c.id]?.en);
 
           return (
             <div
               key={c.id}
-              className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs hover:shadow-md transition flex flex-col justify-between"
+              className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs hover:shadow-md transition flex flex-col justify-between animate-fade-in"
             >
               <div>
                 {/* Header */}
@@ -156,10 +161,10 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
                     </div>
                     <div>
                       <h3 className="font-bold text-sm text-slate-900 leading-tight">
-                        {translate(c.nazwa, lang)}
+                        {translate(c.name, lang)}
                       </h3>
                       <div className="text-xs font-semibold text-slate-500 mt-0.5">
-                        {c.instytucja}
+                        {c.institution}
                       </div>
                     </div>
                   </div>
@@ -174,7 +179,7 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
                             ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-600"
                             : "bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-400"
                         }`}
-                        title={translate("Notatka rekrutera", lang)}
+                        title={translate("Notatki dla rekrutera", lang)}
                       >
                         <MessageSquare className="w-3.5 h-3.5" />
                       </button>
@@ -194,12 +199,12 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
                 <div className="flex flex-wrap gap-3 mb-3 text-[11px] font-mono text-slate-400">
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />
-                    {c.data}
+                    {c.date}
                   </span>
-                  {c.czas_trwania_godziny && (
+                  {c.durationHours && (
                     <span className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
-                      {c.czas_trwania_godziny} {lang === "pl" ? "godz." : "hrs"}
+                      {c.durationHours} {lang === "pl" ? "godz." : "hrs"}
                     </span>
                   )}
                 </div>
@@ -217,7 +222,7 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
                   <div className="mb-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2">
                     <div>
                       <label className="block text-[10px] font-bold text-emerald-800 uppercase mb-0.5">
-                        {translate("Komentarz do tego szkolenia:", lang)} (PL)
+                        {translate("Notatki dla rekrutera", lang)} (PL)
                       </label>
                       <textarea
                         value={noteTextPl}
@@ -229,7 +234,7 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
                     </div>
                     <div>
                       <label className="block text-[10px] font-bold text-emerald-800 uppercase mb-0.5">
-                        {translate("Komentarz do tego szkolenia:", lang)} (EN)
+                        {translate("Notatki dla rekrutera", lang)} (EN)
                       </label>
                       <textarea
                         value={noteTextEn}
@@ -258,17 +263,17 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
                 )}
 
                 {/* Info text */}
-                {c.informacje && (
+                {c.info && (
                   <div className="text-xs text-slate-600 leading-relaxed mb-3">
-                    <SupplementaryText text={translate(c.informacje, lang)} />
+                    <SupplementaryText text={translate(c.info, lang)} />
                   </div>
                 )}
               </div>
 
               {/* Technologies / Tags */}
-              {c.technologie_i_obowiazki && c.technologie_i_obowiazki.length > 0 && (
+              {c.technologiesAndDuties && c.technologiesAndDuties.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-slate-50">
-                  {c.technologie_i_obowiazki.map((tech) => (
+                  {c.technologiesAndDuties.map((tech) => (
                     <span
                       key={tech}
                       className="px-2 py-0.5 bg-purple-50 text-purple-700 rounded text-[10px] font-mono border border-purple-100/40"

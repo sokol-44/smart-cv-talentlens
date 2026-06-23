@@ -1,11 +1,18 @@
 /**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
+/**
  * Represents a date range period.
  *
- * @interface OkresDaty
+ * @interface DatePeriod
  * @property {string} start - Start date in format MM.YYYY.
  * @property {string} end - End date in format MM.YYYY, "obecnie" (present), or empty.
  */
-export interface OkresDaty {
+export interface DatePeriod {
   start: string; // MM.YYYY
   end: string;   // MM.YYYY or "obecnie" / empty
 }
@@ -13,20 +20,21 @@ export interface OkresDaty {
 /**
  * Basic personal profile details.
  *
- * @interface Osoba
- * @property {string} imie - Given name.
- * @property {string} nazwisko - Family name.
- * @property {string[]} opis - Brief professional overview paragraph list.
- * @property {string} GitHub - URL to GitHub profile.
- * @property {string} LinkedIN - URL to LinkedIn profile.
+ * @interface Person
+ * @property {string} firstName - Given name.
+ * @property {string} lastName - Family name.
+ * @property {string[]} description - Brief professional overview paragraph list.
+ * @property {string} github - URL to GitHub profile.
+ * @property {string} linkedin - URL to LinkedIn profile.
+ * @property {object} passions - Bilingual non-professional passions.
  */
-export interface Osoba {
-  imie: string;
-  nazwisko: string;
-  opis: string[];
-  GitHub: string;
-  LinkedIN: string;
-  pasje?: {
+export interface Person {
+  firstName: string;
+  lastName: string;
+  description: string[];
+  github: string;
+  linkedin: string;
+  passions?: {
     pl: string;
     en: string;
   };
@@ -35,41 +43,41 @@ export interface Osoba {
 /**
  * An educational background item.
  *
- * @interface Edukacja
- * @property {OkresDaty} data - Duration of study.
- * @property {string} instytucja - Educational institution name.
- * @property {string} typ - Type of program (e.g. Inżynierskie, Studia Podyplomowe).
- * @property {string} kierunek - Major or field of study.
- * @property {string} [potwierdzenie] - Optional description or confirmation certificate title.
+ * @interface Education
+ * @property {DatePeriod} date - Duration of study.
+ * @property {string} institution - Educational institution name.
+ * @property {string} type - Type of program (e.g. Inżynierskie, Studia Podyplomowe).
+ * @property {string} major - Major or field of study.
+ * @property {string} [confirmation] - Optional description or confirmation certificate title.
  */
-export interface Edukacja {
-  data: OkresDaty;
-  instytucja: string;
-  typ: string;
-  kierunek: string;
-  potwierdzenie?: string;
+export interface Education {
+  date: DatePeriod;
+  institution: string;
+  type: string;
+  major: string;
+  confirmation?: string;
 }
 
 /**
  * Professional certification or training course completed.
  *
- * @interface Certyfikat
+ * @interface Certificate
  * @property {string} id - Unique identifier.
- * @property {string} data - Completion date (MM.YYYY or YYYY).
- * @property {string} [czas_trwania_godziny] - Optional duration of the course in hours.
- * @property {string} instytucja - Issuing authority or training center.
- * @property {string} nazwa - Title of course/certificate.
- * @property {string} [informacje] - Optional additional information or context.
- * @property {string[]} [technologie_i_obowiazki] - Tech stack tags covered in certification.
+ * @property {string} date - Completion date (MM.YYYY or YYYY).
+ * @property {string} [durationHours] - Optional duration of the course in hours.
+ * @property {string} institution - Issuing authority or training center.
+ * @property {string} name - Title of course/certificate.
+ * @property {string} [info] - Optional additional information or context.
+ * @property {string[]} [technologiesAndDuties] - Tech stack tags covered in certification.
  */
-export interface Certyfikat {
+export interface Certificate {
   id: string;
-  data: string; // MM.YYYY or YYYY
-  czas_trwania_godziny?: string;
-  instytucja: string;
-  nazwa: string;
-  informacje?: string;
-  technologie_i_obowiazki?: string[];
+  date: string; // MM.YYYY or YYYY
+  durationHours?: string;
+  institution: string;
+  name: string;
+  info?: string;
+  technologiesAndDuties?: string[];
 }
 
 export interface RolePreset {
@@ -84,97 +92,97 @@ export interface RolePreset {
 /**
  * Employment record detailing professional work experience.
  *
- * @interface Zatrudnienie
+ * @interface Employment
  * @property {string} id - Unique identifier.
- * @property {OkresDaty} data - Employment duration.
- * @property {string} firma - Name of employer.
- * @property {string | string[] | { pl: string; en: string }} stanowisko - Role title(s) occupied.
- * @property {string[]} obowiazki - List of key duties.
- * @property {string[]} technologie - Technologies list used in this role.
- * @property {Record<string, string[]>} [wersje] - Mapping of used technologies to their versions.
- * @property {string[]} [glowne_projekty] - Projects names completed during this tenure.
- * @property {string[]} [wzorce_projektowe] - Design patterns practiced in this role.
- * @property {string[]} [techniki_developerskie] - Development methodologies/techniques applied.
+ * @property {DatePeriod} date - Employment duration.
+ * @property {string} company - Name of employer.
+ * @property {string | string[] | { pl: string; en: string }} position - Role title(s) occupied.
+ * @property {string[]} duties - List of key duties.
+ * @property {string[]} technologies - Technologies list used in this role.
+ * @property {Record<string, string[]>} [versions] - Mapping of used technologies to their versions.
+ * @property {string[]} [mainProjects] - Projects names completed during this tenure.
+ * @property {string[]} [designPatterns] - Design patterns practiced in this role.
+ * @property {string[]} [devMethodologies] - Development methodologies/techniques applied.
  */
-export interface Zatrudnienie {
+export interface Employment {
   id: string;
-  data: OkresDaty;
-  firma: string;
-  stanowisko: string | string[] | { pl: string; en: string };
-  obowiazki: string[];
-  technologie: string[];
-  wersje?: Record<string, string[]>;
-  glowne_projekty?: string[];
-  wzorce_projektowe?: string[];
-  techniki_developerskie?: string[];
+  date: DatePeriod;
+  company: string;
+  position: string | string[] | { pl: string; en: string };
+  duties: string[];
+  technologies: string[];
+  versions?: Record<string, string[]>;
+  mainProjects?: string[];
+  designPatterns?: string[];
+  devMethodologies?: string[];
 }
 
 /**
  * Individual software/hardware development project.
  *
- * @interface Projekt
+ * @interface Project
  * @property {string} id - Unique identifier.
- * @property {string} nazwa - Project name.
+ * @property {string} name - Project name.
  * @property {string} [url] - Optional link to the project repository/live app.
- * @property {string[]} firma - Associated clients or employers.
- * @property {OkresDaty} data - Project lifecycle duration.
- * @property {string} opis - Detailed textual description of the project.
- * @property {string[]} technologie - Tech stack used in the project.
- * @property {Record<string, string[]>} [wersje] - Mapping of specific library/framework versions.
- * @property {string[]} [wzorce_projektowe] - Design patterns used in the source code.
- * @property {string[]} [wyrozniajajace_sie_elementy] - Distinctive/notable engineering achievements.
+ * @property {string[]} company - Associated clients or employers.
+ * @property {DatePeriod} date - Project lifecycle duration.
+ * @property {string} description - Detailed textual description of the project.
+ * @property {string[]} technologies - Tech stack used in the project.
+ * @property {Record<string, string[]>} [versions] - Mapping of specific library/framework versions.
+ * @property {string[]} [designPatterns] - Design patterns used in the source code.
+ * @property {string[]} [notableFeatures] - Distinctive/notable engineering achievements.
  */
-export interface Projekt {
+export interface Project {
   id: string;
-  nazwa: string;
+  name: string;
   url?: string;
-  firma: string[];
-  data: OkresDaty;
-  opis: string;
-  technologie: string[];
-  wersje?: Record<string, string[]>;
-  wzorce_projektowe?: string[];
-  wyrozniajajace_sie_elementy?: string[];
+  company: string[];
+  date: DatePeriod;
+  description: string;
+  technologies: string[];
+  versions?: Record<string, string[]>;
+  designPatterns?: string[];
+  notableFeatures?: string[];
 }
 
 /**
  * Specific core skill with a level of expertise.
  *
- * @interface Umiejetnosc
- * @property {string} nazwa - Title of skill.
- * @property {string} stopien_zaawansowania - Level of competency (e.g. "zaawansowany", "średni").
+ * @interface Skill
+ * @property {string} name - Title of skill.
+ * @property {string} proficiencyLevel - Level of competency (e.g. "zaawansowany", "średni").
  */
-export interface Umiejetnosc {
-  nazwa: string;
-  stopien_zaawansowania: string; // e.g. "zaawansowane", "średni", "podstawowy"
+export interface Skill {
+  name: string;
+  proficiencyLevel: string; // e.g. "zaawansowany", "średni", "podstawowy"
 }
 
 /**
  * Represents a single technology item in the dictionary with its synonyms.
  *
- * @interface TechnologiaSlownikElement
- * @property {string} nazwa - Core technology name.
- * @property {string[]} synonimy - List of recognized synonyms or alternative names.
+ * @interface TechDictionaryElement
+ * @property {string} name - Core technology name.
+ * @property {string[]} synonyms - List of recognized synonyms or alternative names.
  */
-export interface TechnologiaSlownikElement {
-  nazwa: string;
-  synonimy: string[];
+export interface TechDictionaryElement {
+  name: string;
+  synonyms: string[];
 }
 
 /**
  * Dictionary of technologies categorized by their ecosystem types.
  *
- * @interface SlownikiUzytychTechnologii
+ * @interface TechDictionaries
  */
-export interface SlownikiUzytychTechnologii {
-  jezyki_programowania_i_skryptowe: TechnologiaSlownikElement[];
-  frameworki_i_biblioteki: TechnologiaSlownikElement[];
-  bazy_danych_i_przechowywanie: TechnologiaSlownikElement[];
-  Narzedzia_i_platformy_Cloud: TechnologiaSlownikElement[];
-  systemy_operacyjne_i_administracja: TechnologiaSlownikElement[];
-  protokoly_API_i_integracje: TechnologiaSlownikElement[];
-  Uslugi_sieciowe_i_serwerowe: TechnologiaSlownikElement[];
-  Inne_narzedzia: TechnologiaSlownikElement[];
+export interface TechDictionaries {
+  programmingLanguages: TechDictionaryElement[];
+  frameworksAndLibraries: TechDictionaryElement[];
+  databasesAndStorage: TechDictionaryElement[];
+  cloudToolsAndPlatforms: TechDictionaryElement[];
+  operatingSystemsAndAdmin: TechDictionaryElement[];
+  apiProtocolsAndIntegrations: TechDictionaryElement[];
+  networkAndServerServices: TechDictionaryElement[];
+  otherTools: TechDictionaryElement[];
 }
 
 /**
@@ -183,16 +191,16 @@ export interface SlownikiUzytychTechnologii {
  * @interface CVData
  */
 export interface CVData {
-  osoba: Osoba;
-  edukacja: Edukacja[];
-  dodatkowe_kursy_i_certyfikaty: Certyfikat[];
-  zatrudnienie: Zatrudnienie[];
-  glowne_projekty: Projekt[];
-  umiejetnosci: Umiejetnosc[];
-  dodatkowe_umiejetnosci_i_hobby: string[];
-  slowniki_uzytych_technologii: SlownikiUzytychTechnologii;
-  role_presets?: RolePreset[];
-  recruiter_notes?: Record<string, { pl: string; en: string }>;
+  person: Person;
+  education: Education[];
+  certificates: Certificate[];
+  employment: Employment[];
+  projects: Project[];
+  skills: Skill[];
+  additionalSkillsAndHobbies: string[];
+  techDictionaries: TechDictionaries;
+  rolePresets?: RolePreset[];
+  recruiterNotes?: Record<string, { pl: string; en: string }>;
 }
 
 /**

@@ -1,10 +1,16 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import { useState, useEffect, useMemo } from "react";
-import { CVData, Zatrudnienie, Projekt, Certyfikat, LocalBookmarks, LocalNotes } from "./types";
-import { initialCVData } from "./initialData";
+import { CVData, Employment, Project, Certificate, LocalBookmarks, LocalNotes } from "./types";
 
 import { Header } from "./components/Header";
 import { TechDictionary } from "./components/TechDictionary";
-import { ZatrudnienieList } from "./components/ZatrudnienieList";
+import { EmploymentList } from "./components/EmploymentList";
 import { ProjektyList } from "./components/ProjektyList";
 import { CertyfikatyList } from "./components/CertyfikatyList";
 import { EducationAndHobbies } from "./components/EducationAndHobbies";
@@ -20,9 +26,7 @@ import {
   Award,
   Tag,
   Database,
-  FileJson,
   CheckCircle,
-  HelpCircle,
   Info,
   Settings,
 } from "lucide-react";
@@ -33,6 +37,9 @@ const BOOKMARKS_KEY = "m_sokolowski_cv_bookmarks";
 const MODIFIED_KEY = "m_sokolowski_cv_modified";
 const LANG_KEY = "m_sokolowski_cv_lang";
 const TOOLTIPS_KEY = "m_sokolowski_cv_tooltips";
+
+// Unified authorization password definitions inside /src/App.tsx
+export const ADMIN_PASSWORDS = ["admin", "m_sokolowski"];
 
 import { translate } from "./utils/translations";
 
@@ -57,9 +64,9 @@ export default function App() {
   const [loginError, setLoginError] = useState("");
 
   // Modals state
-  const [editingJob, setEditingJob] = useState<Zatrudnienie | null>(null);
-  const [editingProject, setEditingProject] = useState<Projekt | null>(null);
-  const [editingCert, setEditingCert] = useState<Certyfikat | null>(null);
+  const [editingJob, setEditingJob] = useState<Employment | null>(null);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [editingCert, setEditingCert] = useState<Certificate | null>(null);
 
   // Helper to migrate legacy notes to translated objects
   const migrateNotes = (rawNotesStr: string | null, parsedCvDataNotes?: any): LocalNotes => {
@@ -116,17 +123,17 @@ export default function App() {
         // Ensure all required sections are present and are arrays
         if (
           parsed &&
-          parsed.osoba &&
-          Array.isArray(parsed.zatrudnienie) &&
-          Array.isArray(parsed.glowne_projekty) &&
-          Array.isArray(parsed.umiejetnosci) &&
-          Array.isArray(parsed.dodatkowe_kursy_i_certyfikaty) &&
-          Array.isArray(parsed.edukacja) &&
-          Array.isArray(parsed.dodatkowe_umiejetnosci_i_hobby) &&
-          parsed.slowniki_uzytych_technologii
+          parsed.person &&
+          Array.isArray(parsed.employment) &&
+          Array.isArray(parsed.projects) &&
+          Array.isArray(parsed.skills) &&
+          Array.isArray(parsed.certificates) &&
+          Array.isArray(parsed.education) &&
+          Array.isArray(parsed.additionalSkillsAndHobbies) &&
+          parsed.techDictionaries
         ) {
           setCvData(parsed);
-          setNotes(migrateNotes(storedNotes, parsed.recruiter_notes));
+          setNotes(migrateNotes(storedNotes, parsed.recruiterNotes));
         } else {
           // If incomplete schema is present, reset it with initial data from JSON
           fetch("/cv_data.json")
@@ -134,7 +141,7 @@ export default function App() {
             .then((data) => {
               setCvData(data);
               localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-              setNotes(migrateNotes(null, data.recruiter_notes));
+              setNotes(migrateNotes(null, data.recruiterNotes));
             });
         }
       } catch (e) {
@@ -143,7 +150,7 @@ export default function App() {
           .then((data) => {
             setCvData(data);
             localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            setNotes(migrateNotes(null, data.recruiter_notes));
+            setNotes(migrateNotes(null, data.recruiterNotes));
           });
       }
     } else {
@@ -152,7 +159,7 @@ export default function App() {
         .then((data) => {
           setCvData(data);
           localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          setNotes(migrateNotes(null, data.recruiter_notes));
+          setNotes(migrateNotes(null, data.recruiterNotes));
         });
     }
 
@@ -204,7 +211,7 @@ export default function App() {
     if (cvData) {
       updateLocalData({
         ...cvData,
-        recruiter_notes: updatedNotes,
+        recruiterNotes: updatedNotes,
       });
     }
   };
@@ -214,33 +221,33 @@ export default function App() {
     if (cvData) {
       updateLocalData({
         ...cvData,
-        osoba: {
-          ...cvData.osoba,
-          pasje: { pl, en },
+        person: {
+          ...cvData.person,
+          passions: { pl, en },
         },
       });
     }
   };
 
   // CRUD Save operations
-  const handleSaveJob = (updatedJob: Zatrudnienie) => {
+  const handleSaveJob = (updatedJob: Employment) => {
     if (!cvData) return;
-    const updatedJobs = cvData.zatrudnienie.map((j) => (j.id === updatedJob.id ? updatedJob : j));
-    updateLocalData({ ...cvData, zatrudnienie: updatedJobs });
+    const updatedJobs = cvData.employment.map((j) => (j.id === updatedJob.id ? updatedJob : j));
+    updateLocalData({ ...cvData, employment: updatedJobs });
     setEditingJob(null);
   };
 
-  const handleSaveProject = (updatedProj: Projekt) => {
+  const handleSaveProject = (updatedProj: Project) => {
     if (!cvData) return;
-    const updatedProjs = cvData.glowne_projekty.map((p) => (p.id === updatedProj.id ? updatedProj : p));
-    updateLocalData({ ...cvData, glowne_projekty: updatedProjs });
+    const updatedProjs = cvData.projects.map((p) => (p.id === updatedProj.id ? updatedProj : p));
+    updateLocalData({ ...cvData, projects: updatedProjs });
     setEditingProject(null);
   };
 
-  const handleSaveCert = (updatedCert: Certyfikat) => {
+  const handleSaveCert = (updatedCert: Certificate) => {
     if (!cvData) return;
-    const updatedCerts = cvData.dodatkowe_kursy_i_certyfikaty.map((c) => (c.id === updatedCert.id ? updatedCert : c));
-    updateLocalData({ ...cvData, dodatkowe_kursy_i_certyfikaty: updatedCerts });
+    const updatedCerts = cvData.certificates.map((c) => (c.id === updatedCert.id ? updatedCert : c));
+    updateLocalData({ ...cvData, certificates: updatedCerts });
     setEditingCert(null);
   };
 
@@ -277,10 +284,10 @@ export default function App() {
   const dbStats = useMemo(() => {
     if (!cvData) return { jobsCount: 0, projectsCount: 0, skillsCount: 0, certsCount: 0 };
     return {
-      jobsCount: cvData.zatrudnienie.length,
-      projectsCount: cvData.glowne_projekty.length,
-      skillsCount: cvData.umiejetnosci.length,
-      certsCount: cvData.dodatkowe_kursy_i_certyfikaty.length,
+      jobsCount: cvData.employment.length,
+      projectsCount: cvData.projects.length,
+      skillsCount: cvData.skills.length,
+      certsCount: cvData.certificates.length,
     };
   }, [cvData]);
 
@@ -297,15 +304,15 @@ export default function App() {
       <div className="max-w-7xl mx-auto px-4 py-6 md:py-10 space-y-8 print:p-0">
         {/* Dynamic header and summary statistics card */}
         <Header
-          osoba={cvData.osoba}
+          person={cvData.person}
           stats={dbStats}
           onResetDb={handleResetDb}
           isDbModified={isDbModified}
           lang={lang}
-          zatrudnienie={cvData.zatrudnienie}
-          glowne_projekty={cvData.glowne_projekty}
-          dodatkowe_kursy_i_certyfikaty={cvData.dodatkowe_kursy_i_certyfikaty}
-          umiejetnosci={cvData.umiejetnosci}
+          employment={cvData.employment}
+          projects={cvData.projects}
+          certificates={cvData.certificates}
+          skills={cvData.skills}
           onToggleLang={handleToggleLang}
         />
 
@@ -393,17 +400,15 @@ export default function App() {
               }`}
             >
               <Database className="w-4 h-4" />
-              <span>{translate("Zarządzanie Bazą", lang)}</span>
+              <span>{translate("Zarządzanie Bzą", lang)}</span>
             </button>
           )}
         </div>
 
-        {/* Print support disabled (5) */}
-
         {/* Tab Contents */}
         <main className="space-y-8 min-h-[400px]">
           {activeTab === "match" && (
-            <section className="print:block space-y-8">
+            <section className="print:block space-y-8 animate-fade-in">
               <RecruiterMatch cvData={cvData} lang={lang} />
               {/* Also display bookmarks summary here for the recruiter */}
               {Object.keys(bookmarks).some((k) => bookmarks[k]) && (
@@ -416,18 +421,18 @@ export default function App() {
                     {translate("Poniższe elementy zostały zaznaczone jako istotne podczas analizy CV:", lang)}
                   </p>
                   <div className="space-y-3">
-                    {cvData.zatrudnienie.filter((j) => bookmarks[j.id]).map((j) => (
+                    {cvData.employment.filter((j) => bookmarks[j.id]).map((j) => (
                       <div key={j.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-xs flex justify-between items-center">
                         <div>
-                          <strong className="text-slate-800">{Array.isArray(j.stanowisko) ? j.stanowisko.map(s => translate(s, lang)).join(", ") : translate(j.stanowisko, lang)}</strong> w <span className="font-semibold text-slate-600">{j.firma}</span>
+                          <strong className="text-slate-800">{Array.isArray(j.position) ? j.position.map(s => translate(s, lang)).join(", ") : typeof j.position === "object" ? (lang === "pl" ? j.position.pl : j.position.en) : translate(j.position, lang)}</strong> w <span className="font-semibold text-slate-600">{j.company}</span>
                         </div>
                         <span className="text-[10px] bg-amber-100 text-amber-800 font-mono px-2 py-0.5 rounded">{translate("Zatrudnienie", lang)}</span>
                       </div>
                     ))}
-                    {cvData.glowne_projekty.filter((p) => bookmarks[p.id]).map((p) => (
+                    {cvData.projects.filter((p) => bookmarks[p.id]).map((p) => (
                       <div key={p.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-xs flex justify-between items-center">
                         <div>
-                          {translate("Projekt", lang)} <strong className="text-slate-800">{p.nazwa}</strong>
+                          {translate("Projekt", lang)} <strong className="text-slate-800">{p.name}</strong>
                         </div>
                         <span className="text-[10px] bg-amber-100 text-amber-800 font-mono px-2 py-0.5 rounded">{translate("Projekt", lang)}</span>
                       </div>
@@ -439,9 +444,9 @@ export default function App() {
           )}
 
           {activeTab === "jobs" && (
-            <section className="print:block">
-              <ZatrudnienieList
-                jobs={cvData.zatrudnienie}
+            <section className="print:block animate-fade-in">
+              <EmploymentList
+                jobs={cvData.employment}
                 bookmarks={bookmarks}
                 onToggleBookmark={handleToggleBookmark}
                 notes={notes}
@@ -456,9 +461,9 @@ export default function App() {
           )}
 
           {activeTab === "projects" && (
-            <section className="print:block">
+            <section className="print:block animate-fade-in">
               <ProjektyList
-                projects={cvData.glowne_projekty}
+                projects={cvData.projects}
                 bookmarks={bookmarks}
                 onToggleBookmark={handleToggleBookmark}
                 notes={notes}
@@ -473,9 +478,9 @@ export default function App() {
           )}
 
           {activeTab === "certs" && (
-            <section className="print:block space-y-12">
+            <section className="print:block space-y-12 animate-fade-in">
               <CertyfikatyList
-                certs={cvData.dodatkowe_kursy_i_certyfikaty}
+                certs={cvData.certificates}
                 bookmarks={bookmarks}
                 onToggleBookmark={handleToggleBookmark}
                 notes={notes}
@@ -486,10 +491,10 @@ export default function App() {
               />
               <hr className="border-slate-200" />
               <EducationAndHobbies
-                education={cvData.edukacja}
-                hobbies={cvData.dodatkowe_umiejetnosci_i_hobby}
+                education={cvData.education}
+                hobbies={cvData.additionalSkillsAndHobbies}
                 lang={lang}
-                pasje={cvData.osoba.pasje}
+                pasje={cvData.person.passions}
                 isAdmin={isAdmin}
                 onSavePasje={handleSavePasje}
               />
@@ -497,9 +502,9 @@ export default function App() {
           )}
 
           {activeTab === "dictionary" && (
-            <section className="print:hidden">
+            <section className="print:hidden animate-fade-in">
               <TechDictionary
-                slownik={cvData.slowniki_uzytych_technologii}
+                slownik={cvData.techDictionaries}
                 cvData={cvData}
                 lang={lang}
               />
@@ -507,19 +512,20 @@ export default function App() {
           )}
 
           {activeTab === "about" && (
-            <section className="print:block">
+            <section className="print:block animate-fade-in">
               <AboutApp lang={lang} />
             </section>
           )}
 
           {activeTab === "admin" && isAdmin && (
-            <section className="print:hidden">
+            <section className="print:hidden animate-fade-in">
               <LocalDbAdmin
                 cvData={cvData}
                 onImportDb={handleImportDb}
                 onResetDb={handleResetDb}
                 isDbModified={isDbModified}
                 lang={lang}
+                adminPasswords={ADMIN_PASSWORDS}
               />
             </section>
           )}
@@ -584,7 +590,7 @@ export default function App() {
 
             <form onSubmit={(e) => {
               e.preventDefault();
-              if (loginPassword === "admin" || loginPassword === "m_sokolowski") {
+              if (ADMIN_PASSWORDS.includes(loginPassword)) {
                 setIsAdmin(true);
                 setShowLoginModal(false);
                 setLoginPassword("");

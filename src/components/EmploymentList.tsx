@@ -1,22 +1,29 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import React, { useState } from "react";
-import { Zatrudnienie, LocalBookmarks, LocalNotes } from "../types";
-import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X, Plus } from "lucide-react";
+import { Employment, LocalBookmarks, LocalNotes } from "../types";
+import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X } from "lucide-react";
 import { motion } from "motion/react";
 import { translate, translateStanowisko } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
 /**
- * Props for the ZatrudnienieList component.
+ * Props for the EmploymentList component.
  *
- * @interface ZatrudnienieListProps
+ * @interface EmploymentListProps
  */
-interface ZatrudnienieListProps {
-  jobs: Zatrudnienie[];
+interface EmploymentListProps {
+  jobs: Employment[];
   bookmarks: LocalBookmarks;
   onToggleBookmark: (id: string) => void;
   notes: LocalNotes;
   onSaveNote: (id: string, textPl: string, textEn: string) => void;
-  onEditJob: (job: Zatrudnienie) => void;
+  onEditJob: (job: Employment) => void;
   lang: "pl" | "en";
   tooltips: Record<string, string>;
   onSaveTooltip: (key: string, val: string) => void;
@@ -26,12 +33,12 @@ interface ZatrudnienieListProps {
 /**
  * Component representing the candidate's employment and job history records list.
  * Supports chronological view of roles, details, core duties, technology stack,
- * specific library versions, personal notes, bookmarks, and fast local database editing.
+ * specific library versions, personal notes, and fast local database editing.
  *
- * @param {ZatrudnienieListProps} props - Component props.
+ * @param {EmploymentListProps} props - Component props.
  * @returns {JSX.Element} The rendered employment history component list.
  */
-export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
+export const EmploymentList: React.FC<EmploymentListProps> = ({
   jobs,
   bookmarks,
   onToggleBookmark,
@@ -75,7 +82,7 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" id="employment-list-container">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
           <Briefcase className="w-6 h-6 text-indigo-600" />
@@ -88,7 +95,6 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
 
       <div className="relative border-l border-slate-200 ml-3 md:ml-4 pl-6 md:pl-8 space-y-8">
         {jobs.map((job) => {
-          const isBookmarked = !!bookmarks[job.id];
           const hasNote = !!(notes[job.id]?.pl || notes[job.id]?.en);
 
           return (
@@ -98,21 +104,21 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                 <Briefcase className="w-3 h-3" />
               </div>
 
-              <div className="bg-white rounded-2xl p-5 md:p-6 border border-slate-100 shadow-xs hover:shadow-md transition">
+              <div className="bg-white rounded-2xl p-5 md:p-6 border border-slate-100 shadow-xs hover:shadow-md transition animate-fade-in">
                 {/* Job Header */}
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                   <div>
                     <h3 className="text-lg font-bold text-slate-900 group-hover:text-indigo-600 transition">
-                      {translateStanowisko(job.stanowisko, lang)}
+                      {translateStanowisko(job.position, lang)}
                     </h3>
-                    <div className="text-sm font-semibold text-slate-700 mt-0.5">{job.firma}</div>
+                    <div className="text-sm font-semibold text-slate-700 mt-0.5">{job.company}</div>
                   </div>
 
                   {/* Actions & Dates */}
                   <div className="flex flex-row md:flex-col items-start md:items-end gap-2 shrink-0">
                     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-mono text-slate-600">
                       <Calendar className="w-3.5 h-3.5 text-indigo-500" />
-                      {job.data.start} – {job.data.end || translate("obecnie", lang)}
+                      {job.date.start} – {job.date.end || translate("obecnie", lang)}
                     </span>
 
                     {isAdmin && (
@@ -125,7 +131,7 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                               ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-600"
                               : "bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-400"
                           }`}
-                          title={translate("Dodaj notatkę rekrutera", lang)}
+                          title={translate("Notatki dla rekrutera", lang)}
                         >
                           <MessageSquare className="w-4 h-4" />
                         </button>
@@ -162,7 +168,7 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                   <div className="mb-4 p-4 bg-emerald-50 border border-emerald-200 rounded-xl space-y-3">
                     <div>
                       <label className="block text-xs font-bold text-emerald-800 uppercase mb-1">
-                        {translate("Twoja notatka do tej roli (zapisana lokalnie):", lang)} (PL)
+                        {translate("Notatki dla rekrutera", lang)} (PL)
                       </label>
                       <textarea
                         value={noteTextPl}
@@ -174,7 +180,7 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                     </div>
                     <div>
                       <label className="block text-xs font-bold text-emerald-800 uppercase mb-1">
-                        {translate("Twoja notatka do tej roli (zapisana lokalnie):", lang)} (EN)
+                        {translate("Notatki dla rekrutera", lang)} (EN)
                       </label>
                       <textarea
                         value={noteTextEn}
@@ -205,10 +211,10 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                 {/* Job Duties / Responsibilities */}
                 <div className="mb-4">
                   <h4 className="text-xs font-mono text-slate-400 font-bold uppercase tracking-wider mb-2">
-                    {translate("obowiązki i zadania", lang)}
+                    {translate("Obowiązki i zadania", lang)}
                   </h4>
                   <ul className="space-y-2 text-sm text-slate-600">
-                    {job.obowiazki.map((duty, idx) => {
+                    {job.duties.map((duty, idx) => {
                       const dutyKey = `${job.id}-duty-${idx}`;
                       const hasTooltip = !!tooltips[dutyKey];
                       const tooltipVal = tooltips[dutyKey];
@@ -248,10 +254,10 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                   <div className="w-full">
                     <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-1">
                       <Wrench className="w-3.5 h-3.5 text-slate-400" />
-                      {translate("wykorzystane technologie", lang)}
+                      {translate("Wykorzystane technologie", lang)}
                     </h4>
                     <div className="flex flex-wrap gap-1.5">
-                      {job.technologie.map((tech) => {
+                      {job.technologies.map((tech) => {
                         const techKey = `${job.id}-tech-${tech}`;
                         const hasTooltip = !!tooltips[techKey];
                         const tooltipVal = tooltips[techKey];
@@ -286,15 +292,15 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                     </div>
                   </div>
 
-                  {/* Versions (wersje) */}
-                  {job.wersje && Object.keys(job.wersje).length > 0 && (
+                  {/* Versions (versions) */}
+                  {job.versions && Object.keys(job.versions).length > 0 && (
                     <div className="w-full md:w-auto md:max-w-xs mt-2">
                       <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
                         <Layers className="w-3.5 h-3.5 text-slate-400" />
                         {translate("Wersje oprogramowania", lang)}
                       </h4>
                       <div className="space-y-1 text-slate-600 font-mono">
-                        {Object.entries(job.wersje).map(([lib, vers]) => (
+                        {Object.entries(job.versions).map(([lib, vers]) => (
                           <div key={lib} className="flex gap-1.5">
                             <span className="font-semibold text-slate-700">{lib}:</span>
                             <span className="text-indigo-600 font-bold">{(vers as string[]).join(", ")}</span>
@@ -304,15 +310,15 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                     </div>
                   )}
 
-                  {/* Design Patterns (wzorce_projektowe) */}
-                  {job.wzorce_projektowe && job.wzorce_projektowe.length > 0 && (
+                  {/* Design Patterns (designPatterns) */}
+                  {job.designPatterns && job.designPatterns.length > 0 && (
                     <div className="w-full md:w-auto md:max-w-xs mt-2">
                       <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
                         <Code className="w-3.5 h-3.5 text-slate-400" />
                         {translate("Wzorce projektowe", lang)}
                       </h4>
                       <div className="flex flex-wrap gap-1 text-slate-600 font-mono">
-                        {job.wzorce_projektowe.map((pat) => (
+                        {job.designPatterns.map((pat) => (
                           <span key={pat} className="bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/60 text-[11px]">
                             {pat}
                           </span>
@@ -322,13 +328,13 @@ export const ZatrudnienieList: React.FC<ZatrudnienieListProps> = ({
                   )}
 
                   {/* Tech Techniques */}
-                  {job.techniki_developerskie && job.techniki_developerskie.length > 0 && (
+                  {job.devMethodologies && job.devMethodologies.length > 0 && (
                     <div className="w-full mt-2">
                       <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5">
                         {translate("Metodologie i standardy", lang)}
                       </h4>
                       <div className="flex flex-wrap gap-1 font-mono">
-                        {job.techniki_developerskie.map((techDev) => (
+                        {job.devMethodologies.map((techDev) => (
                           <span key={techDev} className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg text-[10px] font-semibold border border-slate-200">
                             {techDev}
                           </span>

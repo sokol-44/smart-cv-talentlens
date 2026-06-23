@@ -1,7 +1,13 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import React, { useState, useMemo } from "react";
 import { CVData } from "../types";
-import { UserCheck, Sparkles, Star, ClipboardList, CheckCircle, Flame, ArrowUpRight, Award, Folder } from "lucide-react";
-import { motion } from "motion/react";
+import { UserCheck, Sparkles, ClipboardList, Award, Folder } from "lucide-react";
 import { translate } from "../utils/translations";
 
 /**
@@ -35,7 +41,6 @@ interface RolePreset {
  */
 export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) => {
   const [selectedPreset, setSelectedPreset] = useState<number>(0);
-  const [customTags, setCustomTags] = useState("");
 
   const presets = useMemo<RolePreset[]>(() => [
     {
@@ -61,7 +66,7 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
     },
     {
       title: lang === "pl" ? "Integrator AI / LLM & RAG" : "AI / LLM & RAG Integrator",
-      tags: ["AI", "LLM", "Vibe Coding", "Practical LLM", "Python", "deterministryczne użycie LLM", "nauczanie maszynowe", "AI Prompt"],
+      tags: ["AI", "LLM", "Vibe Coding", "Practical LLM", "Python", "deterministrycze użycie LLM", "nauczanie maszynowe", "AI Prompt"],
       description: lang === "pl"
         ? "Nowoczesna rola skupiona na integracji dużych modeli językowych (LLM) z systemami firmowymi, budowie baz RAG w oparciu o Python/Docker/Ollama oraz automatyzacji procesów biznesowych."
         : "Modern role focused on integrating large language models (LLMs) with business applications, building RAG vector stores with Python/Docker/Ollama, and automating workflows."
@@ -69,57 +74,51 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
   ], [lang]);
 
   const activeTags = useMemo(() => {
-    if (selectedPreset === -1) {
-      return customTags
-        .split(",")
-        .map((t) => t.trim())
-        .filter((t) => t.length > 0);
-    }
     return presets[selectedPreset]?.tags || [];
-  }, [selectedPreset, customTags, presets]);
+  }, [selectedPreset, presets]);
 
   const scoreDetails = useMemo(() => {
     const tagsLower = activeTags.map((t) => t.toLowerCase());
     if (tagsLower.length === 0) return { score: 0, matchingProjects: [], matchingJobs: [], matchingCerts: [] };
 
-    const glowne_projekty = cvData.glowne_projekty || [];
-    const zatrudnienie = cvData.zatrudnienie || [];
-    const dodatkowe_kursy_i_certyfikaty = cvData.dodatkowe_kursy_i_certyfikaty || [];
-    const umiejetnosci = cvData.umiejetnosci || [];
+    const projects = cvData.projects || [];
+    const employment = cvData.employment || [];
+    const certificates = cvData.certificates || [];
+    const skills = cvData.skills || [];
 
     // 1. Check matching projects
-    const matchingProjects = glowne_projekty.filter((p) =>
+    const matchingProjects = projects.filter((p) =>
       p && p.technologie && p.technologie.some((tech) => tagsLower.includes(tech.toLowerCase()))
     );
 
     // 2. Check matching jobs
-    const matchingJobs = zatrudnienie.filter((j) =>
-      j && j.technologie && j.technologie.some((tech) => tagsLower.includes(tech.toLowerCase()))
+    const matchingJobs = employment.filter((j) =>
+      j && j.technologies && j.technologies.some((tech) => tagsLower.includes(tech.toLowerCase()))
     );
 
     // 3. Check matching certifications
-    const matchingCerts = dodatkowe_kursy_i_certyfikaty.filter((c) =>
-      c && c.technologie_i_obowiazki && c.technologie_i_obowiazki.some((tech) => tagsLower.includes(tech.toLowerCase()))
+    const matchingCerts = certificates.filter((c) =>
+      c && c.technologiesAndDuties && c.technologiesAndDuties.some((tech) => tagsLower.includes(tech.toLowerCase()))
     );
 
     // Calculate score
     const uniqueMatches = new Set<string>();
     tagsLower.forEach((tag) => {
       // check projects
-      glowne_projekty.forEach((p) => {
+      projects.forEach((p) => {
         if (p && p.technologie && p.technologie.some((tech) => tech.toLowerCase() === tag)) uniqueMatches.add(tag);
       });
       // check jobs
-      zatrudnienie.forEach((j) => {
-        if (j && j.technologie && j.technologie.some((tech) => tech.toLowerCase() === tag)) uniqueMatches.add(tag);
+      employment.forEach((j) => {
+        if (j && j.technologies && j.technologies.some((tech) => tech.toLowerCase() === tag)) uniqueMatches.add(tag);
       });
       // check certs
-      dodatkowe_kursy_i_certyfikaty.forEach((c) => {
-        if (c && c.technologie_i_obowiazki && c.technologie_i_obowiazki.some((tech) => tech.toLowerCase() === tag)) uniqueMatches.add(tag);
+      certificates.forEach((c) => {
+        if (c && c.technologiesAndDuties && c.technologiesAndDuties.some((tech) => tech.toLowerCase() === tag)) uniqueMatches.add(tag);
       });
       // check skills
-      umiejetnosci.forEach((s) => {
-        if (s && s.nazwa && s.nazwa.toLowerCase() === tag) uniqueMatches.add(tag);
+      skills.forEach((s) => {
+        if (s && s.name && s.name.toLowerCase() === tag) uniqueMatches.add(tag);
       });
     });
 
@@ -157,7 +156,7 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
   }, [activeTags, cvData, lang]);
 
   return (
-    <div className="bg-slate-50 rounded-3xl p-6 border border-slate-200/80 shadow-sm">
+    <div className="bg-slate-50 rounded-3xl p-6 border border-slate-200/80 shadow-sm" id="recruiter-match-container">
       <div className="flex items-center gap-3 mb-4">
         <div className="p-2 bg-indigo-600 rounded-xl text-white">
           <UserCheck className="w-6 h-6" />
@@ -213,7 +212,7 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
       </div>
 
       {/* Match report card */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 animate-fade-in">
         {/* Score dial */}
         <div className="lg:col-span-4 bg-slate-900 text-white p-6 rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl" />
@@ -251,9 +250,9 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
                 ) : (
                   <div className="max-h-36 overflow-y-auto space-y-1 pr-1">
                     {scoreDetails.matchingProjects.slice(0, 5).map((p, idx) => (
-                      <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-slate-50 rounded-lg border border-slate-100">
-                        <span className="font-medium text-slate-700 truncate max-w-[180px]">{p.nazwa}</span>
-                        <span className="text-[10px] text-slate-400">{p.data.start}</span>
+                      <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-slate-50 rounded-lg border border-slate-100 animate-fade-in">
+                        <span className="font-medium text-slate-700 truncate max-w-[180px]">{p.name}</span>
+                        <span className="text-[10px] text-slate-400">{p.date.start}</span>
                       </div>
                     ))}
                     {scoreDetails.matchingProjects.length > 5 && (
@@ -275,9 +274,9 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
                 ) : (
                   <div className="max-h-36 overflow-y-auto space-y-1 pr-1">
                     {scoreDetails.matchingCerts.slice(0, 5).map((c, idx) => (
-                      <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-slate-50 rounded-lg border border-slate-100">
-                        <span className="font-medium text-slate-700 truncate max-w-[180px]">{c.nazwa}</span>
-                        <span className="text-[10px] text-slate-400">{c.data}</span>
+                      <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-slate-50 rounded-lg border border-slate-100 animate-fade-in">
+                        <span className="font-medium text-slate-700 truncate max-w-[180px]">{c.name}</span>
+                        <span className="text-[10px] text-slate-400">{c.date}</span>
                       </div>
                     ))}
                     {scoreDetails.matchingCerts.length > 5 && (

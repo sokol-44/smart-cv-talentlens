@@ -1,7 +1,13 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import React from "react";
-import { Osoba, Zatrudnienie, Projekt, Certyfikat, Umiejetnosc } from "../types";
-import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, Database, RefreshCw, Globe } from "lucide-react";
-import { motion } from "motion/react";
+import { Person, Employment, Project, Certificate, Skill } from "../types";
+import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, RefreshCw, Globe } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -11,7 +17,7 @@ import { SupplementaryText } from "../utils/parentheses";
  * @interface HeaderProps
  */
 interface HeaderProps {
-  osoba: Osoba;
+  person: Person;
   stats: {
     jobsCount: number;
     projectsCount: number;
@@ -21,10 +27,10 @@ interface HeaderProps {
   onResetDb: () => void;
   isDbModified: boolean;
   lang: "pl" | "en";
-  zatrudnienie: Zatrudnienie[];
-  glowne_projekty: Projekt[];
-  dodatkowe_kursy_i_certyfikaty: Certyfikat[];
-  umiejetnosci: Umiejetnosc[];
+  employment: Employment[];
+  projects: Project[];
+  certificates: Certificate[];
+  skills: Skill[];
   onToggleLang?: (lang: "pl" | "en") => void;
 }
 
@@ -37,19 +43,19 @@ interface HeaderProps {
  * @returns {JSX.Element} The rendered Header component.
  */
 export const Header: React.FC<HeaderProps> = ({
-  osoba,
+  person,
   stats,
   onResetDb,
   isDbModified,
   lang,
-  zatrudnienie,
-  glowne_projekty,
-  dodatkowe_kursy_i_certyfikaty,
-  umiejetnosci,
+  employment,
+  projects,
+  certificates,
+  skills,
   onToggleLang
 }) => {
   return (
-    <header className="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-800 relative overflow-hidden">
+    <header className="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-800 relative overflow-hidden" id="header-section-container">
       {/* Subtle glowing background effect */}
       <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
@@ -57,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-6">
         <div>
           <h1 className="text-4xl md:text-5xl font-sans font-bold tracking-tight text-white mb-2">
-            {osoba.imie} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{osoba.nazwisko}</span>
+            {person.firstName} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{person.lastName}</span>
           </h1>
 
           <p className="text-slate-400 text-lg mb-4 font-sans max-w-2xl leading-relaxed">
@@ -77,7 +83,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span>{translate("Portfolio", lang)}</span>
             </a>
             <a
-              href={osoba.GitHub}
+              href={person.github}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
@@ -87,7 +93,7 @@ export const Header: React.FC<HeaderProps> = ({
               <span>GitHub</span>
             </a>
             <a
-              href={osoba.LinkedIN}
+              href={person.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
@@ -111,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Local DB Status Panel with Language Selector Above Statistics (c, e) */}
+        {/* Local DB Status Panel with Language Selector Above Statistics */}
         <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl w-full md:w-auto md:min-w-[300px]">
           <div className="flex items-center justify-between gap-3 text-xs font-mono text-slate-400 mb-4 border-b border-slate-800 pb-2.5">
             <span className="flex items-center gap-1 text-slate-300 font-semibold uppercase tracking-wider text-[10px]">
@@ -148,16 +154,16 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.jobsCount}</div>
               
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none">
+              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-blue-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <Briefcase className="w-3 h-3" />
                   <span>{translate("Lista firm i stanowisk", lang)}:</span>
                 </div>
                 <ul className="list-disc pl-3.5 space-y-1 max-h-40 overflow-y-auto text-slate-300">
-                  {zatrudnienie.map((j) => (
+                  {employment.map((j) => (
                     <li key={j.id}>
-                      <span className="font-medium text-white">{j.firma}</span>
-                      <span className="text-slate-400 text-[9px]"> ({Array.isArray(j.stanowisko) ? j.stanowisko.join(", ") : j.stanowisko})</span>
+                      <span className="font-medium text-white">{j.company}</span>
+                      <span className="text-slate-400 text-[9px]"> ({Array.isArray(j.position) ? j.position.join(", ") : typeof j.position === "object" ? (lang === "pl" ? j.position.pl : j.position.en) : translate(j.position, lang)})</span>
                     </li>
                   ))}
                 </ul>
@@ -174,15 +180,15 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.projectsCount}</div>
 
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none">
+              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-emerald-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <FolderGit2 className="w-3 h-3" />
                   <span>{translate("Główne realizowane projekty", lang)}:</span>
                 </div>
                 <ul className="list-disc pl-3.5 space-y-1 max-h-40 overflow-y-auto text-slate-300">
-                  {glowne_projekty.map((p) => (
+                  {projects.map((p) => (
                     <li key={p.id}>
-                      <span className="font-medium text-white">{p.nazwa}</span>
+                      <span className="font-medium text-white">{p.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -199,16 +205,16 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.certsCount}</div>
 
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none">
+              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-purple-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <Award className="w-3 h-3" />
                   <span>{translate("Uzyskane certyfikaty", lang)}:</span>
                 </div>
                 <ul className="list-disc pl-3.5 space-y-1 max-h-40 overflow-y-auto text-slate-300">
-                  {dodatkowe_kursy_i_certyfikaty.map((c) => (
+                  {certificates.map((c) => (
                     <li key={c.id}>
-                      <span className="font-medium text-white">{c.nazwa}</span>
-                      {c.instytucja && <span className="text-slate-400 text-[9px]"> ({c.instytucja})</span>}
+                      <span className="font-medium text-white">{c.name}</span>
+                      {c.institution && <span className="text-slate-400 text-[9px]"> ({c.institution})</span>}
                     </li>
                   ))}
                 </ul>
@@ -225,16 +231,16 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.skillsCount}</div>
 
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none">
+              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-amber-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <GraduationCap className="w-3 h-3" />
                   <span>{translate("Wszystkie umiejętności", lang)}:</span>
                 </div>
                 <ul className="list-disc pl-3.5 space-y-1 max-h-40 overflow-y-auto text-slate-300">
-                  {umiejetnosci.map((s, idx) => (
+                  {skills.map((s, idx) => (
                     <li key={idx}>
-                      <span className="font-medium text-white">{s.nazwa}</span>
-                      <span className="text-slate-400 text-[9px]"> ({translate(s.stopien_zaawansowania, lang)})</span>
+                      <span className="font-medium text-white">{s.name}</span>
+                      <span className="text-slate-400 text-[9px]"> ({translate(s.proficiencyLevel, lang)})</span>
                     </li>
                   ))}
                 </ul>
@@ -245,7 +251,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      {/* Expanded about me side scroller: "Kandydat o sobie" with all opis elements (a) */}
+      {/* Expanded about me side scroller: "Kandydat o sobie" with all description elements */}
       <div className="mt-6 pt-6 border-t border-slate-800/80">
         <h3 className="text-xs font-mono font-semibold text-blue-400 mb-3 uppercase tracking-wider">
           {translate("Kandydat o sobie", lang)}
@@ -253,10 +259,10 @@ export const Header: React.FC<HeaderProps> = ({
         
         {/* Horizontal scrollbar-thin side scroller container */}
         <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-          {osoba.opis.map((bullet, idx) => (
+          {person.description.map((bullet, idx) => (
             <div
               key={idx}
-              className="min-w-[280px] md:min-w-[340px] max-w-[360px] flex-shrink-0 bg-slate-950/40 p-4 rounded-xl border border-slate-800/60 text-sm text-slate-300"
+              className="min-w-[280px] md:min-w-[340px] max-w-[360px] flex-shrink-0 bg-slate-950/40 p-4 rounded-xl border border-slate-800/60 text-sm text-slate-300 animate-fade-in"
             >
               <p className="leading-relaxed text-xs">
                 <SupplementaryText text={translate(bullet, lang)} />

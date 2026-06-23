@@ -1,7 +1,13 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import React, { useState } from "react";
-import { Edukacja } from "../types";
-import { GraduationCap, Sparkles, Calendar, BookOpen, Compass, ShieldCheck, Edit3, Save, X } from "lucide-react";
-import { motion } from "motion/react";
+import { Education } from "../types";
+import { GraduationCap, Calendar, BookOpen, Compass, ShieldCheck, Edit3, Save, X } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -11,7 +17,7 @@ import { SupplementaryText } from "../utils/parentheses";
  * @interface EducationAndHobbiesProps
  */
 interface EducationAndHobbiesProps {
-  education: Edukacja[];
+  education: Education[];
   hobbies: string[];
   lang: "pl" | "en";
   pasje?: { pl: string; en: string };
@@ -34,8 +40,6 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
   pasje,
   isAdmin = false,
   onSavePasje,
-  selectedYearFilter,
-  onYearFilterChange,
 }) => {
   const [isEditingPasje, setIsEditingPasje] = useState(false);
   const [pasjePl, setPasjePl] = useState(pasje?.pl || "Pozazawodowe pasje Michała, od gier RPG, żeglarstwa po mikroelektronikę i ogrodnictwo.");
@@ -58,19 +62,8 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
   const defaultPasjeText = lang === "pl" ? pasjePl : pasjeEn;
   const currentPasjeText = pasje ? (pasje[lang] || pasje["pl"] || pasje["en"]) : defaultPasjeText;
 
-  // Extract unique education end years for filtering (if needed, but usually we filter certifications by year)
-  const availableYears = React.useMemo(() => {
-    const years = new Set<string>();
-    education.forEach((edu) => {
-      const yr = edu.data.end.slice(-4);
-      if (/^\d{4}$/.test(yr)) {
-        years.add(yr);
-      }
-    });
-    return Array.from(years).sort((a, b) => b.localeCompare(a));
-  }, [education]);
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8" id="education-and-hobbies-container">
       {/* Education column */}
       <div className="space-y-6">
         <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
@@ -82,34 +75,34 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
           {education.map((edu, idx) => (
             <div
               key={idx}
-              className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs hover:shadow-sm transition"
+              className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs hover:shadow-sm transition animate-fade-in"
             >
               <div className="flex justify-between items-start gap-4 mb-2">
                 <div>
                   <span className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded text-[10px] font-mono border border-blue-100 uppercase font-bold">
-                    {translate(edu.typ, lang)}
+                    {translate(edu.type, lang)}
                   </span>
                   <h3 className="font-bold text-sm text-slate-950 mt-1.5 leading-snug">
-                    <SupplementaryText text={translate(edu.kierunek, lang)} />
+                    <SupplementaryText text={translate(edu.major, lang)} />
                   </h3>
                   <div className="text-xs text-slate-500 font-semibold mt-1 flex items-center gap-1">
                     <BookOpen className="w-3.5 h-3.5" />
-                    {edu.instytucja}
+                    {edu.institution}
                   </div>
                 </div>
 
                 <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-mono text-slate-600 shrink-0">
                   <Calendar className="w-3.5 h-3.5 text-blue-500" />
-                  {edu.data.start} – {edu.data.end}
+                  {edu.date.start} – {edu.date.end}
                 </span>
               </div>
 
-              {edu.potwierdzenie && (
+              {edu.confirmation && (
                 <div className="mt-3 text-xs p-2.5 bg-slate-50 border border-slate-150 rounded-lg text-slate-600 flex items-start gap-1.5">
                   <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
                   <div>
                     <span className="font-bold text-slate-700">{translate("Uzyskane potwierdzenie:", lang)}</span>{" "}
-                    <SupplementaryText text={translate(edu.potwierdzenie, lang)} />
+                    <SupplementaryText text={translate(edu.confirmation, lang)} />
                   </div>
                 </div>
               )}

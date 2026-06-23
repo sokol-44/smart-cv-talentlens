@@ -1,5 +1,12 @@
+/**
+ * Autor: Michał Sokołowski
+ * Generator: Google AIStudio
+ * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
+ * Licencja: AGPL v3
+ */
+
 import React, { useState, useEffect } from "react";
-import { Zatrudnienie, Projekt, Certyfikat } from "../types";
+import { Employment, Project, Certificate } from "../types";
 import { X, Save, Calendar, Tag, Briefcase, Award, FolderGit2 } from "lucide-react";
 import { translate } from "../utils/translations";
 
@@ -9,19 +16,19 @@ import { translate } from "../utils/translations";
  * @interface EditModalsProps
  */
 interface EditModalsProps {
-  jobToEdit: Zatrudnienie | null;
-  projectToEdit: Projekt | null;
-  certToEdit: Certyfikat | null;
+  jobToEdit: Employment | null;
+  projectToEdit: Project | null;
+  certToEdit: Certificate | null;
   onClose: () => void;
-  onSaveJob: (job: Zatrudnienie) => void;
-  onSaveProject: (project: Projekt) => void;
-  onSaveCert: (cert: Certyfikat) => void;
+  onSaveJob: (job: Employment) => void;
+  onSaveProject: (project: Project) => void;
+  onSaveCert: (cert: Certificate) => void;
   lang: "pl" | "en";
 }
 
 /**
- * Modals container component that provides editing forms for employment records (Zatrudnienie),
- * projects (Projekt), and certifications (Certyfikat). Handles state initialization from the selected
+ * Modals container component that provides editing forms for employment records (Employment),
+ * projects (Project), and certifications (Certificate). Handles state initialization from the selected
  * item and processes form submissions.
  *
  * @param {EditModalsProps} props - Component props.
@@ -64,22 +71,22 @@ export const EditModals: React.FC<EditModalsProps> = ({
 
   useEffect(() => {
     if (jobToEdit) {
-      setJobFirma(jobToEdit.firma);
-      setJobStanowisko(Array.isArray(jobToEdit.stanowisko) ? jobToEdit.stanowisko.map(s => translate(s, lang)).join(", ") : translate(jobToEdit.stanowisko, lang));
-      setJobStart(jobToEdit.data.start);
-      setJobEnd(jobToEdit.data.end || "");
-      setJobObowiazki(jobToEdit.obowiazki.map(o => translate(o, lang)).join("\n"));
-      setJobTechs(jobToEdit.technologie.join(", "));
+      setJobFirma(jobToEdit.company);
+      setJobStanowisko(Array.isArray(jobToEdit.position) ? jobToEdit.position.map(s => translate(s, lang)).join(", ") : typeof jobToEdit.position === "object" ? (lang === "pl" ? jobToEdit.position.pl : jobToEdit.position.en) : translate(jobToEdit.position, lang));
+      setJobStart(jobToEdit.date.start);
+      setJobEnd(jobToEdit.date.end || "");
+      setJobObowiazki(jobToEdit.duties.map(o => translate(o, lang)).join("\n"));
+      setJobTechs(jobToEdit.technologies.join(", "));
     }
   }, [jobToEdit, lang]);
 
   useEffect(() => {
     if (projectToEdit) {
-      setProjNazwa(translate(projectToEdit.nazwa, lang));
-      setProjFirma(projectToEdit.firma.join(", "));
-      setProjStart(projectToEdit.data.start);
-      setProjEnd(projectToEdit.data.end || "");
-      setProjOpis(translate(projectToEdit.opis, lang));
+      setProjNazwa(translate(projectToEdit.name, lang));
+      setProjFirma(projectToEdit.company.join(", "));
+      setProjStart(projectToEdit.date.start);
+      setProjEnd(projectToEdit.date.end || "");
+      setProjOpis(translate(projectToEdit.description, lang));
       setProjTechs(projectToEdit.technologie.join(", "));
       setProjUrl(projectToEdit.url || "");
     }
@@ -87,12 +94,12 @@ export const EditModals: React.FC<EditModalsProps> = ({
 
   useEffect(() => {
     if (certToEdit) {
-      setCertNazwa(translate(certToEdit.nazwa, lang));
-      setCertInstytucja(certToEdit.instytucja);
-      setCertData(certToEdit.data);
-      setCertGodziny(certToEdit.czas_trwania_godziny || "");
-      setCertOpis(certToEdit.informacje ? translate(certToEdit.informacje, lang) : "");
-      setCertTechs(certToEdit.technologie_i_obowiazki ? certToEdit.technologie_i_obowiazki.join(", ") : "");
+      setCertNazwa(translate(certToEdit.name, lang));
+      setCertInstytucja(certToEdit.institution);
+      setCertData(certToEdit.date);
+      setCertGodziny(certToEdit.durationHours || "");
+      setCertOpis(certToEdit.info ? translate(certToEdit.info, lang) : "");
+      setCertTechs(certToEdit.technologiesAndDuties ? certToEdit.technologiesAndDuties.join(", ") : "");
     }
   }, [certToEdit, lang]);
 
@@ -117,13 +124,13 @@ export const EditModals: React.FC<EditModalsProps> = ({
       return;
     }
 
-    const updated: Zatrudnienie = {
+    const updated: Employment = {
       ...jobToEdit,
-      firma: jobFirma,
-      stanowisko: jobStanowisko.split(",").map((s) => s.trim()),
-      data: { start: jobStart, end: jobEnd || "obecnie" },
-      obowiazki: jobObowiazki.split("\n").map((o) => o.trim()).filter((o) => o.length > 0),
-      technologie: jobTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
+      company: jobFirma,
+      position: jobStanowisko.split(",").map((s) => s.trim()),
+      date: { start: jobStart, end: jobEnd || "obecnie" },
+      duties: jobObowiazki.split("\n").map((o) => o.trim()).filter((o) => o.length > 0),
+      technologies: jobTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
     };
     onSaveJob(updated);
   };
@@ -140,12 +147,12 @@ export const EditModals: React.FC<EditModalsProps> = ({
       return;
     }
 
-    const updated: Projekt = {
+    const updated: Project = {
       ...projectToEdit,
-      nazwa: projNazwa,
-      firma: projFirma.split(",").map((f) => f.trim()),
-      data: { start: projStart, end: projEnd },
-      opis: projOpis,
+      name: projNazwa,
+      company: projFirma.split(",").map((f) => f.trim()),
+      date: { start: projStart, end: projEnd },
+      description: projOpis,
       technologie: projTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
       url: projUrl || undefined,
     };
@@ -156,20 +163,20 @@ export const EditModals: React.FC<EditModalsProps> = ({
     e.preventDefault();
     if (!certToEdit) return;
 
-    const updated: Certyfikat = {
+    const updated: Certificate = {
       ...certToEdit,
-      nazwa: certNazwa,
-      instytucja: certInstytucja,
-      data: certData,
-      czas_trwania_godziny: certGodziny || undefined,
-      informacje: certOpis || undefined,
-      technologie_i_obowiazki: certTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
+      name: certNazwa,
+      institution: certInstytucja,
+      date: certData,
+      durationHours: certGodziny || undefined,
+      info: certOpis || undefined,
+      technologiesAndDuties: certTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
     };
     onSaveCert(updated);
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto">
+    <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto" id="edit-modals-overlay">
       <div className="bg-white rounded-3xl shadow-xl border border-slate-100 max-w-xl w-full max-h-[90vh] flex flex-col overflow-hidden">
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
