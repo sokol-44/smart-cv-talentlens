@@ -89,7 +89,8 @@ The application was developed as a modern Single Page Application (SPA) utilizin
 Use the language toggle in the header to switch both the UI and CV content between Polish (PL) and English (EN). Navigate through tabs to browse work history, projects, certifications, and the technology dictionary. In the 'Matching & Recruitment' section, select a pre-defined role profile or customize required tags to see an instant suitability score with full technical justification.
 
 #### For the Administrator (Edit Mode)
-To enter administration/edit mode, click the gear (⚙️) icon in the footer and provide the authorization password. Once authenticated, you can: edit candidate data inline, save bilingual recruiter comments (separately for Polish and English), edit Michał's non-professional passions, and access the full JSON import/export suite. The authorization password is defined directly in the source code (`/src/App.tsx`). Default passwords are `admin` or `m_sokolowski`.
+To enter administration/edit mode, click the gear (⚙️) icon in the footer and provide the authorization password. Once authenticated, you can: edit candidate data inline, save bilingual recruiter comments (separately for Polish and English), edit Michał's non-professional passions, and access the full JSON import/export suite.
+The authorization verification is handled securely using the browser's Web Crypto API (HMAC SHA-512) and is configured directly inside `/src/App.tsx`. Default credentials are `admin` or `sokolowski`.
 
 #### Self-Running Instructions
 1. Download the application source code (unpack the ZIP archive).

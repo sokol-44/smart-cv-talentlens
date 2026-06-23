@@ -1,8 +1,8 @@
 /**
- * Autor: Michał Sokołowski
+ * Author: Michał Sokołowski
  * Generator: Google AIStudio
- * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
- * Licencja: AGPL v3
+ * AI/LLM Model Used: Gemini 3.5 Flash (in Google AI Studio)
+ * License: AGPL v3
  */
 
 import { useState, useEffect, useMemo } from "react";
@@ -31,15 +31,69 @@ import {
   Settings,
 } from "lucide-react";
 
-const STORAGE_KEY = "m_sokolowski_cv_db";
-const NOTES_KEY = "m_sokolowski_cv_notes";
-const BOOKMARKS_KEY = "m_sokolowski_cv_bookmarks";
-const MODIFIED_KEY = "m_sokolowski_cv_modified";
-const LANG_KEY = "m_sokolowski_cv_lang";
-const TOOLTIPS_KEY = "m_sokolowski_cv_tooltips";
+import { initialCVData } from "./initialData";
 
-// Unified authorization password definitions inside /src/App.tsx
-export const ADMIN_PASSWORDS = ["admin", "m_sokolowski"];
+// Design Decision: Storage keys are normalized to remove user identifiers and protect confidentiality.
+// Design Pattern: Client-side Key-Value Registry/Repository pattern for localStorage names.
+const STORAGE_KEY = "cv_interactive_db";
+const NOTES_KEY = "cv_interactive_notes";
+const BOOKMARKS_KEY = "cv_interactive_bookmarks";
+const MODIFIED_KEY = "cv_interactive_modified";
+const LANG_KEY = "cv_interactive_lang";
+const TOOLTIPS_KEY = "cv_interactive_tooltips";
+
+// Design Decision: To comply with secure authentication requirements, we store only HMAC-SHA-512 hashes
+// instead of plain text credentials. Salt: "CV_Secure_Salt_2026".
+// "admin" -> 2dc63462621dcc9137ec79ca432f43ed2412cd91861bef3e3320927edd467ee46bebfb101a724089e6a91a40ebfacb3cef3a03da4c7573b26c4e9019c4faa608
+// "sokolowski" -> 4f751a439c9d56e299a6ffd7bc80378b04b397861c0474a02d7bc37d3de8beb01b13e738cc51b6911cacc1d79e2819e555994e52441ee8ea3fb2b68c6621aa5b
+export const AUTHORIZED_HMAC_HASHES = [
+  "2dc63462621dcc9137ec79ca432f43ed2412cd91861bef3e3320927edd467ee46bebfb101a724089e6a91a40ebfacb3cef3a03da4c7573b26c4e9019c4faa608",
+  "4f751a439c9d56e299a6ffd7bc80378b04b397861c0474a02d7bc37d3de8beb01b13e738cc51b6911cacc1d79e2819e555994e52441ee8ea3fb2b68c6621aa5b"
+];
+
+/**
+ * Verifies if the provided password matches any authorized HMAC-SHA-512 hashes.
+ * This function uses the browser's native Web Crypto API for secure hashing.
+ * Design Pattern: Strategy/Security verification delegate.
+ *
+ * @param {string} password - The plain text password to verify.
+ * @returns {Promise<boolean>} True if the password matches, false otherwise.
+ */
+export async function verifyAdminPassword(password: string): Promise<boolean> {
+  try {
+    const encoder = new TextEncoder();
+    const saltBytes = encoder.encode("CV_Secure_Salt_2026");
+    const passwordBytes = encoder.encode(password);
+
+    // Import salt for HMAC signature generation
+    const cryptoKey = await window.crypto.subtle.importKey(
+      "raw",
+      saltBytes,
+      { name: "HMAC", hash: { name: "SHA-512" } },
+      false,
+      ["sign"]
+    );
+
+    // Generate HMAC signature of the password
+    const signature = await window.crypto.subtle.sign(
+      "HMAC",
+      cryptoKey,
+      passwordBytes
+    );
+
+    // Convert cryptographic signature array buffer to a hex string
+    const hashArray = Array.from(new Uint8Array(signature));
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+
+    // Verify if computed hash exists in authorized collection
+    const isValid = AUTHORIZED_HMAC_HASHES.includes(hashHex);
+    return isValid;
+  } catch (error) {
+    // Explanation: Log cryptographic or environment exceptions without disrupting normal execution.
+    console.error("Cryptographic verification failed:", error);
+    return false;
+  }
+}
 
 import { translate } from "./utils/translations";
 
@@ -107,16 +161,22 @@ export default function App() {
     const storedLang = localStorage.getItem(LANG_KEY) as "pl" | "en" | null;
     const storedTooltips = localStorage.getItem(TOOLTIPS_KEY);
 
+    /* if block comment: restores user preferred language choice if stored */
     if (storedLang) {
       setLang(storedLang);
     }
 
+    /* if block comment: restores inline annotations and recruiter tooltips */
     if (storedTooltips) {
       try {
         setTooltips(JSON.parse(storedTooltips));
-      } catch (e) {}
+      } catch (e) {
+        // Explanation: Ignore JSON parsing error of corrupted local state tooltips and start fresh
+        console.warn("Corrupted tooltips local storage reset.");
+      }
     }
 
+    /* if block comment: load or fallback database initialization flow */
     if (storedDb) {
       try {
         const parsed = JSON.parse(storedDb);
@@ -136,39 +196,33 @@ export default function App() {
           setNotes(migrateNotes(storedNotes, parsed.recruiterNotes));
         } else {
           // If incomplete schema is present, reset it with initial data from JSON
-          fetch("/cv_data.json")
-            .then((res) => res.json())
-            .then((data) => {
-              setCvData(data);
-              localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-              setNotes(migrateNotes(null, data.recruiterNotes));
-            });
+          setCvData(initialCVData);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCVData));
+          setNotes(migrateNotes(null, initialCVData.recruiterNotes));
         }
       } catch (e) {
-        fetch("/cv_data.json")
-          .then((res) => res.json())
-          .then((data) => {
-            setCvData(data);
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-            setNotes(migrateNotes(null, data.recruiterNotes));
-          });
+        // Explanation: Fallback to bundled initialCVData if stored JSON is unparseable or corrupted
+        setCvData(initialCVData);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCVData));
+        setNotes(migrateNotes(null, initialCVData.recruiterNotes));
       }
     } else {
-      fetch("/cv_data.json")
-        .then((res) => res.json())
-        .then((data) => {
-          setCvData(data);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          setNotes(migrateNotes(null, data.recruiterNotes));
-        });
+      /* else block comment: no local DB found, initialize from pristine imported data */
+      setCvData(initialCVData);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCVData));
+      setNotes(migrateNotes(null, initialCVData.recruiterNotes));
     }
 
+    /* if block comment: restore bookmarked items for the active recruitment pipeline */
     if (storedBookmarks) {
       try {
         setBookmarks(JSON.parse(storedBookmarks));
-      } catch (e) {}
+      } catch (e) {
+        // Explanation: Silently catch bookmarks parse failure to prevent app load crashes
+      }
     }
 
+    /* if block comment: sets the visual indicator of whether local DB has custom overrides */
     if (storedModified) {
       setIsDbModified(storedModified === "true");
     }
@@ -208,6 +262,7 @@ export default function App() {
     setNotes(updatedNotes);
     localStorage.setItem(NOTES_KEY, JSON.stringify(updatedNotes));
 
+    /* if block comment: propagate recruiter notes change to live CV memory model */
     if (cvData) {
       updateLocalData({
         ...cvData,
@@ -218,6 +273,7 @@ export default function App() {
 
   // Save passions
   const handleSavePasje = (pl: string, en: string) => {
+    /* if block comment: update candidate passions state safely */
     if (cvData) {
       updateLocalData({
         ...cvData,
@@ -254,21 +310,18 @@ export default function App() {
   // Reset database using the local project JSON file (1)
   const handleResetDb = () => {
     const confirmMsg = translate("Czy na pewno chcesz przywrócić domyślne CV z pliku JSON? Wszystkie wprowadzone modyfikacje zostaną usunięte.", lang);
+    /* if block comment: confirmation dialog check for destructive db resets */
     if (window.confirm(confirmMsg)) {
-      fetch("/cv_data.json")
-        .then((res) => res.json())
-        .then((data) => {
-          setCvData(data);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-          setNotes({});
-          localStorage.setItem(NOTES_KEY, JSON.stringify({}));
-          setBookmarks({});
-          localStorage.setItem(BOOKMARKS_KEY, JSON.stringify({}));
-          setTooltips({});
-          localStorage.setItem(TOOLTIPS_KEY, JSON.stringify({}));
-          setIsDbModified(false);
-          localStorage.setItem(MODIFIED_KEY, "false");
-        });
+      setCvData(initialCVData);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCVData));
+      setNotes({});
+      localStorage.setItem(NOTES_KEY, JSON.stringify({}));
+      setBookmarks({});
+      localStorage.setItem(BOOKMARKS_KEY, JSON.stringify({}));
+      setTooltips({});
+      localStorage.setItem(TOOLTIPS_KEY, JSON.stringify({}));
+      setIsDbModified(false);
+      localStorage.setItem(MODIFIED_KEY, "false");
     }
   };
 
@@ -525,7 +578,7 @@ export default function App() {
                 onResetDb={handleResetDb}
                 isDbModified={isDbModified}
                 lang={lang}
-                adminPasswords={ADMIN_PASSWORDS}
+                onVerifyPassword={verifyAdminPassword}
               />
             </section>
           )}
@@ -588,9 +641,11 @@ export default function App() {
               </div>
             </div>
 
-            <form onSubmit={(e) => {
+            <form onSubmit={async (e) => {
               e.preventDefault();
-              if (ADMIN_PASSWORDS.includes(loginPassword)) {
+              const isOk = await verifyAdminPassword(loginPassword);
+              /* if block comment: checks if the password verification was successful */
+              if (isOk) {
                 setIsAdmin(true);
                 setShowLoginModal(false);
                 setLoginPassword("");

@@ -31,6 +31,22 @@ This file contains a list of key prompts, guidelines, and instructions provided 
 **Treść instrukcji:**
 > Zmodyfikuj sekcję "O aplikacji". Usuń wzmianki o zakładkach rekrutacyjnych, zmień "Cel utworzenia" na uniwersalny i ogólny opis bez cech twórcy, uzupełnij technologie o Google AI Studio i model Gemini 3.5 Flash, dodaj sekcję "O twórcy" oraz sekcję "Użyte prompty" z instrukcją uruchamiania strony.
 
+### Prompt 7: Wzmocnienie bezpieczeństwa uwierzytelniania hasła (Web Crypto API)
+**Treść instrukcji:**
+> Zaimplementuj bezpieczne przechowywanie hasła administratora za pomocą HMAC SHA2-512 i Web Crypto API w pliku "App.tsx". Funkcja testująca poprawność hasła ma znajdować się asynchronicznie w "App.tsx", uniemożliwiając przechowywanie hasła jawnym tekstem.
+
+### Prompt 8: Normalizacja kluczy localStorage i usuwanie prefiksów
+**Treść instrukcji:**
+> Zmień wartości stałych kluczy localStorage, tak aby nie zawierały ciągu "m_sokolowski_" w celu usunięcia zbędnych powiązań personalnych z metadanymi technicznymi.
+
+### Prompt 9: Przeniesienie pliku cv_data.json w bezpieczne miejsce
+**Treść instrukcji:**
+> Przenieś plik cv_data.json z katalogu publicznego do prywatnego katalogu źródłowego "src", aby uniemożliwić jego bezpośrednie pobieranie przez adres URL. Wczytuj dane synchronicznie i offline bezpośrednio z kodu źródłowego.
+
+### Prompt 10: Usprawnienie komentarzy, wzorców projektowych i obsługi błędów
+**Treść instrukcji:**
+> Dodaj komentarze ułatwiające orientację w długich ciągach kodu (if, else, catch, switch), uzupełnij brakujące opisy w blokach catch, opisz zastosowane wzorce projektowe i powody decyzji architektonicznych oraz przetłumacz nagłówki na język angielski.
+
 ---
 
 ## 🇬🇧 ENGLISH
@@ -58,3 +74,19 @@ This file contains a list of key prompts, guidelines, and instructions provided 
 ### Prompt 6: Refactoring and Updating the About Application Page
 **Instruction content:**
 > Modify the "About application" section. Remove mentions of recruiter bookmarks, change "Purpose of creation" to a general and universal description without the creator's characteristics, add Google AI Studio and Gemini 3.5 Flash to technologies, add an "About the Creator" section, and add the "Prompts Used" accordion with self-running instructions.
+
+### Prompt 7: Authentication Security Hardening (Web Crypto API)
+**Instruction content:**
+> Implement secure admin password storage using HMAC SHA2-512 and the Web Crypto API inside "App.tsx". The verification function must run asynchronously within "App.tsx", eliminating plain text password storage in the client bundle.
+
+### Prompt 8: LocalStorage Keys Normalization and Prefix Removal
+**Instruction content:**
+> Change persistent localStorage constants to prevent containing the "m_sokolowski_" string, isolating technical state metadata from personal identifying prefixes.
+
+### Prompt 9: Moving cv_data.json to a Secure Location
+**Instruction content:**
+> Move the cv_data.json file from the public directory to a private "src" source folder, preventing direct HTTP access via a public URL. Load the initial data synchronously and 100% offline from the bundle.
+
+### Prompt 10: Enhancing Code Comments, Design Patterns, and Catch Blocks
+**Instruction content:**
+> Add structural navigation comments to help orientation inside long code blocks (if, else, catch, switch), document catch blocks with clear rationale comments, explain utilized design patterns, and translate header comments into English.

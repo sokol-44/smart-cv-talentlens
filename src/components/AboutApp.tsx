@@ -1,8 +1,8 @@
 /**
- * Autor: Michał Sokołowski
+ * Author: Michał Sokołowski
  * Generator: Google AIStudio
- * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
- * Licencja: AGPL v3
+ * AI/LLM Model Used: Gemini 3.5 Flash (in Google AI Studio)
+ * License: AGPL v3
  */
 
 import React, { useState } from "react";
@@ -67,6 +67,34 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
       titleEn: "Refactoring and updating the About application page",
       descPl: "Zmodyfikuj sekcję 'O aplikacji'. Usuń wzmianki o zakładkach rekrutacyjnych, zmień 'Cel utworzenia' na uniwersalny i ogólny opis bez cech twórcy, uzupełnij technologie o Google AI Studio i model Gemini 3.5 Flash, dodaj sekcję 'O twórcy' oraz sekcję 'Użyte prompty' z instrukcją uruchamiania strony.",
       descEn: "Modify the 'About application' section. Remove mentions of recruiter bookmarks, change 'Purpose of creation' to a general and universal description without the creator's characteristics, add Google AI Studio and Gemini 3.5 Flash to technologies, add an 'About the Creator' section, and add the 'Prompts Used' accordion with self-running instructions."
+    },
+    {
+      id: "prompt_6",
+      titlePl: "Szyfrowanie hasła (Web Crypto API)",
+      titleEn: "Password Hashing (Web Crypto API)",
+      descPl: "Zaimplementuj bezpieczne przechowywanie hasła administratora za pomocą HMAC SHA2-512 i Web Crypto API w pliku 'App.tsx'. Funkcja testująca poprawność hasła ma znajdować się asynchronicznie w 'App.tsx', uniemożliwiając przechowywanie hasła jawnym tekstem.",
+      descEn: "Implement secure admin password storage using HMAC SHA2-512 and the Web Crypto API inside 'App.tsx'. The verification function must run asynchronously within 'App.tsx', eliminating plain text password storage in the client bundle."
+    },
+    {
+      id: "prompt_7",
+      titlePl: "Normalizacja kluczy localStorage",
+      titleEn: "LocalStorage Keys Normalization",
+      descPl: "Zmień wartości stałych kluczy localStorage, tak aby nie zawierały ciągu 'm_sokolowski_' w celu usunięcia zbędnych powiązań personalnych z metadanymi technicznymi.",
+      descEn: "Change persistent localStorage constants to prevent containing the 'm_sokolowski_' string, isolating technical state metadata from personal identifying prefixes."
+    },
+    {
+      id: "prompt_8",
+      titlePl: "Prywatność i bezpieczeństwo bazy cv_data.json",
+      titleEn: "Privacy and Security of cv_data.json",
+      descPl: "Przenieś plik cv_data.json z katalogu publicznego do prywatnego katalogu źródłowego 'src', aby uniemożliwić jego bezpośrednie pobieranie przez adres URL. Wczytuj dane synchronicznie i offline bezpośrednio z kodu źródłowego.",
+      descEn: "Move the cv_data.json file from the public directory to a private 'src' source folder, preventing direct HTTP access via a public URL. Load the initial data synchronously and 100% offline from the bundle."
+    },
+    {
+      id: "prompt_9",
+      titlePl: "Usprawnienie kodu i komentarzy",
+      titleEn: "Enhancing Code Comments & Catch Blocks",
+      descPl: "Dodaj komentarze ułatwiające orientację w długich ciągach kodu (if, else, catch, switch), uzupełnij brakujące opisy w blokach catch, opisz zastosowane wzorce projektowe i powody decyzji architektonicznych oraz przetłumacz nagłówki na język angielski.",
+      descEn: "Add structural navigation comments to help orientation inside long code blocks (if, else, catch, switch), document catch blocks with clear rationale comments, explain utilized design patterns, and translate header comments into English."
     }
   ];
 

@@ -257,7 +257,7 @@ export const staticTranslations: Record<string, string> = {
  */
 export function getCustomTranslations(): Record<string, string> {
   try {
-    const stored = localStorage.getItem("m_sokolowski_cv_custom_translations");
+    const stored = localStorage.getItem("cv_custom_translations");
     return stored ? JSON.parse(stored) : {};
   } catch (e) {
     return {};
@@ -272,7 +272,7 @@ export function saveCustomTranslation(original: string, translation: string) {
   try {
     const custom = getCustomTranslations();
     custom[original] = translation;
-    localStorage.setItem("m_sokolowski_cv_custom_translations", JSON.stringify(custom));
+    localStorage.setItem("cv_custom_translations", JSON.stringify(custom));
   } catch (e) {
     console.error("Failed to save custom translation", e);
   }

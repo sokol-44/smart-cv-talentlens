@@ -1,8 +1,8 @@
 /**
- * Autor: Michał Sokołowski
+ * Author: Michał Sokołowski
  * Generator: Google AIStudio
- * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
- * Licencja: AGPL v3
+ * AI/LLM Model Used: Gemini 3.5 Flash (in Google AI Studio)
+ * License: AGPL v3
  */
 
 import React, { useState, useRef } from "react";
@@ -21,7 +21,7 @@ interface LocalDbAdminProps {
   onResetDb: () => void;
   isDbModified: boolean;
   lang: "pl" | "en";
-  adminPasswords: string[];
+  onVerifyPassword: (password: string) => Promise<boolean>;
 }
 
 /**
@@ -38,7 +38,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
   onResetDb,
   isDbModified,
   lang,
-  adminPasswords,
+  onVerifyPassword,
 }) => {
   const [activeTable, setActiveTable] = useState<"employment" | "projects" | "certificates" | "skills">("employment");
   const [importStatus, setImportStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
@@ -49,9 +49,11 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [passError, setPassError] = useState("");
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (adminPasswords.includes(password)) {
+    const isOk = await onVerifyPassword(password);
+    /* if block comment: sets authenticated status if the security check passes */
+    if (isOk) {
       setIsAuthenticated(true);
       setPassError("");
     } else {
@@ -64,7 +66,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cvData, null, 2));
     const downloadAnchor = document.createElement("a");
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `m_sokolowski_cv_database_${new Date().toISOString().slice(0, 10)}.json`);
+    downloadAnchor.setAttribute("download", `cv_database_${new Date().toISOString().slice(0, 10)}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();

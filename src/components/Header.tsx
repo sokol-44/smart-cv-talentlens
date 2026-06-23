@@ -1,8 +1,8 @@
 /**
- * Autor: Michał Sokołowski
+ * Author: Michał Sokołowski
  * Generator: Google AIStudio
- * Użyty model AI/LLM: Gemini 3.5 Flash (w Google AI Studio)
- * Licencja: AGPL v3
+ * AI/LLM Model Used: Gemini 3.5 Flash (in Google AI Studio)
+ * License: AGPL v3
  */
 
 import React from "react";
