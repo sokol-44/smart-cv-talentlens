@@ -1,0 +1,649 @@
+import { useState, useEffect, useMemo } from "react";
+import { CVData, Zatrudnienie, Projekt, Certyfikat, LocalBookmarks, LocalNotes } from "./types";
+import { initialCVData } from "./initialData";
+
+import { Header } from "./components/Header";
+import { TechDictionary } from "./components/TechDictionary";
+import { ZatrudnienieList } from "./components/ZatrudnienieList";
+import { ProjektyList } from "./components/ProjektyList";
+import { CertyfikatyList } from "./components/CertyfikatyList";
+import { EducationAndHobbies } from "./components/EducationAndHobbies";
+import { RecruiterMatch } from "./components/RecruiterMatch";
+import { LocalDbAdmin } from "./components/LocalDbAdmin";
+import { EditModals } from "./components/EditModals";
+import { AboutApp } from "./components/AboutApp";
+
+import {
+  UserCheck,
+  Briefcase,
+  FolderGit2,
+  Award,
+  Tag,
+  Database,
+  FileJson,
+  CheckCircle,
+  HelpCircle,
+  Info,
+  Settings,
+} from "lucide-react";
+
+const STORAGE_KEY = "m_sokolowski_cv_db";
+const NOTES_KEY = "m_sokolowski_cv_notes";
+const BOOKMARKS_KEY = "m_sokolowski_cv_bookmarks";
+const MODIFIED_KEY = "m_sokolowski_cv_modified";
+const LANG_KEY = "m_sokolowski_cv_lang";
+const TOOLTIPS_KEY = "m_sokolowski_cv_tooltips";
+
+import { translate } from "./utils/translations";
+
+/**
+ * Main application component.
+ * Manages the state of CV data, user-added notes, bookmarked entries, active tabs, and modals.
+ * Handles persistence to local storage and provides interfaces for CRUD operations on CV sub-entities.
+ *
+ * @returns {JSX.Element} The rendered React app layout.
+ */
+export default function App() {
+  const [cvData, setCvData] = useState<CVData | null>(null);
+  const [notes, setNotes] = useState<LocalNotes>({});
+  const [bookmarks, setBookmarks] = useState<LocalBookmarks>({});
+  const [isDbModified, setIsDbModified] = useState(false);
+  const [activeTab, setActiveTab] = useState<"match" | "jobs" | "projects" | "certs" | "dictionary" | "about" | "admin">("match");
+  const [lang, setLang] = useState<"pl" | "en">("pl");
+  const [tooltips, setTooltips] = useState<Record<string, string>>({});
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [loginPassword, setLoginPassword] = useState("");
+  const [loginError, setLoginError] = useState("");
+
+  // Modals state
+  const [editingJob, setEditingJob] = useState<Zatrudnienie | null>(null);
+  const [editingProject, setEditingProject] = useState<Projekt | null>(null);
+  const [editingCert, setEditingCert] = useState<Certyfikat | null>(null);
+
+  // Helper to migrate legacy notes to translated objects
+  const migrateNotes = (rawNotesStr: string | null, parsedCvDataNotes?: any): LocalNotes => {
+    let result: LocalNotes = {};
+    if (parsedCvDataNotes && typeof parsedCvDataNotes === "object") {
+      Object.keys(parsedCvDataNotes).forEach((k) => {
+        const val = parsedCvDataNotes[k];
+        if (typeof val === "string") {
+          result[k] = { pl: val, en: "" };
+        } else if (val && typeof val === "object" && ("pl" in val || "en" in val)) {
+          result[k] = val;
+        }
+      });
+      return result;
+    }
+    if (rawNotesStr) {
+      try {
+        const parsed = JSON.parse(rawNotesStr);
+        Object.keys(parsed).forEach((k) => {
+          const val = parsed[k];
+          if (typeof val === "string") {
+            result[k] = { pl: val, en: "" };
+          } else if (val && typeof val === "object" && ("pl" in val || "en" in val)) {
+            result[k] = val;
+          }
+        });
+      } catch (e) {}
+    }
+    return result;
+  };
+
+  // Initialize data from local database (localStorage) or local project JSON (1)
+  useEffect(() => {
+    const storedDb = localStorage.getItem(STORAGE_KEY);
+    const storedNotes = localStorage.getItem(NOTES_KEY);
+    const storedBookmarks = localStorage.getItem(BOOKMARKS_KEY);
+    const storedModified = localStorage.getItem(MODIFIED_KEY);
+    const storedLang = localStorage.getItem(LANG_KEY) as "pl" | "en" | null;
+    const storedTooltips = localStorage.getItem(TOOLTIPS_KEY);
+
+    if (storedLang) {
+      setLang(storedLang);
+    }
+
+    if (storedTooltips) {
+      try {
+        setTooltips(JSON.parse(storedTooltips));
+      } catch (e) {}
+    }
+
+    if (storedDb) {
+      try {
+        const parsed = JSON.parse(storedDb);
+        // Ensure all required sections are present and are arrays
+        if (
+          parsed &&
+          parsed.osoba &&
+          Array.isArray(parsed.zatrudnienie) &&
+          Array.isArray(parsed.glowne_projekty) &&
+          Array.isArray(parsed.umiejetnosci) &&
+          Array.isArray(parsed.dodatkowe_kursy_i_certyfikaty) &&
+          Array.isArray(parsed.edukacja) &&
+          Array.isArray(parsed.dodatkowe_umiejetnosci_i_hobby) &&
+          parsed.slowniki_uzytych_technologii
+        ) {
+          setCvData(parsed);
+          setNotes(migrateNotes(storedNotes, parsed.recruiter_notes));
+        } else {
+          // If incomplete schema is present, reset it with initial data from JSON
+          fetch("/cv_data.json")
+            .then((res) => res.json())
+            .then((data) => {
+              setCvData(data);
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+              setNotes(migrateNotes(null, data.recruiter_notes));
+            });
+        }
+      } catch (e) {
+        fetch("/cv_data.json")
+          .then((res) => res.json())
+          .then((data) => {
+            setCvData(data);
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            setNotes(migrateNotes(null, data.recruiter_notes));
+          });
+      }
+    } else {
+      fetch("/cv_data.json")
+        .then((res) => res.json())
+        .then((data) => {
+          setCvData(data);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          setNotes(migrateNotes(null, data.recruiter_notes));
+        });
+    }
+
+    if (storedBookmarks) {
+      try {
+        setBookmarks(JSON.parse(storedBookmarks));
+      } catch (e) {}
+    }
+
+    if (storedModified) {
+      setIsDbModified(storedModified === "true");
+    }
+  }, []);
+
+  // Toggle language
+  const handleToggleLang = (newLang: "pl" | "en") => {
+    setLang(newLang);
+    localStorage.setItem(LANG_KEY, newLang);
+  };
+
+  // Save Tooltip Comment
+  const handleSaveTooltip = (key: string, val: string) => {
+    const updated = { ...tooltips, [key]: val };
+    setTooltips(updated);
+    localStorage.setItem(TOOLTIPS_KEY, JSON.stringify(updated));
+  };
+
+  // Save updates to localStorage helper
+  const updateLocalData = (newCvData: CVData) => {
+    setCvData(newCvData);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newCvData));
+    setIsDbModified(true);
+    localStorage.setItem(MODIFIED_KEY, "true");
+  };
+
+  // Toggle Bookmark
+  const handleToggleBookmark = (id: string) => {
+    const updated = { ...bookmarks, [id]: !bookmarks[id] };
+    setBookmarks(updated);
+    localStorage.setItem(BOOKMARKS_KEY, JSON.stringify(updated));
+  };
+
+  // Save Recruiter Note
+  const handleSaveNote = (id: string, textPl: string, textEn: string) => {
+    const updatedNotes = { ...notes, [id]: { pl: textPl, en: textEn } };
+    setNotes(updatedNotes);
+    localStorage.setItem(NOTES_KEY, JSON.stringify(updatedNotes));
+
+    if (cvData) {
+      updateLocalData({
+        ...cvData,
+        recruiter_notes: updatedNotes,
+      });
+    }
+  };
+
+  // Save passions
+  const handleSavePasje = (pl: string, en: string) => {
+    if (cvData) {
+      updateLocalData({
+        ...cvData,
+        osoba: {
+          ...cvData.osoba,
+          pasje: { pl, en },
+        },
+      });
+    }
+  };
+
+  // CRUD Save operations
+  const handleSaveJob = (updatedJob: Zatrudnienie) => {
+    if (!cvData) return;
+    const updatedJobs = cvData.zatrudnienie.map((j) => (j.id === updatedJob.id ? updatedJob : j));
+    updateLocalData({ ...cvData, zatrudnienie: updatedJobs });
+    setEditingJob(null);
+  };
+
+  const handleSaveProject = (updatedProj: Projekt) => {
+    if (!cvData) return;
+    const updatedProjs = cvData.glowne_projekty.map((p) => (p.id === updatedProj.id ? updatedProj : p));
+    updateLocalData({ ...cvData, glowne_projekty: updatedProjs });
+    setEditingProject(null);
+  };
+
+  const handleSaveCert = (updatedCert: Certyfikat) => {
+    if (!cvData) return;
+    const updatedCerts = cvData.dodatkowe_kursy_i_certyfikaty.map((c) => (c.id === updatedCert.id ? updatedCert : c));
+    updateLocalData({ ...cvData, dodatkowe_kursy_i_certyfikaty: updatedCerts });
+    setEditingCert(null);
+  };
+
+  // Reset database using the local project JSON file (1)
+  const handleResetDb = () => {
+    const confirmMsg = translate("Czy na pewno chcesz przywrócić domyślne CV z pliku JSON? Wszystkie wprowadzone modyfikacje zostaną usunięte.", lang);
+    if (window.confirm(confirmMsg)) {
+      fetch("/cv_data.json")
+        .then((res) => res.json())
+        .then((data) => {
+          setCvData(data);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+          setNotes({});
+          localStorage.setItem(NOTES_KEY, JSON.stringify({}));
+          setBookmarks({});
+          localStorage.setItem(BOOKMARKS_KEY, JSON.stringify({}));
+          setTooltips({});
+          localStorage.setItem(TOOLTIPS_KEY, JSON.stringify({}));
+          setIsDbModified(false);
+          localStorage.setItem(MODIFIED_KEY, "false");
+        });
+    }
+  };
+
+  // Import uploaded JSON CV
+  const handleImportDb = (newData: CVData) => {
+    setCvData(newData);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+    setIsDbModified(true);
+    localStorage.setItem(MODIFIED_KEY, "true");
+  };
+
+  // Calculate stats for Header dashboard
+  const dbStats = useMemo(() => {
+    if (!cvData) return { jobsCount: 0, projectsCount: 0, skillsCount: 0, certsCount: 0 };
+    return {
+      jobsCount: cvData.zatrudnienie.length,
+      projectsCount: cvData.glowne_projekty.length,
+      skillsCount: cvData.umiejetnosci.length,
+      certsCount: cvData.dodatkowe_kursy_i_certyfikaty.length,
+    };
+  }, [cvData]);
+
+  if (!cvData) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center font-mono text-sm text-slate-500">
+        Inicjalizacja lokalnej bazy danych...
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50/50 text-slate-800 font-sans">
+      <div className="max-w-7xl mx-auto px-4 py-6 md:py-10 space-y-8 print:p-0">
+        {/* Dynamic header and summary statistics card */}
+        <Header
+          osoba={cvData.osoba}
+          stats={dbStats}
+          onResetDb={handleResetDb}
+          isDbModified={isDbModified}
+          lang={lang}
+          zatrudnienie={cvData.zatrudnienie}
+          glowne_projekty={cvData.glowne_projekty}
+          dodatkowe_kursy_i_certyfikaty={cvData.dodatkowe_kursy_i_certyfikaty}
+          umiejetnosci={cvData.umiejetnosci}
+          onToggleLang={handleToggleLang}
+        />
+
+        {/* Tab Navigation */}
+        <div className="flex border-b border-slate-200 overflow-x-auto gap-2 py-1 scrollbar-none print:hidden">
+          <button
+            onClick={() => setActiveTab("match")}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition cursor-pointer shrink-0 ${
+              activeTab === "match"
+                ? "bg-slate-900 text-white shadow-sm"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            <UserCheck className="w-4 h-4" />
+            <span>{translate("Dopasowanie & Rekrutacja", lang)}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("jobs")}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition cursor-pointer shrink-0 ${
+              activeTab === "jobs"
+                ? "bg-slate-900 text-white shadow-sm"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            <Briefcase className="w-4 h-4" />
+            <span>{translate("Zatrudnienie", lang)}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("projects")}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition cursor-pointer shrink-0 ${
+              activeTab === "projects"
+                ? "bg-slate-900 text-white shadow-sm"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            <FolderGit2 className="w-4 h-4" />
+            <span>{translate("Projekty", lang)}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("certs")}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition cursor-pointer shrink-0 ${
+              activeTab === "certs"
+                ? "bg-slate-900 text-white shadow-sm"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            <Award className="w-4 h-4" />
+            <span>{translate("Szkolenia & Edukacja", lang)}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("dictionary")}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition cursor-pointer shrink-0 ${
+              activeTab === "dictionary"
+                ? "bg-slate-900 text-white shadow-sm"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            <Tag className="w-4 h-4" />
+            <span>{translate("Słownik Technologii", lang)}</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab("about")}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition cursor-pointer shrink-0 ${
+              activeTab === "about"
+                ? "bg-slate-900 text-white shadow-sm"
+                : "text-slate-600 hover:bg-slate-100"
+            }`}
+          >
+            <Info className="w-4 h-4" />
+            <span>{translate("O aplikacji", lang)}</span>
+          </button>
+
+          {isAdmin && (
+            <button
+              onClick={() => setActiveTab("admin")}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl font-medium text-sm transition cursor-pointer shrink-0 ml-auto ${
+                activeTab === "admin"
+                  ? "bg-slate-900 text-white shadow-sm"
+                  : "text-indigo-650 bg-indigo-50/50 hover:bg-indigo-100/50"
+              }`}
+            >
+              <Database className="w-4 h-4" />
+              <span>{translate("Zarządzanie Bazą", lang)}</span>
+            </button>
+          )}
+        </div>
+
+        {/* Print support disabled (5) */}
+
+        {/* Tab Contents */}
+        <main className="space-y-8 min-h-[400px]">
+          {activeTab === "match" && (
+            <section className="print:block space-y-8">
+              <RecruiterMatch cvData={cvData} lang={lang} />
+              {/* Also display bookmarks summary here for the recruiter */}
+              {Object.keys(bookmarks).some((k) => bookmarks[k]) && (
+                <div className="bg-amber-500/10 border border-amber-500/20 rounded-3xl p-6 print:block">
+                  <h3 className="text-lg font-bold text-slate-900 flex items-center gap-2 mb-2">
+                    <CheckCircle className="w-5 h-5 text-amber-500" />
+                    {translate("Wybrane i zapisane sekcje (Zakładki rekrutacyjne)", lang)}
+                  </h3>
+                  <p className="text-xs text-slate-500 mb-4">
+                    {translate("Poniższe elementy zostały zaznaczone jako istotne podczas analizy CV:", lang)}
+                  </p>
+                  <div className="space-y-3">
+                    {cvData.zatrudnienie.filter((j) => bookmarks[j.id]).map((j) => (
+                      <div key={j.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-xs flex justify-between items-center">
+                        <div>
+                          <strong className="text-slate-800">{Array.isArray(j.stanowisko) ? j.stanowisko.map(s => translate(s, lang)).join(", ") : translate(j.stanowisko, lang)}</strong> w <span className="font-semibold text-slate-600">{j.firma}</span>
+                        </div>
+                        <span className="text-[10px] bg-amber-100 text-amber-800 font-mono px-2 py-0.5 rounded">{translate("Zatrudnienie", lang)}</span>
+                      </div>
+                    ))}
+                    {cvData.glowne_projekty.filter((p) => bookmarks[p.id]).map((p) => (
+                      <div key={p.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-xs flex justify-between items-center">
+                        <div>
+                          {translate("Projekt", lang)} <strong className="text-slate-800">{p.nazwa}</strong>
+                        </div>
+                        <span className="text-[10px] bg-amber-100 text-amber-800 font-mono px-2 py-0.5 rounded">{translate("Projekt", lang)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
+
+          {activeTab === "jobs" && (
+            <section className="print:block">
+              <ZatrudnienieList
+                jobs={cvData.zatrudnienie}
+                bookmarks={bookmarks}
+                onToggleBookmark={handleToggleBookmark}
+                notes={notes}
+                onSaveNote={handleSaveNote}
+                onEditJob={(job) => setEditingJob(job)}
+                lang={lang}
+                tooltips={tooltips}
+                onSaveTooltip={handleSaveTooltip}
+                isAdmin={isAdmin}
+              />
+            </section>
+          )}
+
+          {activeTab === "projects" && (
+            <section className="print:block">
+              <ProjektyList
+                projects={cvData.glowne_projekty}
+                bookmarks={bookmarks}
+                onToggleBookmark={handleToggleBookmark}
+                notes={notes}
+                onSaveNote={handleSaveNote}
+                onEditProject={(p) => setEditingProject(p)}
+                lang={lang}
+                tooltips={tooltips}
+                onSaveTooltip={handleSaveTooltip}
+                isAdmin={isAdmin}
+              />
+            </section>
+          )}
+
+          {activeTab === "certs" && (
+            <section className="print:block space-y-12">
+              <CertyfikatyList
+                certs={cvData.dodatkowe_kursy_i_certyfikaty}
+                bookmarks={bookmarks}
+                onToggleBookmark={handleToggleBookmark}
+                notes={notes}
+                onSaveNote={handleSaveNote}
+                onEditCert={(c) => setEditingCert(c)}
+                lang={lang}
+                isAdmin={isAdmin}
+              />
+              <hr className="border-slate-200" />
+              <EducationAndHobbies
+                education={cvData.edukacja}
+                hobbies={cvData.dodatkowe_umiejetnosci_i_hobby}
+                lang={lang}
+                pasje={cvData.osoba.pasje}
+                isAdmin={isAdmin}
+                onSavePasje={handleSavePasje}
+              />
+            </section>
+          )}
+
+          {activeTab === "dictionary" && (
+            <section className="print:hidden">
+              <TechDictionary
+                slownik={cvData.slowniki_uzytych_technologii}
+                cvData={cvData}
+                lang={lang}
+              />
+            </section>
+          )}
+
+          {activeTab === "about" && (
+            <section className="print:block">
+              <AboutApp lang={lang} />
+            </section>
+          )}
+
+          {activeTab === "admin" && isAdmin && (
+            <section className="print:hidden">
+              <LocalDbAdmin
+                cvData={cvData}
+                onImportDb={handleImportDb}
+                onResetDb={handleResetDb}
+                isDbModified={isDbModified}
+                lang={lang}
+              />
+            </section>
+          )}
+        </main>
+
+        {/* Footer info block */}
+        <footer className="pt-8 pb-12 border-t border-slate-200 text-center text-xs text-slate-400 print:hidden flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p>© {new Date().getFullYear()} Michał Sokołowski. {translate("Wszystkie prawa zastrzeżone.", lang)}</p>
+          
+          <div className="flex items-center gap-2">
+            {isAdmin ? (
+              <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl border border-emerald-200/50 shadow-xs">
+                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                <span className="font-semibold text-[10px] tracking-wide">ADMIN MODE</span>
+                <span className="text-slate-300">|</span>
+                <button
+                  onClick={() => {
+                    setIsAdmin(false);
+                    if (activeTab === "admin") {
+                      setActiveTab("match");
+                    }
+                  }}
+                  className="text-indigo-650 hover:text-indigo-800 transition cursor-pointer font-bold text-[10px]"
+                >
+                  {lang === "pl" ? "Wyloguj" : "Logout"}
+                </button>
+                <span className="text-slate-300">|</span>
+                <button
+                  onClick={() => setActiveTab("admin")}
+                  className="text-indigo-650 hover:text-indigo-800 font-bold text-[10px] underline cursor-pointer"
+                >
+                  {translate("Baza danych", lang)}
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowLoginModal(true)}
+                className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition cursor-pointer"
+                title="Database Admin Access"
+                id="admin-gear-button"
+              >
+                <Settings className="w-5 h-5" />
+              </button>
+            )}
+          </div>
+        </footer>
+      </div>
+
+      {/* Admin Password Login Modal */}
+      {showLoginModal && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-slate-100 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-2xl">
+                <Settings className="w-6 h-6 animate-spin-slow" />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 text-sm">{translate("Logowanie Administratora", lang)}</h3>
+                <p className="text-[11px] text-slate-400">{translate("Podaj hasło, aby wejść w tryb edycji.", lang)}</p>
+              </div>
+            </div>
+
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              if (loginPassword === "admin" || loginPassword === "m_sokolowski") {
+                setIsAdmin(true);
+                setShowLoginModal(false);
+                setLoginPassword("");
+                setLoginError("");
+              } else {
+                setLoginError(lang === "pl" ? "Niepoprawne hasło!" : "Incorrect password!");
+              }
+            }} className="space-y-3">
+              <div>
+                <input
+                  type="password"
+                  value={loginPassword}
+                  onChange={(e) => setLoginPassword(e.target.value)}
+                  placeholder={translate("Hasło...", lang)}
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  autoFocus
+                />
+                {loginError && <p className="text-[10px] text-red-500 mt-1 font-semibold">{loginError}</p>}
+              </div>
+
+              <div className="flex justify-end gap-2 pt-1">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowLoginModal(false);
+                    setLoginPassword("");
+                    setLoginError("");
+                  }}
+                  className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer"
+                >
+                  {translate("Anuluj", lang)}
+                </button>
+                <button
+                  type="submit"
+                  className="px-3 py-1.5 bg-slate-900 text-white rounded-xl text-xs font-semibold hover:bg-slate-800 transition cursor-pointer"
+                >
+                  {translate("Zaloguj", lang)}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Form Modals */}
+      <EditModals
+        jobToEdit={editingJob}
+        projectToEdit={editingProject}
+        certToEdit={editingCert}
+        onClose={() => {
+          setEditingJob(null);
+          setEditingProject(null);
+          setEditingCert(null);
+        }}
+        onSaveJob={handleSaveJob}
+        onSaveProject={handleSaveProject}
+        onSaveCert={handleSaveCert}
+        lang={lang}
+      />
+    </div>
+  );
+}

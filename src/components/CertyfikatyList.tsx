@@ -1,0 +1,287 @@
+import React, { useState, useMemo } from "react";
+import { Certyfikat, LocalBookmarks, LocalNotes } from "../types";
+import { Award, Calendar, Clock, Search, Bookmark, MessageSquare, Save, Settings, ShieldCheck } from "lucide-react";
+import { motion } from "motion/react";
+import { translate } from "../utils/translations";
+import { SupplementaryText } from "../utils/parentheses";
+
+/**
+ * Props for the CertyfikatyList component.
+ *
+ * @interface CertyfikatyListProps
+ */
+interface CertyfikatyListProps {
+  certs: Certyfikat[];
+  bookmarks: LocalBookmarks;
+  onToggleBookmark: (id: string) => void;
+  notes: LocalNotes;
+  onSaveNote: (id: string, textPl: string, textEn: string) => void;
+  onEditCert: (cert: Certyfikat) => void;
+  lang: "pl" | "en";
+  isAdmin?: boolean;
+}
+
+/**
+ * Component displaying the list of additional courses and certifications with search and recruitment note functions.
+ * Allows filtering, bookmarking, and local modification of each item.
+ *
+ * @param {CertyfikatyListProps} props - Component props.
+ * @returns {JSX.Element} The rendered certifications list component.
+ */
+export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
+  certs,
+  bookmarks,
+  onToggleBookmark,
+  notes,
+  onSaveNote,
+  onEditCert,
+  lang,
+  isAdmin = false,
+}) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeNoteCertId, setActiveNoteCertId] = useState<string | null>(null);
+  const [noteTextPl, setNoteTextPl] = useState("");
+  const [noteTextEn, setNoteTextEn] = useState("");
+  const [selectedYear, setSelectedYear] = useState<string>("all");
+
+  const handleOpenNote = (id: string) => {
+    setActiveNoteCertId(id);
+    setNoteTextPl(notes[id]?.pl || "");
+    setNoteTextEn(notes[id]?.en || "");
+  };
+
+  const handleSaveNote = (id: string) => {
+    onSaveNote(id, noteTextPl, noteTextEn);
+    setActiveNoteCertId(null);
+  };
+
+  const availableYears = useMemo(() => {
+    const years = new Set<string>();
+    certs.forEach((c) => {
+      const yr = c.data.slice(-4);
+      if (/^\d{4}$/.test(yr)) {
+        years.add(yr);
+      }
+    });
+    return Array.from(years).sort((a, b) => b.localeCompare(a));
+  }, [certs]);
+
+  const filteredCerts = useMemo(() => {
+    return certs.filter((c) => {
+      const yr = c.data.slice(-4);
+      const matchesYear = selectedYear === "all" || yr === selectedYear;
+      if (!matchesYear) return false;
+
+      const transName = translate(c.nazwa, lang);
+      const transInst = c.instytucja;
+      const transInfo = c.informacje ? translate(c.informacje, lang) : "";
+
+      const matchText =
+        transName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        transInst.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        transInfo.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchTech =
+        c.technologie_i_obowiazki &&
+        c.technologie_i_obowiazki.some((t) => t.toLowerCase().includes(searchTerm.toLowerCase()));
+
+      return matchText || matchTech;
+    });
+  }, [certs, searchTerm, selectedYear, lang]);
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <Award className="w-6 h-6 text-purple-600" />
+            {translate("Dodatkowe Kursy i Certyfikaty", lang)}
+          </h2>
+          <p className="text-xs text-slate-500 mt-1">
+            {translate("Lista szkoleń z zakresu AI, zarządzania projektami (PMI), systemów Linux (SUSE, LPI) i cyberbezpieczeństwa.", lang)}
+          </p>
+        </div>
+
+        {/* Search & Year filters */}
+        <div className="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+          {/* Year Filter */}
+          <div className="relative">
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(e.target.value)}
+              className="appearance-none bg-white border border-slate-200 rounded-xl px-4 py-1.5 pr-8 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+            >
+              <option value="all">{translate("Wszystkie lata", lang)}</option>
+              {availableYears.map((yr) => (
+                <option key={yr} value={yr}>
+                  {yr}
+                </option>
+              ))}
+            </select>
+            <div className="pointer-events-none absolute inset-y-0 right-2 flex items-center text-slate-400">
+              <Calendar className="w-3.5 h-3.5" />
+            </div>
+          </div>
+
+          {/* Search Input */}
+          <div className="relative max-w-xs w-full sm:w-64">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder={translate("Szukaj certyfikatów...", lang)}
+              className="w-full pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {filteredCerts.map((c) => {
+          const isBookmarked = !!bookmarks[c.id];
+          const hasNote = !!(notes[c.id]?.pl || notes[c.id]?.en);
+
+          return (
+            <div
+              key={c.id}
+              className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs hover:shadow-md transition flex flex-col justify-between"
+            >
+              <div>
+                {/* Header */}
+                <div className="flex items-start justify-between gap-3 mb-2">
+                  <div className="flex gap-2.5 items-start">
+                    <div className="p-1.5 bg-purple-50 text-purple-600 rounded-lg shrink-0 border border-purple-100 mt-0.5">
+                      <ShieldCheck className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-sm text-slate-900 leading-tight">
+                        {translate(c.nazwa, lang)}
+                      </h3>
+                      <div className="text-xs font-semibold text-slate-500 mt-0.5">
+                        {c.instytucja}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  {isAdmin && (
+                    <div className="flex gap-1 shrink-0">
+                      <button
+                        onClick={() => handleOpenNote(c.id)}
+                        className={`p-1.5 rounded-lg border transition cursor-pointer ${
+                          hasNote
+                            ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-600"
+                            : "bg-slate-50 hover:bg-slate-100 border-slate-200 text-slate-400"
+                        }`}
+                        title={translate("Notatka rekrutera", lang)}
+                      >
+                        <MessageSquare className="w-3.5 h-3.5" />
+                      </button>
+
+                      <button
+                        onClick={() => onEditCert(c)}
+                        className="p-1.5 rounded-lg bg-slate-50 hover:bg-purple-50 hover:text-purple-600 border border-slate-200 hover:border-purple-200 text-slate-400 transition cursor-pointer"
+                        title={translate("Edytuj dane", lang)}
+                      >
+                        <Settings className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Subtitle / time */}
+                <div className="flex flex-wrap gap-3 mb-3 text-[11px] font-mono text-slate-400">
+                  <span className="flex items-center gap-1">
+                    <Calendar className="w-3 h-3" />
+                    {c.data}
+                  </span>
+                  {c.czas_trwania_godziny && (
+                    <span className="flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {c.czas_trwania_godziny} {lang === "pl" ? "godz." : "hrs"}
+                    </span>
+                  )}
+                </div>
+
+                {/* Recruiter custom notes */}
+                {isAdmin && hasNote && activeNoteCertId !== c.id && (
+                  <div className="mb-3 p-2 bg-emerald-50/50 border border-emerald-100/60 rounded-xl text-xs text-slate-600">
+                    <span className="font-bold text-emerald-700 font-mono text-[10px]">{translate("NOTATKA:", lang)}</span>
+                    <p className="italic">{notes[c.id]?.[lang] || notes[c.id]?.pl || notes[c.id]?.en}</p>
+                  </div>
+                )}
+
+                {/* Custom Note Editor */}
+                {isAdmin && activeNoteCertId === c.id && (
+                  <div className="mb-3 p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-2">
+                    <div>
+                      <label className="block text-[10px] font-bold text-emerald-800 uppercase mb-0.5">
+                        {translate("Komentarz do tego szkolenia:", lang)} (PL)
+                      </label>
+                      <textarea
+                        value={noteTextPl}
+                        onChange={(e) => setNoteTextPl(e.target.value)}
+                        placeholder="Polski komentarz..."
+                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        rows={1}
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-[10px] font-bold text-emerald-800 uppercase mb-0.5">
+                        {translate("Komentarz do tego szkolenia:", lang)} (EN)
+                      </label>
+                      <textarea
+                        value={noteTextEn}
+                        onChange={(e) => setNoteTextEn(e.target.value)}
+                        placeholder="English comment..."
+                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        rows={1}
+                      />
+                    </div>
+                    <div className="flex justify-end gap-2 pt-1">
+                      <button
+                        onClick={() => setActiveNoteCertId(null)}
+                        className="px-2 py-0.5 text-xs text-slate-500 hover:underline cursor-pointer"
+                      >
+                        {translate("Anuluj", lang)}
+                      </button>
+                      <button
+                        onClick={() => handleSaveNote(c.id)}
+                        className="flex items-center gap-1 px-2.5 py-0.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer"
+                      >
+                        <Save className="w-3 h-3" />
+                        <span>{translate("Zapisz", lang)}</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Info text */}
+                {c.informacje && (
+                  <div className="text-xs text-slate-600 leading-relaxed mb-3">
+                    <SupplementaryText text={translate(c.informacje, lang)} />
+                  </div>
+                )}
+              </div>
+
+              {/* Technologies / Tags */}
+              {c.technologie_i_obowiazki && c.technologie_i_obowiazki.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-slate-50">
+                  {c.technologie_i_obowiazki.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2 py-0.5 bg-purple-50 text-purple-700 rounded text-[10px] font-mono border border-purple-100/40"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};

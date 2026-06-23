@@ -1,0 +1,6 @@
+{
+  "name": "Interaktywne CV Michał Sokołowski",
+  "description": "Interaktywna prezentacja i edytor CV kandydata z relacyjną wyszukiwarką technologii i lokalną bazą danych.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
