@@ -86,10 +86,20 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
     const certificates = cvData.certificates || [];
     const skills = cvData.skills || [];
 
-    // 1. Check matching projects
-    const matchingProjects = projects.filter((p) =>
-      p && p.technologie && p.technologie.some((tech) => tagsLower.includes(tech.toLowerCase()))
-    );
+    // 1. Check matching projects and calculate compatibility percentage for each
+    const matchingProjects = projects
+      .map((p) => {
+        const pTechs = p && p.technologie ? p.technologie : [];
+        const matchCount = pTechs.filter((tech) => tagsLower.includes(tech.toLowerCase())).length;
+        const pct = activeTags.length > 0 ? Math.round((matchCount / activeTags.length) * 100) : 0;
+        return {
+          ...p,
+          matchCount,
+          pct
+        };
+      })
+      .filter((p) => p.matchCount > 0)
+      .sort((a, b) => b.pct - a.pct || b.matchCount - a.matchCount);
 
     // 2. Check matching jobs
     const matchingJobs = employment.filter((j) =>
@@ -248,16 +258,24 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
                 {scoreDetails.matchingProjects.length === 0 ? (
                   <p className="text-xs text-slate-400 italic">{lang === "pl" ? "Brak idealnie pasujących projektów." : "No perfectly matching projects."}</p>
                 ) : (
-                  <div className="max-h-36 overflow-y-auto space-y-1 pr-1">
-                    {scoreDetails.matchingProjects.slice(0, 5).map((p, idx) => (
-                      <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-slate-50 rounded-lg border border-slate-100 animate-fade-in">
-                        <span className="font-medium text-slate-700 truncate max-w-[180px]">{p.name}</span>
-                        <span className="text-[10px] text-slate-400">{p.date.start}</span>
+                  <div className="max-h-40 overflow-y-auto space-y-1.5 pr-1">
+                    {scoreDetails.matchingProjects.slice(0, 3).map((p, idx) => (
+                      <div key={idx} className="flex flex-col gap-1 p-2 bg-slate-50 rounded-lg border border-slate-100/80 animate-fade-in text-xs">
+                        <div className="flex items-center justify-between">
+                          <span className="font-semibold text-slate-800 truncate max-w-[150px]">{p.name}</span>
+                          <span className="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">
+                            {p.pct}% {lang === "pl" ? "zgodności" : "match"}
+                          </span>
+                        </div>
+                        <div className="text-[10px] text-slate-400 flex items-center justify-between">
+                          <span>{p.date?.start || ""}</span>
+                          <span>{p.matchCount} / {activeTags.length} {lang === "pl" ? "tagów" : "tags"}</span>
+                        </div>
                       </div>
                     ))}
-                    {scoreDetails.matchingProjects.length > 5 && (
+                    {scoreDetails.matchingProjects.length > 3 && (
                       <div className="text-[10px] text-slate-400 italic text-center mt-1">
-                        + {scoreDetails.matchingProjects.length - 5} {lang === "pl" ? "kolejnych projektów" : "more projects"}
+                        + {scoreDetails.matchingProjects.length - 3} {lang === "pl" ? "kolejnych projektów" : "more projects"}
                       </div>
                     )}
                   </div>

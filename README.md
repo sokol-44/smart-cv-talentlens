@@ -28,7 +28,9 @@ Aplikacja została zbudowana jako nowoczesna aplikacja jednostronicowa (SPA) opa
 * Dynamiczne i dwujęzyczne (PL/EN) filtrowanie oraz wyszukiwanie we wszystkich widokach CV, w tym nowo dodany system szybkiego wyszukiwania w sekcji **Zatrudnienie** (filtrowanie po stanowiskach, firmach i technologiach).
 * Graficzna legenda w **Słowniku Technologii** ułatwiająca zrozumienie poziomów zaawansowania kandydata (Ekspert, Średniozaawansowany, Ogólna znajomość).
 * Zunifikowana sekcja metadanych w zakładce **Projekty** i **Zatrudnienie** – estetyczne, ustrukturyzowane wyświetlanie wersji bibliotek oraz wzorców projektowych.
-* System "Dopasowanie Kandydata do Roli" bazujący na analizie tagów i stopnia dopasowania z wizualnymi wykresami.
+* **Bezpieczeństwo edycji**: Zablokowano możliwość edycji i komentowania "wykorzystywanych technologii" w widokach **Zatrudnienie** oraz **Projekty** bez uprzedniego zalogowania się do trybu Administratora.
+* **Analiza systemowa (Dopasowanie do ról)**: Rozbudowany raport dopasowania projektów w zakładce rekrutera – automatycznie prezentuje **3 najbardziej pasujące projekty** z wyliczonym precyzyjnie procentem (%) zgodności oraz wskaźnikiem dopasowania tagów.
+* **Szkolenie i edukacja**: W pełni odtworzona i poprawnie zintegrowana dwujęzyczna sekcja **"Zainteresowania, Hobby i Uprawnienia"** w oparciu o nową strukturę danych `$.additionalSkillsAndHobbies` dostarczaną bezpośrednio z pliku `cv_data.json`.
 * Filtrowanie certyfikatów i szkoleń po latach oraz wyszukiwanie technologii w słowniku wraz z synonimami.
 * Możliwość dodawania dwujęzycznych notatek i komentarzy rekrutacyjnych do każdego stanowiska, projektu i szkolenia.
 * Kompletny panel zarządzania lokalną bazą danych z funkcjami pobierania (eksportu) i wgrywania (importu) całego CV jako pliku JSON.
@@ -82,7 +84,9 @@ The application was developed as a modern Single Page Application (SPA) utilizin
 * Dynamic, bilingual (PL/EN) filtering and full-text search across all CV modules, including a high-performance fast search in the **Employment** section (filtering across roles, companies, descriptions, and technology stacks).
 * Interactive graphical proficiency level legend in the **Technology Dictionary** to quickly differentiate skills (Expert, Intermediate, General knowledge).
 * Standardized, highly structured display of library versions and software design patterns in both the **Projects** and **Employment** interfaces.
-* Recruiter Match system with instant suitability scoring and visual charts based on selected tags.
+* **Editing Lock (Security)**: Inline editing and custom comments for "utilized technologies" on both **Employment** and **Projects** tabs are strictly restricted and hidden for non-logged-in users, requiring active Admin session.
+* **System Analysis (Role Matching)**: Enhanced project matching dashboard displaying the **top 3 most compatible projects** automatically sorted by overlap and showing their precise percentage (%) compatibility score and matched tags indicator.
+* **Education & Training**: Restored and beautifully translated **"Interests, Hobbies, and Certifications/Permits"** section under the Education tab, leveraging the new structured bilingual schema `$.additionalSkillsAndHobbies` directly from `cv_data.json`.
 * Filter certifications by year and search technologies in the dictionary, including recognized synonyms.
 * Interactive recruiter notes and feedback comments editable inline for any job, project, or training.
 * Comprehensive local database administrator panel with export and import features via local JSON files.
