@@ -5,9 +5,9 @@
  * License: AGPL v3
  */
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { Employment, LocalBookmarks, LocalNotes } from "../types";
-import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X } from "lucide-react";
+import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X, Search } from "lucide-react";
 import { motion } from "motion/react";
 import { translate, translateStanowisko } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
@@ -55,6 +55,46 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
   const [noteTextEn, setNoteTextEn] = useState("");
   const [editingTooltip, setEditingTooltip] = useState<{ key: string; label: string; text: string } | null>(null);
 
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTech, setSelectedTech] = useState<string>("all");
+
+  // Get list of all technologies used in jobs for filtering
+  const allEmploymentTechs = useMemo(() => {
+    const techs = new Set<string>();
+    jobs.forEach((j) => j.technologies.forEach((t) => techs.add(t)));
+    return Array.from(techs).sort();
+  }, [jobs]);
+
+  // Filter jobs by search term & technology tag
+  const filteredJobs = useMemo(() => {
+    return jobs.filter((job) => {
+      const transPosition = translateStanowisko(job.position, lang);
+      const transCompany = job.company || "";
+      const transDescription = job.description ? (job.description[lang] || job.description.pl || job.description.en || "") : "";
+      
+      const dutiesObj = job.duties as any;
+      const dutiesList = dutiesObj
+        ? (Array.isArray(dutiesObj)
+            ? dutiesObj
+            : (dutiesObj[lang] || dutiesObj.pl || dutiesObj.en || []))
+        : [];
+      const dutiesText = dutiesList.join(" ");
+
+      const matchesSearch =
+        transPosition.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        transCompany.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        transDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        dutiesText.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        job.technologies.some((t) => t.toLowerCase().includes(searchTerm.toLowerCase()));
+
+      const matchesTech =
+        selectedTech === "all" ||
+        job.technologies.some((t) => t.toLowerCase() === selectedTech.toLowerCase());
+
+      return matchesSearch && matchesTech;
+    });
+  }, [jobs, searchTerm, selectedTech, lang]);
+
   const handleOpenNote = (id: string) => {
     setActiveNoteJobId(id);
     setNoteTextPl(notes[id]?.pl || "");
@@ -83,18 +123,50 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
 
   return (
     <div className="space-y-6" id="employment-list-container">
-      <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-          <Briefcase className="w-6 h-6 text-indigo-600" />
-          {translate("Doświadczenie Zawodowe (Zatrudnienie)", lang)}
-        </h2>
-        <span className="text-xs font-mono bg-slate-100 text-slate-500 px-2.5 py-1 rounded-md border border-slate-200/50">
-          {translate("Uporządkowane chronologicznie", lang)}
-        </span>
+      {/* Header and Filter bar */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
+            <Briefcase className="w-6 h-6 text-indigo-600" />
+            {translate("Doświadczenie Zawodowe (Zatrudnienie)", lang)}
+          </h2>
+          <p className="text-xs text-slate-500 mt-1">
+            {translate("Filtruj i przeszukuj stanowiska oraz firmy, w których Michał pracował.", lang)}
+          </p>
+        </div>
+
+        {/* Filter controls */}
+        <div className="flex flex-wrap gap-2 items-center">
+          {/* Text Search */}
+          <div className="relative max-w-xs w-full">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder={translate("Szukaj w zatrudnieniu...", lang)}
+              className="w-full pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          {/* Tech Select */}
+          <select
+            value={selectedTech}
+            onChange={(e) => setSelectedTech(e.target.value)}
+            className="px-3 py-1.5 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          >
+            <option value="all">{translate("Wszystkie technologie", lang)}</option>
+            {allEmploymentTechs.map((tech) => (
+              <option key={tech} value={tech}>
+                {tech}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="relative border-l border-slate-200 ml-3 md:ml-4 pl-6 md:pl-8 space-y-8">
-        {jobs.map((job) => {
+        {filteredJobs.map((job) => {
           const hasNote = !!(notes[job.id]?.pl || notes[job.id]?.en);
 
           return (
@@ -208,43 +280,58 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
                   </div>
                 )}
 
+                {/* Job Description */}
+                {job.description && (
+                  <div className="mb-4 text-xs md:text-sm text-slate-600 leading-relaxed italic bg-slate-50/50 p-3 rounded-xl border border-slate-100/50">
+                    <SupplementaryText text={job.description[lang] || job.description.pl || ""} />
+                  </div>
+                )}
+
                 {/* Job Duties / Responsibilities */}
                 <div className="mb-4">
                   <h4 className="text-xs font-mono text-slate-400 font-bold uppercase tracking-wider mb-2">
                     {translate("Obowiązki i zadania", lang)}
                   </h4>
                   <ul className="space-y-2 text-sm text-slate-600">
-                    {job.duties.map((duty, idx) => {
-                      const dutyKey = `${job.id}-duty-${idx}`;
-                      const hasTooltip = !!tooltips[dutyKey];
-                      const tooltipVal = tooltips[dutyKey];
+                    {(() => {
+                      const dutiesObj = job.duties as any;
+                      const dutiesList: string[] = dutiesObj
+                        ? (Array.isArray(dutiesObj)
+                            ? dutiesObj
+                            : (dutiesObj[lang] || dutiesObj.pl || dutiesObj.en || []))
+                        : [];
+                      return dutiesList.map((duty, idx) => {
+                        const dutyKey = `${job.id}-duty-${idx}`;
+                        const hasTooltip = !!tooltips[dutyKey];
+                        const tooltipVal = tooltips[dutyKey];
 
-                      return (
-                        <li key={idx} className="group/duty flex items-start gap-2 relative">
-                          <span className="text-indigo-400 font-mono mt-1 text-xs select-none">■</span>
-                          <div className="flex-1 leading-relaxed">
-                            <SupplementaryText text={translate(duty, lang)} />
-                            
-                            {/* Hover floating comment/tooltip */}
-                            {hasTooltip && (
-                              <div className="mt-1 text-xs text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2 py-1 rounded-md italic flex items-center gap-1 w-fit max-w-lg">
-                                <MessageSquare className="w-3 h-3 text-indigo-400 shrink-0" />
-                                <span>{tooltipVal}</span>
-                              </div>
-                            )}
-                          </div>
+                        return (
+                          <li key={idx} className="group/duty flex items-start gap-2 relative">
+                            <span className="text-indigo-400 font-mono mt-1 text-xs select-none">■</span>
+                            <div className="flex-1 leading-relaxed">
+                              <SupplementaryText text={duty} />
+                              
+                              {/* Hover floating comment/tooltip */}
+                              {hasTooltip && (
+                                <div className="mt-1 text-xs text-indigo-600 bg-indigo-50 border border-indigo-100/50 px-2 py-1 rounded-md italic flex items-center gap-1 w-fit max-w-lg">
+                                  <MessageSquare className="w-3 h-3 text-indigo-400 shrink-0" />
+                                  <span>{tooltipVal}</span>
+                                </div>
+                              )}
+                            </div>
 
-                          {/* Quick add/edit tooltip icon visible on hover */}
-                          <button
-                            onClick={() => handleOpenTooltipEdit(dutyKey, translate(duty, lang))}
-                            className="opacity-0 group-hover/duty:opacity-100 transition p-1 text-slate-400 hover:text-indigo-600 rounded hover:bg-slate-100 cursor-pointer shrink-0 self-center"
-                            title={translate("Dodaj / edytuj krótki komentarz", lang)}
-                          >
-                            <Edit3 className="w-3 h-3" />
-                          </button>
-                        </li>
-                      );
-                    })}
+                            {/* Quick add/edit tooltip icon visible on hover */}
+                            <button
+                              onClick={() => handleOpenTooltipEdit(dutyKey, duty)}
+                              className="opacity-0 group-hover/duty:opacity-100 transition p-1 text-slate-400 hover:text-indigo-600 rounded hover:bg-slate-100 cursor-pointer shrink-0 self-center"
+                              title={translate("Dodaj / edytuj krótki komentarz", lang)}
+                            >
+                              <Edit3 className="w-3 h-3" />
+                            </button>
+                          </li>
+                        );
+                      });
+                    })()}
                   </ul>
                 </div>
 
@@ -264,7 +351,7 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
 
                         return (
                           <div key={tech} className="relative group/tech inline-flex items-center gap-1 bg-indigo-50/50 hover:bg-indigo-100/50 text-indigo-700 hover:text-indigo-900 border border-indigo-100/40 rounded-lg px-2.5 py-1 font-mono font-medium transition cursor-help">
-                            <span>{tech}</span>
+                            <span>{translate(tech, lang)}</span>
 
                             {/* Bullet icon indicating custom tooltip exists */}
                             {hasTooltip && (

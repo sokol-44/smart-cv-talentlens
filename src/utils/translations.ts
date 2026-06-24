@@ -249,7 +249,20 @@ export const staticTranslations: Record<string, string> = {
   "Podaj hasło, aby wejść w tryb edycji.": "Provide password to enter edit mode.",
   "Hasło...": "Password...",
   "Zaloguj": "Log in",
-  "Wyloguj": "Log out"
+  "Wyloguj": "Log out",
+  "Legenda poziomów:": "Level Legend:",
+  "Poziom zaawansowany / ekspert": "Advanced / Expert Level",
+  "Poziom średniozaawansowany": "Intermediate Level",
+  "Ogólna znajomość / Baza wiedzy": "General Knowledge / Knowledge Base",
+  "Filtruj i przeszukuj stanowiska oraz firmy, w których Michał pracował.": "Filter and search positions and companies Michał worked for.",
+  "Szukaj w zatrudnieniu...": "Search employment...",
+  "Wzorce projektowe i dobre praktyki": "Design patterns and best practices",
+  "Wzorce projektowe (designPatterns)": "Design patterns",
+  "administrator systemów Linux": "Linux system administrator",
+  "Wiek biologiczny (Empathy)": "Biological Age (Empathy)",
+  "Import Cenników": "Price List Import",
+  "pozycjonowanie": "SEO (Search Engine Optimization)",
+  "Płatności Online": "Online Payments"
 };
 
 /**

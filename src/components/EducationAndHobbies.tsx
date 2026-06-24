@@ -18,11 +18,12 @@ import { SupplementaryText } from "../utils/parentheses";
  */
 interface EducationAndHobbiesProps {
   education: Education[];
-  hobbies: string[];
+  hobbies: { pl: string; en: string }[];
   lang: "pl" | "en";
   pasje?: { pl: string; en: string };
   isAdmin?: boolean;
   onSavePasje?: (pl: string, en: string) => void;
+  onEditEducation?: (edu: Education, index: number) => void;
   selectedYearFilter?: string;
   onYearFilterChange?: (year: string) => void;
 }
@@ -40,6 +41,7 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
   pasje,
   isAdmin = false,
   onSavePasje,
+  onEditEducation,
 }) => {
   const [isEditingPasje, setIsEditingPasje] = useState(false);
   const [pasjePl, setPasjePl] = useState(pasje?.pl || "Pozazawodowe pasje Michała, od gier RPG, żeglarstwa po mikroelektronikę i ogrodnictwo.");
@@ -91,11 +93,28 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
                   </div>
                 </div>
 
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-mono text-slate-600 shrink-0">
-                  <Calendar className="w-3.5 h-3.5 text-blue-500" />
-                  {edu.date.start} – {edu.date.end}
-                </span>
+                <div className="flex flex-col items-end gap-2 shrink-0">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-mono text-slate-600">
+                    <Calendar className="w-3.5 h-3.5 text-blue-500" />
+                    {edu.date.start} – {edu.date.end}
+                  </span>
+                  {isAdmin && onEditEducation && (
+                    <button
+                      onClick={() => onEditEducation(edu, idx)}
+                      className="p-1 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-lg transition cursor-pointer"
+                      title={translate("Edytuj", lang)}
+                    >
+                      <Edit3 className="w-3.5 h-3.5" />
+                    </button>
+                  )}
+                </div>
               </div>
+
+              {edu.description && (
+                <div className="mt-3 text-xs text-slate-600 leading-relaxed border-l-2 border-slate-200 pl-2.5">
+                  <SupplementaryText text={lang === "pl" ? edu.description.pl : edu.description.en} />
+                </div>
+              )}
 
               {edu.confirmation && (
                 <div className="mt-3 text-xs p-2.5 bg-slate-50 border border-slate-150 rounded-lg text-slate-600 flex items-start gap-1.5">
@@ -185,8 +204,8 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
 
           <div className="grid grid-cols-1 gap-2.5">
             {hobbies.map((hobby, idx) => {
-              // Translate entire hobby
-              const translatedHobby = translate(hobby, lang);
+              // Get translated string directly from JSON object
+              const translatedHobby = hobby[lang] || hobby.pl || hobby.en || "";
               // Extract label (before colon)
               const parts = translatedHobby.split(":");
               const isLabelPresent = parts.length > 1;

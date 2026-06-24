@@ -6,13 +6,13 @@
  */
 
 import { useState, useEffect, useMemo } from "react";
-import { CVData, Employment, Project, Certificate, LocalBookmarks, LocalNotes } from "./types";
+import { CVData, Employment, Project, Certificate, Education, LocalBookmarks, LocalNotes } from "./types";
 
 import { Header } from "./components/Header";
 import { TechDictionary } from "./components/TechDictionary";
 import { EmploymentList } from "./components/EmploymentList";
-import { ProjektyList } from "./components/ProjektyList";
-import { CertyfikatyList } from "./components/CertyfikatyList";
+import { ProjectsList } from "./components/ProjectsList";
+import { CertificatesList } from "./components/CertificatesList";
 import { EducationAndHobbies } from "./components/EducationAndHobbies";
 import { RecruiterMatch } from "./components/RecruiterMatch";
 import { LocalDbAdmin } from "./components/LocalDbAdmin";
@@ -121,6 +121,8 @@ export default function App() {
   const [editingJob, setEditingJob] = useState<Employment | null>(null);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [editingCert, setEditingCert] = useState<Certificate | null>(null);
+  const [editingEducation, setEditingEducation] = useState<Education | null>(null);
+  const [editingEducationIndex, setEditingEducationIndex] = useState<number | null>(null);
 
   // Helper to migrate legacy notes to translated objects
   const migrateNotes = (rawNotesStr: string | null, parsedCvDataNotes?: any): LocalNotes => {
@@ -192,7 +194,33 @@ export default function App() {
           Array.isArray(parsed.additionalSkillsAndHobbies) &&
           parsed.techDictionaries
         ) {
-          setCvData(parsed);
+          // Merge newly added person fields (like portfolio, email, tel, and descriptions)
+          const mergedPerson = {
+            ...initialCVData.person,
+            ...parsed.person,
+            description: {
+              pl: parsed.person.description?.pl || initialCVData.person.description.pl,
+              en: parsed.person.description?.en || initialCVData.person.description.en
+            }
+          };
+
+          // Merge newly added education fields (like descriptions)
+          const mergedEducation = parsed.education.map((edu: any, index: number) => {
+            const initialEdu = initialCVData.education[index] || {};
+            return {
+              ...initialEdu,
+              ...edu
+            };
+          });
+
+          const mergedParsed = {
+            ...initialCVData,
+            ...parsed,
+            person: mergedPerson,
+            education: mergedEducation
+          };
+
+          setCvData(mergedParsed);
           setNotes(migrateNotes(storedNotes, parsed.recruiterNotes));
         } else {
           // If incomplete schema is present, reset it with initial data from JSON
@@ -305,6 +333,14 @@ export default function App() {
     const updatedCerts = cvData.certificates.map((c) => (c.id === updatedCert.id ? updatedCert : c));
     updateLocalData({ ...cvData, certificates: updatedCerts });
     setEditingCert(null);
+  };
+
+  const handleSaveEducation = (updatedEdu: Education) => {
+    if (!cvData || editingEducationIndex === null) return;
+    const updatedEdus = cvData.education.map((e, idx) => (idx === editingEducationIndex ? updatedEdu : e));
+    updateLocalData({ ...cvData, education: updatedEdus });
+    setEditingEducation(null);
+    setEditingEducationIndex(null);
   };
 
   // Reset database using the local project JSON file (1)
@@ -515,7 +551,7 @@ export default function App() {
 
           {activeTab === "projects" && (
             <section className="print:block animate-fade-in">
-              <ProjektyList
+              <ProjectsList
                 projects={cvData.projects}
                 bookmarks={bookmarks}
                 onToggleBookmark={handleToggleBookmark}
@@ -532,7 +568,7 @@ export default function App() {
 
           {activeTab === "certs" && (
             <section className="print:block space-y-12 animate-fade-in">
-              <CertyfikatyList
+              <CertificatesList
                 certs={cvData.certificates}
                 bookmarks={bookmarks}
                 onToggleBookmark={handleToggleBookmark}
@@ -550,6 +586,10 @@ export default function App() {
                 pasje={cvData.person.passions}
                 isAdmin={isAdmin}
                 onSavePasje={handleSavePasje}
+                onEditEducation={(edu, index) => {
+                  setEditingEducation(edu);
+                  setEditingEducationIndex(index);
+                }}
               />
             </section>
           )}
@@ -557,7 +597,7 @@ export default function App() {
           {activeTab === "dictionary" && (
             <section className="print:hidden animate-fade-in">
               <TechDictionary
-                slownik={cvData.techDictionaries}
+                dictionary={cvData.techDictionaries}
                 cvData={cvData}
                 lang={lang}
               />
@@ -566,7 +606,7 @@ export default function App() {
 
           {activeTab === "about" && (
             <section className="print:block animate-fade-in">
-              <AboutApp lang={lang} />
+              <AboutApp lang={lang} cvData={cvData} />
             </section>
           )}
 
@@ -695,14 +735,18 @@ export default function App() {
         jobToEdit={editingJob}
         projectToEdit={editingProject}
         certToEdit={editingCert}
+        educationToEdit={editingEducation}
         onClose={() => {
           setEditingJob(null);
           setEditingProject(null);
           setEditingCert(null);
+          setEditingEducation(null);
+          setEditingEducationIndex(null);
         }}
         onSaveJob={handleSaveJob}
         onSaveProject={handleSaveProject}
         onSaveCert={handleSaveCert}
+        onSaveEducation={handleSaveEducation}
         lang={lang}
       />
     </div>

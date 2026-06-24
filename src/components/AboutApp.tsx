@@ -5,107 +5,39 @@
  * License: AGPL v3
  */
 
-import React, { useState } from "react";
-import { Info, HelpCircle, Layers, Cpu, CheckCircle2, Lock, User, Terminal, ChevronDown, ChevronUp, MessageSquare, Code } from "lucide-react";
-import { motion, AnimatePresence } from "motion/react";
+import React from "react";
+import { Info, HelpCircle, Layers, Cpu, CheckCircle2, Lock, User, Terminal, Mail, Phone, Github } from "lucide-react";
+import { motion } from "motion/react";
+import { CVData } from "../types";
+import { SupplementaryText } from "../utils/parentheses";
 
 interface AboutAppProps {
   lang: "pl" | "en";
+  cvData: CVData;
 }
 
-interface PromptItem {
-  id: string;
-  titlePl: string;
-  titleEn: string;
-  descPl: string;
-  descEn: string;
-}
+export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
+  const jobsCount = cvData.employment.length;
+  const projectsCount = cvData.projects.length;
+  const skillsCount = cvData.skills.length;
+  const certsCount = cvData.certificates.length;
 
-export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
-  const [expandedPromptId, setExpandedPromptId] = useState<string | null>(null);
+  const email = cvData.person.email || "";
+  const tel = cvData.person.tel || "";
+  const github = cvData.person.github || "";
 
-  // List of prompts used in the project, designed to be easily updatable by AI
-  const promptList: PromptItem[] = [
-    {
-      id: "prompt_0",
-      titlePl: "Dodanie licencji AGPL v3",
-      titleEn: "Adding AGPL v3 license",
-      descPl: "Dodaj do projektu plik licencji z pełną treścią licencji AGPL v3. Do wszystkich plików w kodzie dodaj informację w nagłówku zawierającą: autora (Michał Sokołowski), generator (Google AIStudio), użyty model AI/LLM oraz licencję.",
-      descEn: "Add a license file with the full content of the AGPL v3 license to the project. Add header comments to all source code files containing: the author (Michał Sokołowski), generator (Google AIStudio), the AI/LLM model used, and the license."
-    },
-    {
-      id: "prompt_1",
-      titlePl: "Normalizacja tekstów",
-      titleEn: "Text normalization",
-      descPl: "Znormalizuj teksty: zmień 'obowiązki i zadania' na 'Obowiązki i zadania', 'notatki dla rekrutera' na 'Notatki dla rekrutera', 'wykorzystane technologie' na 'Wykorzystane technologie', oraz 'zaawansowane' na 'zaawansowany' w polach poziomu umiejętności.",
-      descEn: "Normalize texts: change 'obowiązki i zadania' to 'Obowiązki i zadania', 'notatki dla rekrutera' to 'Notatki dla rekrutera', 'wykorzystane technologie' to 'Wykorzystane technologie', and 'zaawansowane' to 'zaawansowany' in skill proficiency level fields."
-    },
-    {
-      id: "prompt_2",
-      titlePl: "Tłumaczenie typów i pól danych na angielski",
-      titleEn: "Translating data types and fields to English",
-      descPl: "Przetłumacz na język angielski nazwy typów, pól i zmiennych w projekcie. Zmień definicje interfejsów w 'types.ts' oraz dostosuj wczytywanie i mapowanie pól w bazie danych.",
-      descEn: "Translate the names of types, fields, and variables in the project to English. Update the interface definitions in 'types.ts' and adjust the database loading and field mapping accordingly."
-    },
-    {
-      id: "prompt_3",
-      titlePl: "Tłumaczenie i zmiana nazwy komponentu listy zatrudnienia",
-      titleEn: "Translating and renaming the employment list component",
-      descPl: "Przetłumacz na angielski nazwę komponentu 'ZatrudnienieList.tsx' na 'EmploymentList.tsx', dostosuj jego zmienne wewnętrzne, typy i wykonaj bezpieczną zmianę nazwy pliku oraz powiązanych importów.",
-      descEn: "Translate the name of the component 'ZatrudnienieList.tsx' to 'EmploymentList.tsx' to English, update its internal variables, types, and safely rename the file and its associated imports."
-    },
-    {
-      id: "prompt_4",
-      titlePl: "Centralizacja konfiguracji hasła administratora",
-      titleEn: "Centralizing the admin password configuration",
-      descPl: "Przenieś obie definicje hasła autoryzacyjnego do jednego, spójnego miejsca w kodzie, bezpośrednio do '/src/App.tsx' i przekaż je jako właściwość do komponentów podrzędnych.",
-      descEn: "Move both authorization password definitions to a single, consistent location in the code, directly to '/src/App.tsx' and pass them down as properties to child components."
-    },
-    {
-      id: "prompt_5",
-      titlePl: "Przebudowa i aktualizacja strony O aplikacji",
-      titleEn: "Refactoring and updating the About application page",
-      descPl: "Zmodyfikuj sekcję 'O aplikacji'. Usuń wzmianki o zakładkach rekrutacyjnych, zmień 'Cel utworzenia' na uniwersalny i ogólny opis bez cech twórcy, uzupełnij technologie o Google AI Studio i model Gemini 3.5 Flash, dodaj sekcję 'O twórcy' oraz sekcję 'Użyte prompty' z instrukcją uruchamiania strony.",
-      descEn: "Modify the 'About application' section. Remove mentions of recruiter bookmarks, change 'Purpose of creation' to a general and universal description without the creator's characteristics, add Google AI Studio and Gemini 3.5 Flash to technologies, add an 'About the Creator' section, and add the 'Prompts Used' accordion with self-running instructions."
-    },
-    {
-      id: "prompt_6",
-      titlePl: "Szyfrowanie hasła (Web Crypto API)",
-      titleEn: "Password Hashing (Web Crypto API)",
-      descPl: "Zaimplementuj bezpieczne przechowywanie hasła administratora za pomocą HMAC SHA2-512 i Web Crypto API w pliku 'App.tsx'. Funkcja testująca poprawność hasła ma znajdować się asynchronicznie w 'App.tsx', uniemożliwiając przechowywanie hasła jawnym tekstem.",
-      descEn: "Implement secure admin password storage using HMAC SHA2-512 and the Web Crypto API inside 'App.tsx'. The verification function must run asynchronously within 'App.tsx', eliminating plain text password storage in the client bundle."
-    },
-    {
-      id: "prompt_7",
-      titlePl: "Normalizacja kluczy localStorage",
-      titleEn: "LocalStorage Keys Normalization",
-      descPl: "Zmień wartości stałych kluczy localStorage, tak aby nie zawierały ciągu 'm_sokolowski_' w celu usunięcia zbędnych powiązań personalnych z metadanymi technicznymi.",
-      descEn: "Change persistent localStorage constants to prevent containing the 'm_sokolowski_' string, isolating technical state metadata from personal identifying prefixes."
-    },
-    {
-      id: "prompt_8",
-      titlePl: "Prywatność i bezpieczeństwo bazy cv_data.json",
-      titleEn: "Privacy and Security of cv_data.json",
-      descPl: "Przenieś plik cv_data.json z katalogu publicznego do prywatnego katalogu źródłowego 'src', aby uniemożliwić jego bezpośrednie pobieranie przez adres URL. Wczytuj dane synchronicznie i offline bezpośrednio z kodu źródłowego.",
-      descEn: "Move the cv_data.json file from the public directory to a private 'src' source folder, preventing direct HTTP access via a public URL. Load the initial data synchronously and 100% offline from the bundle."
-    },
-    {
-      id: "prompt_9",
-      titlePl: "Usprawnienie kodu i komentarzy",
-      titleEn: "Enhancing Code Comments & Catch Blocks",
-      descPl: "Dodaj komentarze ułatwiające orientację w długich ciągach kodu (if, else, catch, switch), uzupełnij brakujące opisy w blokach catch, opisz zastosowane wzorce projektowe i powody decyzji architektonicznych oraz przetłumacz nagłówki na język angielski.",
-      descEn: "Add structural navigation comments to help orientation inside long code blocks (if, else, catch, switch), document catch blocks with clear rationale comments, explain utilized design patterns, and translate header comments into English."
-    }
-  ];
+  const personDescription = cvData.person.description
+    ? cvData.person.description[lang] || cvData.person.description.pl || []
+    : [];
 
   const content = {
     pl: {
       title: "O Aplikacji",
       subtitle: "Interaktywne CV i System Dopasowania Kandydata",
       purposeTitle: "Cel utworzenia",
-      purposeText: "Aplikacja została stworzona w celu nowoczesnej, interaktywnej i wielojęzycznej prezentacji kwalifikacji zawodowych, historii zatrudnienia, zrealizowanych projektów oraz uzyskanych certyfikatów. System został zoptymalizowany dla rekruterów oraz menedżerów technicznych poszukujących odpowiednich kandydatów na stanowiska inżynieryjne, umożliwiając szybkie dopasowanie profili do specyfiki ról projektowych.",
+      purposeText: "Aplikacja została stworzona w celu nowoczesnej, interaktywnej i wielojęzycznej prezentacji kwalifikacji zawodowych, historii zatrudnienia, zrealizowanych projektów oraz uzyskanych certyfikatów. Projekt stanowi również praktyczny pokaz 'Vibe Coding' – nowoczesnego podejścia do wytwarzania oprogramowania we współpracy z modelami AI (Gemini 3.5 Flash w Google AI Studio) przy minimalnym nakładzie ręcznego pisania kodu. System został zoptymalizowany dla rekruterów oraz menedżerów technicznych poszukujących odpowiednich kandydatów na stanowiska inżynieryjne, umożliwiając szybkie dopasowanie profili do specyfiki ról projektowych.",
       creationTitle: "Sposób utworzenia i architektura",
-      creationText: "Aplikacja została zbudowana jako nowoczesna aplikacja jednostronicowa (SPA) oparta na bibliotece React z szybkim systemem budowania Vite i pełnym typowaniem TypeScript. Stylizacja została oparta na nowoczesnym podejściu Tailwind CSS, zapewniając pełną responsywność i lekki interfejs. Wszystkie dane CV są wczytywane z lokalnego pliku JSON i synchronizowane w czasie rzeczywistym z lokalną bazą danych przeglądarki (Local Storage), co gwarantuje pełną prywatność i natychmiastowe działanie bez konieczności rejestracji.",
+      creationText: "Aplikacja została zaprojektowana jako nowoczesna aplikacja jednostronicowa (SPA) w oparciu o React i Vite. Wykorzystuje zaawansowany system dynamicznej translacji treści, mechanizmy autoryzacji oparte o szyfrowanie asynchroniczne i Web Crypto API (HMAC SHA-512) dla bezpieczeństwa oraz synchronizację bazy danych CV w czasie rzeczywistym z LocalStorage. Projekt został w całości ustrukturyzowany z silnym typowaniem TypeScript, co gwarantuje poprawność i skalowalność. Kod źródłowy jest w pełni zgodny z rygorystycznymi standardami jakości, co potwierdzają pomyślne kompilacje produkcyjne.",
       techTitle: "Użyte technologie i wersje",
       featuresTitle: "Zaimplementowane funkcjonalności",
       manualTitle: "Krótka instrukcja obsługi",
@@ -122,10 +54,10 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
         "Uruchom lokalny serwer aplikacji komendą: `npm run dev`",
         "Otwórz przeglądarkę i wejdź na adres: `http://localhost:3000`"
       ],
+      hmacTitle: "Generowanie własnego hasła (HMAC-SHA-512)",
+      hmacText: "Wpisz poniższy kod w konsoli przeglądarki (F12) na tej stronie, aby wygenerować bezpieczny hash HMAC-SHA-512 dla nowego hasła z solą 'CV_Secure_Salt_2026':",
+      hmacPlacement: "Skopiuj wygenerowany ciąg znaków o długości 128 znaków i wklej go do tablicy 'AUTHORIZED_HMAC_HASHES' w pliku '/src/App.tsx'.",
       creatorTitle: "O twórcy",
-      creatorText: "Autorem oprogramowania jest Michał Sokołowski – doświadczony inżynier oprogramowania, architekt systemów i pasjonat nowych technologii z ponad 20-letnim stażem w branży IT.",
-      promptsTitle: "Użyte prompty",
-      promptsIntro: "Poniższa lista przedstawia kluczowe prompty i instrukcje, które zostały przekazane do modelu sztucznej inteligencji Gemini 3.5 Flash w portalu Google AI Studio w celu wygenerowania, przetłumaczenia oraz refaktoryzacji niniejszego projektu. System pozwala na szybkie i bezproblemowe rozszerzanie kodu o kolejne elementy poprzez instrukcje języka naturalnego.",
       features: [
         "Dynamiczne i dwujęzyczne (PL/EN) filtrowanie oraz wyszukiwanie we wszystkich widokach CV.",
         "System 'Dopasowanie Kandydata do Roli' bazujący na analizie tagów i stopnia dopasowania z wizualnymi wykresami.",
@@ -139,9 +71,9 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
       title: "About Application",
       subtitle: "Interactive CV & Candidate Role Matching System",
       purposeTitle: "Purpose of Creation",
-      purposeText: "This application was created to provide a modern, interactive, and bilingual presentation of professional qualifications, employment history, completed projects, and certifications. The system is optimized for recruiters and engineering managers looking for candidates for engineering roles, enabling rapid matching of profiles against project requirements.",
+      purposeText: "This application was created to provide a modern, interactive, and bilingual presentation of professional qualifications, employment history, completed projects, and certifications. The system also serves as a practical showcase of 'Vibe Coding' – a modern approach to software development in collaboration with AI models (Gemini 3.5 Flash in Google AI Studio) with minimal manual code drafting. The system is optimized for recruiters and engineering managers looking for candidates for engineering roles, enabling rapid matching of profiles against project requirements.",
       creationTitle: "Creation Method & Architecture",
-      creationText: "The application was developed as a modern Single Page Application (SPA) utilizing React, Vite, and TypeScript. Styling is powered by Tailwind CSS for a highly responsive, performant, and elegant user experience. All CV data is loaded from a local JSON file and synchronized in real-time with the browser's Local Storage, securing user privacy and ensuring instant responsiveness with zero login requirements.",
+      creationText: "The application is engineered as a state-of-the-art Single Page Application (SPA) built with React and Vite. It incorporates a sophisticated dynamic translation system, authorization mechanisms powered by the Web Crypto API (utilizing HMAC SHA-512) for client-side security, and real-time database synchronization with LocalStorage. The entire codebase features strict TypeScript typing ensuring robustness and scalability. The architecture adheres to high-quality code patterns and passes strict production compilation checks.",
       techTitle: "Technologies Used & Versions",
       featuresTitle: "Implemented Features",
       manualTitle: "User & Admin Guide",
@@ -158,10 +90,10 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
         "Start the local application server using: `npm run dev`",
         "Open your browser and navigate to: `http://localhost:3000`"
       ],
+      hmacTitle: "Generating Custom Password Hash (HMAC-SHA-512)",
+      hmacText: "To change the password, enter the following code into the browser developer console (F12) to compute the secure HMAC-SHA-512 hash using the 'CV_Secure_Salt_2026' salt:",
+      hmacPlacement: "Copy the computed 128-character hex string and paste it inside the 'AUTHORIZED_HMAC_HASHES' array inside the '/src/App.tsx' file.",
       creatorTitle: "About the Creator",
-      creatorText: "The software was created by Michał Sokołowski – an experienced software engineer, systems architect, and technology enthusiast with over 20 years of experience in the IT industry.",
-      promptsTitle: "Prompts Used",
-      promptsIntro: "The following list shows the key prompts and instructions passed to the Gemini 3.5 Flash artificial intelligence model inside Google AI Studio to generate, translate, and refactor this project. The system allows quick and seamless extension of code with further elements using natural language instructions.",
       features: [
         "Dynamic, bilingual (PL/EN) filtering and full-text search across all CV modules.",
         "Recruiter Match system with instant suitability scoring and visual charts based on selected tags.",
@@ -186,10 +118,6 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
     { name: "Lucide React", version: "^0.439.0", desc: lang === "pl" ? "Wektorowy pakiet ikon" : "Vector icon pack" },
     { name: "Recharts", version: "^2.12.7", desc: lang === "pl" ? "Wykresy i wizualizacja statystyk" : "Recruiter charts & statistics" }
   ];
-
-  const handleTogglePrompt = (id: string) => {
-    setExpandedPromptId(expandedPromptId === id ? null : id);
-  };
 
   return (
     <motion.div
@@ -258,14 +186,49 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
           </div>
 
           {/* Card 4: O twórcy */}
-          <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-xs space-y-3">
+          <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-xs space-y-4">
             <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
               <span className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg shrink-0">
                 <User className="w-5 h-5" />
               </span>
               {t.creatorTitle}
             </h2>
-            <p className="text-sm text-slate-600 leading-relaxed">{t.creatorText}</p>
+            
+            <div className="space-y-4">
+              <div className="flex flex-col md:flex-row gap-4 p-4 bg-slate-50/60 rounded-xl border border-slate-100">
+                <div className="space-y-2 text-xs text-slate-700 shrink-0 self-center">
+                  <div className="font-bold text-slate-900 text-sm">
+                    Michał Sokołowski
+                  </div>
+                </div>
+                
+                <div className="md:border-l md:border-slate-200 md:pl-4 flex-1 space-y-2 text-xs text-slate-600">
+                  <div className="font-semibold text-slate-800">
+                    {lang === "pl" ? "Statystyki portfolio:" : "Portfolio statistics:"}
+                  </div>
+                  <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
+                    <div>• {lang === "pl" ? "Doświadczenie:" : "Experience:"} <span className="font-bold text-indigo-700">{jobsCount} {lang === "pl" ? "firm" : "companies"}</span></div>
+                    <div>• {lang === "pl" ? "Projekty:" : "Projects:"} <span className="font-bold text-indigo-700">{projectsCount}</span></div>
+                    <div>• {lang === "pl" ? "Umiejętności:" : "Skills:"} <span className="font-bold text-indigo-700">{skillsCount}</span></div>
+                    <div>• {lang === "pl" ? "Certyfikaty:" : "Certificates:"} <span className="font-bold text-indigo-700">{certsCount}</span></div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="text-sm text-slate-600 leading-relaxed space-y-3">
+                {Array.isArray(personDescription) ? (
+                  personDescription.map((p, idx) => (
+                    <p key={idx}>
+                      <SupplementaryText text={p} />
+                    </p>
+                  ))
+                ) : (
+                  <p>
+                    <SupplementaryText text={personDescription} />
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -340,60 +303,31 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang }) => {
                     </li>
                   ))}
                 </ol>
+
+                {/* HMAC Instructions */}
+                <div className="mt-3 pt-2.5 border-t border-indigo-200/40 space-y-2 text-[11px] text-slate-700 bg-slate-50/80 p-2.5 rounded-xl border border-indigo-100/50">
+                  <div className="font-bold text-indigo-950 flex items-center gap-1">
+                    <Lock className="w-3.5 h-3.5 text-indigo-600" />
+                    {t.hmacTitle}
+                  </div>
+                  <p className="leading-relaxed">{t.hmacText}</p>
+                  <pre className="bg-slate-900 text-slate-200 p-2 rounded-lg font-mono text-[9px] overflow-x-auto select-all max-w-full block whitespace-pre-wrap leading-normal">
+                    {`const gen = async (p) => {
+  const e = new TextEncoder();
+  const s = e.encode("CV_Secure_Salt_2026");
+  const k = await crypto.subtle.importKey(
+    "raw", s, { name: "HMAC", hash: "SHA-512" }, false, ["sign"]
+  );
+  const sig = await crypto.subtle.sign("HMAC", k, e.encode(p));
+  return Array.from(new Uint8Array(sig)).map(b => b.toString(16).padStart(2, '0')).join('');
+};
+await gen("twoje_haslo");`}
+                  </pre>
+                  <p className="leading-relaxed font-semibold text-indigo-900">{t.hmacPlacement}</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Prompts Section (Accordion format, easily extendable) */}
-      <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-xs space-y-4">
-        <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <MessageSquare className="w-5 h-5 text-indigo-600" />
-          {t.promptsTitle}
-        </h2>
-        <p className="text-sm text-slate-500 leading-relaxed">{t.promptsIntro}</p>
-
-        <div className="space-y-2.5">
-          {promptList.map((p) => {
-            const isExpanded = expandedPromptId === p.id;
-            const title = lang === "pl" ? p.titlePl : p.titleEn;
-            const desc = lang === "pl" ? p.descPl : p.descEn;
-
-            return (
-              <div key={p.id} className="border border-slate-100 rounded-xl overflow-hidden">
-                <button
-                  onClick={() => handleTogglePrompt(p.id)}
-                  className="w-full flex items-center justify-between p-3.5 bg-slate-50/50 hover:bg-slate-50 transition text-left cursor-pointer"
-                >
-                  <span className="text-xs font-bold text-slate-800 flex items-center gap-2">
-                    <Code className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                    {title}
-                  </span>
-                  {isExpanded ? (
-                    <ChevronUp className="w-4 h-4 text-slate-400 shrink-0" />
-                  ) : (
-                    <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
-                  )}
-                </button>
-                <AnimatePresence initial={false}>
-                  {isExpanded && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="overflow-hidden"
-                    >
-                      <div className="p-4 bg-white border-t border-slate-100 text-xs text-slate-600 leading-relaxed font-mono whitespace-pre-wrap select-all">
-                        {desc}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            );
-          })}
         </div>
       </div>
     </motion.div>

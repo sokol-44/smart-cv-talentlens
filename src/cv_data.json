@@ -2,24 +2,25 @@
   "person": {
     "firstName": "Michał",
     "lastName": "Sokołowski",
-    "description": [
-      "inżynier oprogramowania",
-      "starszy programista PHP",
-      "weryfikacja kodu",
-      "doświadczony DevOps",
-      "utrzymanie systemów informatycznych",
-      "wsparcie dla starszych systemów (legacy)",
-      "wsparcie w migracji",
-      "aplikacyjne i indywidualne kopie bezpieczeństwa",
-      "strategie backupowe",
-      "ochrona danych",
-      "Najlepiej sprawdzam się w rolach, które wykraczają poza realizację pojedynczych funkcji. Wyróżniam się umiejętnością hiperkoncentracji, strategicznego myślenia o problemach i dbałością o szczegóły — cechami, które pomagają mi projektować solidne i skalowalne rozwiązania. Najskuteczniej pracuję, gdy mam pełny kontekst i jasne zrozumienie szerszego systemu i celów. Priorytetowo traktuję długoterminową łatwość utrzymania, rozszerzalność i przyszłą adaptowalność, co czasami może oznaczać poświęcenie krótkoterminowej szybkości realizacji na rzecz wyższej wartości długoterminowej.",
-      "Pełen pasji i zorientowany na wyniki programista, od zawsze interesujący się komputerami i programowaniem, począwszy od komputera ZX Spectrum w latach 80. Posiada doświadczenie w projektowaniu i tworzeniu systemów na dużą skalę, w tym platform e-commerce, rozwiązań rekrutacyjnych, narzędzi do planowania i raportowania, systemów mailingowych oraz aplikacji tworzonych na zamówienie.",
-      "Biegły w programowaniu front-endowym i full-stackowym, z doskonałą znajomością JavaScript, HTML, CSS, TypeScript, Angular i Vue. Posiada wysokie umiejętności w zakresie SQL, ze specjalizacją w PostgreSQL i MySQL, a także doświadczenie w tworzeniu silników stron internetowych i zautomatyzowanych systemów raportowania z wykorzystaniem PHP, bash i skryptów cron. Dba o jakość poprzez testowanie zarówno ręczne, jak i automatyczne.",
-      "Posiadam wykształcenie w zakresie sztucznej inteligencji (sieci neuronowe) oraz wdrażania uczenia maszynowego, uzupełnione współcześnie o wiedzę o LLM/AI. Biegle posługuję się środowiskami Windows i Linux, posiadam praktyczne doświadczenie w zarządzaniu serwerami Linux oraz ich optymalizacji. Dążę do dostarczania innowacyjnych rozwiązań, które łączą technologię, biznes i ludzi, zapewniając spójne i wartościowe wyniki."
-    ],
+    "description": {
+      "pl": [
+        "Pełen pasji i zorientowany na wyniki programista, od zawsze interesujący się komputerami i programowaniem, począwszy od komputera ZX Spectrum w latach 80. Posiada doświadczenie w projektowaniu i tworzeniu systemów na dużą skalę, w tym platform e-commerce, rozwiązań rekrutacyjnych, narzędzi do planowania i raportowania, systemów mailingowych oraz aplikacji tworzonych na zamówienie.",
+        "Biegły w programowaniu front-endowym i full-stackowym, z doskonałą znajomością JavaScript, HTML, CSS, TypeScript, Angular i Vue. Posiada wysokie umiejętności w zakresie SQL, ze specjalizacją w PostgreSQL i MySQL, a także doświadczenie w tworzeniu silników stron internetowych i zautomatyzowanych systemów raportowania z wykorzystaniem PHP, bash i skryptów cron. Dba o jakość poprzez testowanie zarówno ręczne, jak i automatyczne.",
+        "Posiadam wykształcenie w zakresie sztucznej inteligencji / sieci neuronowych oraz wdrażania uczenia maszynowego, uzupełnione współcześnie o wiedzę o LLM/AI. Biegle posługuję się środowiskami Windows i Linux, posiadam praktyczne doświadczenie w zarządzaniu serwerami Linux oraz ich optymalizacji. Dążę do dostarczania innowacyjnych rozwiązań, które łączą technologię, biznes i ludzi, zapewniając spójne i wartościowe wyniki.",
+        "Najlepiej sprawdzam się w rolach, które wykraczają poza realizację pojedynczych funkcji. Wyróżniam się umiejętnością hiperkoncentracji, strategicznego myślenia o problemach i dbałością o szczegóły — cechami, które pomagają mi projektować solidne i skalowalne rozwiązania. Najskuteczniej pracuję, gdy mam pełny kontekst i jasne zrozumienie szerszego systemu i celów. Priorytetowo traktuję długoterminową łatwość utrzymania, rozszerzalność i przyszłą adaptowalność, co czasami może oznaczać poświęcenie krótkoterminowej szybkości realizacji na rzecz wyższej wartości długoterminowej."
+      ],
+      "en": [
+        "A passionate and results-oriented developer who has always been interested in computers and programming since the ZX Spectrum computer in the 80s. Has experience in designing and developing large-scale systems, including e-commerce platforms, recruitment solutions, planning and reporting tools, mailing systems, and custom-built applications.",
+        "Proficient in front-end and full-stack programming, with excellent knowledge of JavaScript, HTML, CSS, TypeScript, Angular, and Vue. Highly skilled in SQL, specializing in PostgreSQL and MySQL, with experience in creating web engines and automated reporting systems using PHP, bash, and cron scripts. Cares about quality through both manual and automated testing.",
+        "Educated in artificial intelligence / neural networks and machine learning implementation, complemented modernly with knowledge of LLM/AI. Proficient in Windows and Linux environments, with practical experience in Linux server management and optimization. Strives to deliver innovative solutions that combine technology, business, and people, ensuring coherent and valuable outcomes.",
+        "I perform best in roles that go beyond implementing single features. I stand out with my ability to hyperfocus, think strategically about problems, and pay attention to detail—traits that help me design solid and scalable solutions. I work most effectively when I have full context and a clear understanding of the broader system and goals. I prioritize long-term maintainability, extensibility, and future adaptability, which may sometimes mean sacrificing short-term speed for higher long-term value."
+      ]
+    },
+    "portfolio": "https://msokolow.waw.pl/",
     "github": "https://github.com/sokol-44/",
     "linkedin": "https://www.linkedin.com/in/micha%C5%82-soko%C5%82owski-0033516/",
+    "email": "msokolow@gmail.com",
+    "tel": "+48 501 100 200",
     "passions": {
       "pl": "Pozazawodowe pasje Michała, od gier RPG, żeglarstwa po mikroelektronikę i ogrodnictwo.",
       "en": "Michał's non-professional passions, from RPG games and sailing to microelectronics and gardening."
@@ -34,7 +35,11 @@
       "institution": "Warszawska Wyższa Szkoła Informatyki",
       "type": "studia podyplomowe",
       "major": "Studia podyplomowe: Zarządzanie projektami informatycznymi: PMI–PMBOK, OGC–PRINCE2",
-      "confirmation": "obroniona praca dyplomowa (Zarządzanie zespołem projektowym)"
+      "confirmation": "obroniona praca dyplomowa (Zarządzanie zespołem projektowym)",
+      "description": {
+        "pl": "Studia koncentrowały się na metodykach zarządzania projektami IT, technikach kierowania zespołami oraz efektywnej komunikacji biznesowej wg standardów PMI i Prince2.",
+        "en": "Studies focused on IT project management methodologies, team leadership techniques, and effective business communication according to PMI and Prince2 standards."
+      }
     },
     {
       "date": {
@@ -44,7 +49,11 @@
       "institution": "Politechnika Warszawska",
       "type": "studia wyższe",
       "major": "Studia wyższe: Wydział Informatyki i Technik Informacyjnych",
-      "confirmation": "obroniona praca dyplomowa (magister inżynier)"
+      "confirmation": "obroniona praca dyplomowa (magister inżynier)",
+      "description": {
+        "pl": "Szeroki program studiów inżynierskich i magisterskich ze specjalnością w sieciach komputerowych, bazach danych i sztucznej inteligencji / sieci neuronowe.",
+        "en": "Broad engineering and master's degree program specializing in computer networks, databases, and artificial intelligence / neural networks."
+      }
     },
     {
       "date": {
@@ -54,7 +63,11 @@
       "institution": "XLV Liceum Ogólnokształcące im. Romualda Traugutta w Warszawie",
       "type": "liceum ogólnokształcące",
       "major": "Profil Matematyczno-Fizyczny z rozszerzoną informatyką",
-      "confirmation": "matura"
+      "confirmation": "matura",
+      "description": {
+        "pl": "Rozszerzony program nauk ścisłych, który ugruntował podstawy algorytmiki i programowania.",
+        "en": "Advanced science curriculum that consolidated the fundamentals of algorithms and programming."
+      }
     }
   ],
   "certificates": [
@@ -64,7 +77,10 @@
       "durationHours": "3",
       "institution": "Eskadra Bielika",
       "name": "Eskadra Bielika",
-      "info": "Jak postawić lokalny model RAG w oparciu o Dockera, Bielika i Ollame",
+      "description": {
+        "pl": "Jak postawić lokalny model RAG w oparciu o Dockera, Bielika i Ollame",
+        "en": "How to set up a local RAG model based on Docker, Bielik, and Ollama"
+      },
       "technologiesAndDuties": [
         "AI",
         "LLM"
@@ -76,7 +92,10 @@
       "durationHours": "2.5",
       "institution": "Niebezpiecznik",
       "name": "Vibe Coding",
-      "info": "Rynkowe i szybkie podejście do asystentów AI w programowaniu.",
+      "description": {
+        "pl": "Rynkowe i szybkie podejście do asystentów AI w programowaniu.",
+        "en": "Market-ready and fast approach to AI assistants in programming."
+      },
       "technologiesAndDuties": [
         "AI",
         "Vibe Coding"
@@ -88,7 +107,10 @@
       "durationHours": "140",
       "institution": "Google",
       "name": "Umiejętności Jutra AI",
-      "info": "Strategiczne wdrażanie AI w firmie bez ślepego ulegania 'hype’owi'.",
+      "description": {
+        "pl": "Strategiczne wdrażanie AI w firmie bez ślepego ulegania 'hype’owi'.",
+        "en": "Strategic implementation of AI in a company without blindly succumbing to the 'hype'."
+      },
       "technologiesAndDuties": [
         "LLM",
         "AI",
@@ -101,7 +123,10 @@
       "durationHours": "140",
       "institution": "DataWorkshop",
       "name": "Practical LLM",
-      "info": "Zaawansowane informacje, wraz z przykładami, o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON) oraz użyciu w połączeniu z klasycznymi aplikacjami i hurtowniami danych.",
+      "description": {
+        "pl": "Zaawansowane informacje, wraz z przykładami, o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON) oraz użyciu w połączeniu z klasycznymi aplikacjami i hurtowniami danych.",
+        "en": "Advanced information, along with examples, on using LLMs for data analysis combined with Python (Pydantic, JSON), and integration with classic applications and data warehouses."
+      },
       "technologiesAndDuties": [
         "nauczanie maszynowe",
         "deterministryczne użycie LLM",
@@ -116,7 +141,10 @@
       "durationHours": "12",
       "institution": "DataWorkshop",
       "name": "DWthon LLM",
-      "info": "Podstawowe informacje o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON).",
+      "description": {
+        "pl": "Podstawowe informacje o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON).",
+        "en": "Basic information on using LLMs for data analysis in combination with Python (Pydantic, JSON)."
+      },
       "technologiesAndDuties": [
         "deterministryczne użycie LLM",
         "LLM",
@@ -130,7 +158,10 @@
       "durationHours": "144",
       "institution": "Project Management Institute",
       "name": "Project Management – CAPM",
-      "info": "Uznawany na całym świecie certyfikat dla początkujących, przyznawany przez Project Management Institute (PMI). Potwierdza on pracodawcom podstawową znajomość zasad, metodologii i ram zarządzania projektami, dzięki czemu jest idealnym rozwiązaniem dla osób ubiegających się o stanowiska na niższym szczeblu, takie jak koordynator projektu lub asystent kierownika projektu",
+      "description": {
+        "pl": "Uznawany na całym świecie certyfikat dla początkujących, przyznawany przez Project Management Institute (PMI). Potwierdza on pracodawcom podstawową znajomość zasad, metodologii i ram zarządzania projektami, dzięki czemu jest idealnym rozwiązaniem dla osób ubiegających się o stanowiska na niższym szczeblu, takie jak koordynator projektu lub asystent kierownika projektu",
+        "en": "A globally recognized entry-level certification granted by the Project Management Institute (PMI). It confirms basic knowledge of project management principles, methodologies, and frameworks to employers, making it ideal for candidates seeking junior roles such as project coordinator or assistant project manager"
+      },
       "technologiesAndDuties": [
         "manager projektów",
         "zarządzanie zespołem projektowym"
@@ -142,7 +173,10 @@
       "durationHours": "48",
       "institution": "Linux Professional Institute",
       "name": "LPIC–1",
-      "info": "Pierwszy stopień w wielopoziomowej ścieżce certyfikacji Linux Professional Institute. Potwierdza on fundamentalne umiejętności w zakresie administracji systemami Linux, posługiwania się wierszem poleceń, instalacji oprogramowania oraz podstaw sieci",
+      "description": {
+        "pl": "Pierwszy stopień w wielopoziomowej ścieżce certyfikacji Linux Professional Institute. Potwierdza on fundamentalne umiejętności w zakresie administracji systemami Linux, posługiwania się wierszem poleceń, instalacji oprogramowania oraz podstaw sieci",
+        "en": "The first level in the multi-tier certification path of the Linux Professional Institute. It confirms fundamental skills in Linux systems administration, command-line interface usage, software installation, and network basics"
+      },
       "technologiesAndDuties": [
         "administrator systemów Linux"
       ]
@@ -210,13 +244,26 @@
         "pl": "Starszy programista PHP",
         "en": "Senior PHP Developer"
       },
-      "duties": [
-        "Zapewnienie najlepszej ścieżki migracji między starą a nową stroną: klienci, archiwami zakupów i wyników badań",
-        "Modernizacja nowej strony opartej na frameworku Laravel tworzenie i modyfikacja struktur danych.",
-        "Integracja z wewnętrznymi i zewnętrznymi dostawcami API.",
-        "Wsparcie w testach ręcznych i tworzenie testów automatycznych.",
-        "Optymalizacja zapytań w SQL i Eloquent ORM"
-      ],
+      "description": {
+        "pl": "Starszy programista PHP odpowiedzialny za migrację i modernizację głównego portalu medycznego.",
+        "en": "Senior PHP Developer responsible for migration and modernization of the main medical portal."
+      },
+      "duties": {
+        "pl": [
+          "Zapewnienie najlepszej ścieżki migracji między starą a nową stroną: klienci, archiwami zakupów i wyników badań",
+          "Modernizacja nowej strony opartej na frameworku Laravel tworzenie i modyfikacja struktur danych.",
+          "Integracja z wewnętrznymi i zewnętrznymi dostawcami API.",
+          "Wsparcie w testach ręcznych i tworzenie testów automatycznych.",
+          "Optymalizacja zapytań w SQL i Eloquent ORM"
+        ],
+        "en": [
+          "Ensuring the best migration path between old and new sites: clients, purchase archives, and lab results",
+          "Modernization of the new Laravel-based portal, creating and modifying data structures",
+          "Integration with internal and external API providers",
+          "Support in manual tests and creation of automated tests",
+          "Optimization of SQL queries and Eloquent ORM"
+        ]
+      },
       "technologies": [
         "PHP",
         "Eloquent ORM",
@@ -272,10 +319,20 @@
         "pl": "Programista",
         "en": "Developer"
       },
-      "duties": [
-        "Modernizacja aplikacji www do automatyki domowej opartej na AngularJS obsługującej komputery stacjonarne/urządzenia mobilne.",
-        "Tworzenie uniwersalnej aplikacji mobilnej (Android/iOS) opartej na frameworku Ionic Framework i Angular."
-      ],
+      "description": {
+        "pl": "Projektowanie i rozwój interfejsów webowych oraz aplikacji hybrydowej do sterowania systemami inteligentnego domu.",
+        "en": "Designing and developing web interfaces and hybrid mobile apps for smart home systems."
+      },
+      "duties": {
+        "pl": [
+          "Modernizacja aplikacji www do automatyki domowej opartej na AngularJS obsługującej komputery stacjonarne/urządzenia mobilne.",
+          "Tworzenie uniwersalnej aplikacji mobilnej (Android/iOS) opartej na frameworku Ionic Framework i Angular."
+        ],
+        "en": [
+          "Modernization of AngularJS-based home automation web application serving desktop and mobile devices",
+          "Developing a universal mobile application (Android/iOS) based on Ionic Framework and Angular"
+        ]
+      },
       "technologies": [
         "JavaScript",
         "TypeScript",
@@ -303,18 +360,36 @@
         "pl": "Współwłaściciel/Członek zarządu",
         "en": "Co-owner / Board Member"
       },
-      "duties": [
-        "manager projektów",
-        "zarządzanie zespołem projektowym",
-        "dyrektor działu rozwoju",
-        "programista PHP (czysty PHP, Zend Framework 1, Symfony)",
-        "tworzenie stron www (JavaScript/HTML/CSS)",
-        "administrator systemów Linux (Ubuntu, Debian, Red Hat/CentOs, PLD Linux Distribution)",
-        "koordynator tworzenia kopii zapasowych",
-        "programista skryptów shell (bash)",
-        "fullstack developer",
-        "pozyskiwanie danych (data scrapping)"
-      ],
+      "description": {
+        "pl": "Kompleksowa rola obejmująca zarządzanie projektami IT, programowanie full-stack oraz administrację rozproszoną infrastrukturą serwerową Linux.",
+        "en": "Comprehensive role covering IT project management, full-stack programming, and administration of distributed Linux server infrastructure."
+      },
+      "duties": {
+        "pl": [
+          "manager projektów",
+          "zarządzanie zespołem projektowym",
+          "dyrektor działu rozwoju",
+          "programista PHP (czysty PHP, Zend Framework 1, Symfony)",
+          "tworzenie stron www (JavaScript/HTML/CSS)",
+          "administrator systemów Linux (Ubuntu, Debian, Red Hat/CentOs, PLD Linux Distribution)",
+          "koordynator tworzenia kopii zapasowych",
+          "programista skryptów shell (bash)",
+          "fullstack developer",
+          "pozyskiwanie danych (data scrapping)"
+        ],
+        "en": [
+          "project manager",
+          "project team management",
+          "director of R&D",
+          "PHP developer (pure PHP, Zend Framework 1, Symfony)",
+          "web development (JavaScript/HTML/CSS)",
+          "Linux systems administrator (Ubuntu, Debian, Red Hat/CentOS, PLD Linux Distribution)",
+          "backup coordinator",
+          "shell script programmer (bash)",
+          "fullstack developer",
+          "data scraping"
+        ]
+      },
       "technologies": [
         "PHP",
         "Zend Framework 1",
@@ -382,10 +457,20 @@
         "pl": "Tworzenie stron www, Administrator systemów Linux",
         "en": "Web Development, Linux System Administrator"
       },
-      "duties": [
-        "Administracja serwerami Linux (Ubuntu, Red Hat/CentOs)",
-        "Tworzenie stron www (PHP/JS/HTML/CSS)"
-      ],
+      "description": {
+        "pl": "Rozwój aplikacji webowych oraz administracja produkcyjnymi serwerami internetowymi Linux.",
+        "en": "Web application development and Linux production web servers administration."
+      },
+      "duties": {
+        "pl": [
+          "Administracja serwerami Linux (Ubuntu, Red Hat/CentOs)",
+          "Tworzenie stron www (PHP/JS/HTML/CSS)"
+        ],
+        "en": [
+          "Linux systems administration (Ubuntu, Red Hat/CentOS)",
+          "Web development (PHP/JS/HTML/CSS)"
+        ]
+      },
       "technologies": [
         "Linux",
         "Ubuntu",
@@ -426,12 +511,24 @@
         "pl": "Handlowiec i manager projektów",
         "en": "Sales Representative & Project Manager"
       },
-      "duties": [
-        "Sprzedaż (na starcie)",
-        "manager projektów (później)",
-        "tworzenie specyfikacji (później)",
-        "Helpdesk IT (później)"
-      ],
+      "description": {
+        "pl": "Zarządzanie projektami i relacjami handlowymi w początkowym okresie działalności.",
+        "en": "Project management and sales relations management during the initial operational period."
+      },
+      "duties": {
+        "pl": [
+          "Sprzedaż (na starcie)",
+          "manager projektów (później)",
+          "tworzenie specyfikacji (później)",
+          "Helpdesk IT (później)"
+        ],
+        "en": [
+          "Sales (initial)",
+          "project manager (later)",
+          "specifications creation (later)",
+          "IT Helpdesk (later)"
+        ]
+      },
       "technologies": [
         "PHP"
       ],
@@ -450,11 +547,22 @@
         "pl": "Wsparcie prezentacji najnowszych technologii",
         "en": "Support for Presentation of Latest Technologies"
       },
-      "duties": [
-        "administracja bb forum",
-        "pozyskiwanie danych (data scrapping)",
-        "wsparcie podczas prezentacji nowoczesnego systemu komunikacji w firmie"
-      ],
+      "description": {
+        "pl": "Wsparcie operacyjne przy wdrażaniu nowatorskich systemów komunikacyjnych.",
+        "en": "Operational support during the deployment of innovative communication systems."
+      },
+      "duties": {
+        "pl": [
+          "administracja bb forum",
+          "pozyskiwanie danych (data scrapping)",
+          "wsparcie podczas prezentacji nowoczesnego systemu komunikacji w firmie"
+        ],
+        "en": [
+          "bulletin board forum administration",
+          "data scraping",
+          "support during presentation of cutting-edge company communication system"
+        ]
+      },
       "technologies": [
         "PHP",
         "Hyper-V"
@@ -471,9 +579,18 @@
         "pl": "student",
         "en": "student"
       },
-      "duties": [
-        "nauka"
-      ],
+      "description": {
+        "pl": "Studia wyższe na Wydziale Elektroniki i Technik Informacyjnych.",
+        "en": "Higher education studies at the Faculty of Electronics and Information Technology."
+      },
+      "duties": {
+        "pl": [
+          "nauka"
+        ],
+        "en": [
+          "studying"
+        ]
+      },
       "technologies": [
         "C",
         "HTML",
@@ -499,9 +616,18 @@
         "pl": "uczeń",
         "en": "student"
       },
-      "duties": [
-        "nauka"
-      ],
+      "description": {
+        "pl": "Edukacja ogólnokształcąca w klasie o profilu matematyczno-fizycznym z informatyką.",
+        "en": "General education in a class with mathematics, physics, and computer science profile."
+      },
+      "duties": {
+        "pl": [
+          "uczeń"
+        ],
+        "en": [
+          "studying / pupil"
+        ]
+      },
       "technologies": [
         "Pascal",
         "Clipper"
@@ -520,7 +646,10 @@
         "start": "03.2024",
         "end": "10.2025"
       },
-      "description": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
+      "description": {
+        "pl": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
+        "en": "B2C store offering medical diagnostics tests for purchase and lab results retrieval. Backend development. Taking over the project with minimal documentation, code development, testing, integration with internal laboratory systems and external systems providing payments and additional customer services. Preparing and exchanging data with an external analytical system and a user engagement system."
+      },
       "technologies": [
         "PHP",
         "AWS Redshift",
@@ -547,7 +676,10 @@
         "start": "03.2024",
         "end": "10.2025"
       },
-      "description": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
+      "description": {
+        "pl": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Programowanie back-endowe. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, testowanie, integracja z wewnętrznymi systemami laboratoryjnymi i systemami zewnętrznymi zapewniającymi płatności i dodatkowe usługi dla klientów. Przygotowywanie i wymiana danych z zewnętrznym systemem analitycznym i systemem zaangażowania użytkowników.",
+        "en": "B2C store offering medical diagnostics tests for purchase and lab results retrieval. Backend development. Taking over the project with minimal documentation, code development, testing, integration with internal laboratory systems and external systems providing payments and additional customer services. Preparing and exchanging data with an external analytical system and a user engagement system."
+      },
       "technologies": [
         "PHP",
         "Laravel",
@@ -569,7 +701,13 @@
         "PHP": [
           "8.x"
         ]
-      }
+      },
+      "designPatterns": [
+        "Strategy",
+        "Singleton",
+        "Factory",
+        "Service Layer"
+      ]
     },
     {
       "id": "proj-3",
@@ -582,7 +720,10 @@
         "start": "10.2019",
         "end": "03.2023"
       },
-      "description": "Projektowanie aplikacji mobilnej dla systemów Android/iOS, zawierającej: kalkulatory więźb dachowych i wsporników, katalog offline oraz wyświetlanie dokumentacji.",
+      "description": {
+        "pl": "Projektowanie aplikacji mobilnej dla systemów Android/iOS, zawierającej: kalkulatory więźb dachowych i wsporników, katalog offline oraz wyświetlanie dokumentacji.",
+        "en": "Designing a mobile application for Android/iOS, including: roof truss and support calculators, offline catalog, and documentation rendering."
+      },
       "technologies": [
         "Ionic Framework",
         "Apache Cordova",
@@ -605,7 +746,10 @@
         "start": "10.2019",
         "end": "03.2023"
       },
-      "description": "Aplikacja internetowa do zarządzania i automatyzacji zadań gospodarstwa domowego powiązana z systemami sterowania.",
+      "description": {
+        "pl": "Aplikacja internetowa do zarządzania i automatyzacji zadań gospodarstwa domowego powiązana z systemami sterowania.",
+        "en": "A web application for managing and automating household tasks connected to control systems."
+      },
       "technologies": [
         "AngularJS",
         "JavaScript",
@@ -627,7 +771,10 @@
         "start": "09.2019",
         "end": "03.2024"
       },
-      "description": "Wdrożenie, rozwój i utrzymanie back-end systemu B2B, integracja z zewnętrznymi systemami sprzedaży (iERP) za pomocą API w technologii SOAP. Udostępnianie API (SOAP i REST) podmiotom zewnętrznym. Projektowanie od podstaw danych i struktur baz danych.",
+      "description": {
+        "pl": "Wdrożenie, rozwój i utrzymanie back-end systemu B2B, integracja z zewnętrznymi systemami sprzedaży (iERP) za pomocą API w technologii SOAP. Udostępnianie API (SOAP i REST) podmiotom zewnętrznym. Projektowanie od podstaw danych i struktur baz danych.",
+        "en": "Implementation, development, and maintenance of a B2B backend system, integration with external ERP systems (iERP) using SOAP API. Exposing SOAP and REST APIs to external partners. Designing database structures and schemas from scratch."
+      },
       "technologies": [
         "PHP",
         "Symfony",
@@ -660,7 +807,10 @@
         "start": "02.2018",
         "end": "03.2024"
       },
-      "description": "Indywidualne dostosowanie silnika 'TKN–CONNECT' z nową filozofią sprzedaży, metodami płatności i metodami wyszukiwania. Przeprojektowanie integracji z zewnętrznymi systemami sprzedaży (WFMAG) z wykorzystaniem technologii SOAP.",
+      "description": {
+        "pl": "Indywidualne dostosowanie silnika 'TKN–CONNECT' z nową filozofią sprzedaży, metodami płatności i metodami wyszukiwania. Przeprojektowanie integracji z zewnętrznymi systemami sprzedaży (WFMAG) z wykorzystaniem technologii SOAP.",
+        "en": "Customized tailoring of the 'TKN-CONNECT' engine with a new sales philosophy, payment, and search methods. Redesign of the integration with external sales systems (WFMAG) using SOAP technology."
+      },
       "technologies": [
         "PHP",
         "JavaScript",
@@ -684,7 +834,10 @@
         "start": "09.2015",
         "end": "10.2025"
       },
-      "description": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, refaktoring, integracja z systemami zewnętrznymi (za pośrednictwem REST API i bezpośrednich połączeń z bazą danych).",
+      "description": {
+        "pl": "Sklep B2C z ofertą badań do zakupu oraz odbiór wyników. Przejęcie projektu przy minimalnej dokumentacji, rozwój kodu, refaktoring, integracja z systemami zewnętrznymi (za pośrednictwem REST API i bezpośrednich połączeń z bazą danych).",
+        "en": "B2C store offering diagnostic tests for purchase and lab results retrieval. Taking over the project with minimal documentation, code development, refactoring, integration with external systems (via REST API and direct database connections)."
+      },
       "technologies": [
         "PHP",
         "JavaScript",
@@ -704,10 +857,16 @@
           "7.x"
         ]
       },
-      "notableFeatures": [
-        "Wysoka jakość kodu skutkująca brakiem skutecznych ataków.",
-        "Wysoka wydajność, bez konieczności użycia dużych zasobów czy też hostingu AWS."
-      ]
+      "notableFeatures": {
+        "pl": [
+          "Wysoka jakość kodu skutkująca brakiem skutecznych ataków.",
+          "Wysoka wydajność, bez konieczności użycia dużych zasobów czy też hostingu AWS."
+        ],
+        "en": [
+          "High code quality resulting in zero successful attacks.",
+          "High performance without needing substantial resources or AWS hosting."
+        ]
+      }
     },
     {
       "id": "proj-8",
@@ -719,7 +878,10 @@
         "start": "09.2015",
         "end": "05.2017"
       },
-      "description": "Rozwój i utrzymanie systemów B2B i B2C firmy sprzedającej opony samochodowe. Integracja z systemami zewnętrznymi i hurtownią danych (części samochodowe).",
+      "description": {
+        "pl": "Rozwój i utrzymanie systemów B2B i B2C firmy sprzedającej opony samochodowe. Integracja z systemami zewnętrznymi i hurtownią danych (części samochodowe).",
+        "en": "Development and maintenance of B2B and B2C systems for a car tire retailer. Integration with external systems and a car parts data warehouse."
+      },
       "technologies": [
         "PHP",
         "JavaScript",
@@ -753,7 +915,10 @@
         "start": "03.2010",
         "end": "03.2014"
       },
-      "description": "Opracowane od zera wyspecjalizowane webowe rozszerzenie serwerowych systemów ERP. Celowo nie posiada internetowego panelu administracyjnego; cała treść, użytkownicy, katalogi produktów, ceny oraz zarządzanie zapasami are obsłużone zewnętrznie za pośrednictwem interfejsu SOAP API.",
+      "description": {
+        "pl": "Opracowane od zera wyspecjalowane webowe rozszerzenie serwerowych systemów ERP. Celowo nie posiada internetowego panelu administracyjnego; cała treść, użytkownicy, katalogi produktów, ceny oraz zarządzanie zapasami are obsłużone zewnętrznie za pośrednictwem interfejsu SOAP API.",
+        "en": "Specialized web extension of server ERP systems developed from scratch. Intentionally lacks an online administration panel; all content, users, product catalogs, prices, and inventory management are handled externally via SOAP API."
+      },
       "technologies": [
         "PHP",
         "JavaScript",
@@ -776,10 +941,16 @@
         "Factory",
         "Service Layer"
       ],
-      "notableFeatures": [
-        "Samodzielne opracowanie i zastosowanie wzorców projektowych.",
-        "Lekka i skuteczna architektura umożliwiająca wysoką wydajność, mimo ograniczeń serwerów w momencie powstania."
-      ]
+      "notableFeatures": {
+        "pl": [
+          "Samodzielne opracowanie i zastosowanie wzorców projektowych.",
+          "Lekka i skuteczna architektura umożliwiająca wysoką wydajność, mimo ograniczeń serwerów w momencie powstania."
+        ],
+        "en": [
+          "Independent development and application of design patterns.",
+          "Lightweight and efficient architecture enabling high performance despite server limitations at inception."
+        ]
+      }
     },
     {
       "id": "proj-10",
@@ -793,7 +964,10 @@
         "start": "09.2015",
         "end": "12.2025"
       },
-      "description": "Wdrożenie, rozwój i utrzymanie systemu B2B, integracja z zewnętrznymi systemami sprzedaży (WFMAG, iERP) oraz API w technologii SOAP, dynamiczne ustalanie cen na podstawie aktualnego kursu wymiany walut.",
+      "description": {
+        "pl": "Wdrożenie, rozwój i utrzymanie systemu B2B, integracja z zewnętrznymi systemami sprzedaży (WFMAG, iERP) oraz API w technologii SOAP, dynamiczne ustalanie cen na podstawie aktualnego kursu wymiany walut.",
+        "en": "Implementation, development, and maintenance of a B2B system, integration with external sales systems (WFMAG, iERP) and SOAP API, dynamic pricing based on current currency exchange rates."
+      },
       "technologies": [
         "PHP",
         "JavaScript",
@@ -830,7 +1004,10 @@
         "start": "02.2007",
         "end": "06.2026"
       },
-      "description": "Przejęcie szkieletu aplikacji, stworzenie i rozwinięcie portalu społecznościowego służącego do łączenia nauczycieli języków obcych poszukujących pracy ze szkołami poszukującymi pracowników oraz osobami indywidualnie poszukującymi lektorów.",
+      "description": {
+        "pl": "Przejęcie szkieletu aplikacji, stworzenie i rozwinięcie portalu społecznościowego służącego do łączenia nauczycieli języków obcych poszukujących pracy ze szkołami poszukującymi pracowników oraz osobami indywidualnie poszukującymi lektorów.",
+        "en": "Taking over the application skeleton, building and expanding a social portal connecting job-seeking foreign language teachers with schools and individuals looking for tutors."
+      },
       "technologies": [
         "PHP",
         "JavaScript",
@@ -858,15 +1035,26 @@
           "5.x"
         ]
       },
-      "notableFeatures": [
-        "Samodzielne opracowanie systemu mailingowego dostosowanego do zasad Google ze skonfigurowanymi elementami DKIM, DMARC, SPF.",
-        "Modyfikacja zmniejszająca obciążenie lektorów poszukujących pracy. Dzięki grupowaniu ofert zmniejszenie maksymalnej ilości e-maili do jednego dziennie.",
-        "Wysyłka ponad 50000 e-maili tygodniowo i do ponad 10000 e-maili dziennie, na 'shared hosting' oferowanym przez nazwa.pl w 2007r.",
-        "Skuteczne pozycjonowanie strony na frazy związane z nauką języków oraz zawodem lektora.",
-        "Bezpieczne przesyłanie hasła poprzez udostępnioną przez nazwa.pl subdomenę z certyfikatem SSL.",
-        "Dopracowanie strony do stanu wysokiej bezawaryjności i zarabiania przez ponad 15 lat.",
-        "Wysoka wydajność, pozwalająca na działanie na 'shared hosting' oferowanym przez nazwa.pl w 2007r."
-      ]
+      "notableFeatures": {
+        "pl": [
+          "Samodzielne opracowanie systemu mailingowego dostosowanego do zasad Google ze skonfigurowanymi elementami DKIM, DMARC, SPF.",
+          "Modyfikacja zmniejszająca obciążenie lektorów poszukujących pracy. Dzięki grupowaniu ofert zmniejszenie maksymalnej ilości e-maili do jednego dziennie.",
+          "Wysyłka ponad 50000 e-maili tygodniowo i do ponad 10000 e-maili dziennie, na 'shared hosting' oferowanym przez nazwa.pl w 2007r.",
+          "Skuteczne pozycjonowanie strony na frazy związane z nauką języków oraz zawodem lektora.",
+          "Bezpieczne przesyłanie hasła poprzez udostępnioną przez nazwa.pl subdomenę z certyfikatem SSL.",
+          "Dopracowanie strony do stanu wysokiej bezawaryjności i zarabiania przez ponad 15 lat.",
+          "Wysoka wydajność, pozwalająca na działanie na 'shared hosting' oferowanym przez nazwa.pl w 2007r."
+        ],
+        "en": [
+          "Independent development of a custom mailing system compliant with Google policies with DKIM, DMARC, SPF fully configured.",
+          "Modification reducing the workload on job-seeking language teachers. Offer grouping reduced maximum emails to one per day.",
+          "Successfully dispatched over 50,000 emails weekly and up to 10,000 daily on shared hosting offered by nazwa.pl in 2007.",
+          "Effective SEO for phrases related to language learning and language tutoring profession.",
+          "Secure password transmission using a subdomain with SSL certificate provided by nazwa.pl.",
+          "Refined the website to high reliability and continuous profitability for over 15 years.",
+          "High performance, allowing operation on shared hosting offered by nazwa.pl in 2007."
+        ]
+      }
     }
   ],
   "skills": [
@@ -1080,17 +1268,50 @@
     }
   ],
   "additionalSkillsAndHobbies": [
-    "Prawo jazdy: kategoria B",
-    "Uprawnienia do nurkowania: PADI Open Water Diver",
-    "Certyfikat operatora wózka widłowego: II WJO, UDT",
-    "Książki: historyczne, fantasy (m.in: high fantasy, 'JRR Tolkien', 'David Eddings', 'urban fantasy'), science fiction (m.in.: Stanisław Lem, James White), kryminały (m.in.: Arthur Conan Doyle, Agatha Christie). Czytam również literaturę popularną i komiksy.",
-    "Gry fabularne (RPG): Główne: 'Warhammer Fantasy Roleplay', 'Earthdawn: Przebudzenie ziemi' oraz autorski 'From Dusk Till Dawn'. Zarówno jako gracz, jak i mistrz gry.",
-    "Gry komputerowe: strategie turowe (UFO: Enemy Unknown), RTS (Red Alert), online: RPG (Final Fantasy XIV), strzelanki (World of Tanks, WT: Enemy Territory).",
-    "Ogrodnictwo: właściciel działki pracowniczej w ROD.",
-    "Mikroelektronika: małe obwody elektryczne, lutowanie, Raspberry Pi",
-    "Zwierzęta: Współwłaściciel psa",
-    "Żeglarstwo: Żeglarz jachtowy",
-    "WOPR: Młodszy ratownik (nieużywane)"
+    {
+      "pl": "Prawo jazdy: kategoria B",
+      "en": "Driver's license: category B"
+    },
+    {
+      "pl": "Uprawnienia do nurkowania: PADI Open Water Diver",
+      "en": "Diving certification: PADI Open Water Diver"
+    },
+    {
+      "pl": "Certyfikat operatora wózka widłowego: II WJO, UDT",
+      "en": "Forklift operator certificate: II WJO, UDT"
+    },
+    {
+      "pl": "Książki: historyczne, fantasy (m.in: high fantasy, 'JRR Tolkien', 'David Eddings', 'urban fantasy'), science fiction (m.in.: Stanisław Lem, James White), kryminały (m.in.: Arthur Conan Doyle, Agatha Christie). Czytam również literaturę popularną i komiksy.",
+      "en": "Books: historical, fantasy (e.g. high fantasy, 'J.R.R. Tolkien', 'David Eddings', 'urban fantasy'), science fiction (e.g. Stanisław Lem, James White), crime stories (e.g. Arthur Conan Doyle, Agatha Christie). I also read popular literature and comics."
+    },
+    {
+      "pl": "Gry fabularne (RPG): Główne: 'Warhammer Fantasy Roleplay', 'Earthdawn: Przebudzenie ziemi' oraz autorski 'From Dusk Till Dawn'. Zarówno jako gracz, jak i mistrz gry.",
+      "en": "Role-playing games (RPG): Main titles: 'Warhammer Fantasy Roleplay', 'Earthdawn: Awakening of the Earth' and custom 'From Dusk Till Dawn'. Both as a player and game master."
+    },
+    {
+      "pl": "Gry komputerowe: strategie turowe (UFO: Enemy Unknown), RTS (Red Alert), online: RPG (Final Fantasy XIV), strzelanki (World of Tanks, WT: Enemy Territory).",
+      "en": "Computer games: turn-based strategy (UFO: Enemy Unknown), RTS (Red Alert), online: RPG (Final Fantasy XIV), shooters (World of Tanks, Enemy Territory)."
+    },
+    {
+      "pl": "Ogrodnictwo: właściciel działki pracowniczej w ROD.",
+      "en": "Gardening: allotment garden owner (ROD)."
+    },
+    {
+      "pl": "Mikroelektronika: małe obwody elektryczne, lutowanie, Raspberry Pi",
+      "en": "Microelectronics: small electric circuits, soldering, Raspberry Pi"
+    },
+    {
+      "pl": "Zwierzęta: Współwłaściciel psa",
+      "en": "Animals: Dog co-owner"
+    },
+    {
+      "pl": "Żeglarstwo: Żeglarz jachtowy",
+      "en": "Sailing: Yacht sailor"
+    },
+    {
+      "pl": "WOPR: Młodszy ratownik (nieużywane)",
+      "en": "WOPR (Polish Volunteer Water Rescue Service): Junior lifesaver (inactive)"
+    }
   ],
   "techDictionaries": {
     "programmingLanguages": [

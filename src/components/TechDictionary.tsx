@@ -17,7 +17,7 @@ import { translate } from "../utils/translations";
  * @interface TechDictionaryProps
  */
 interface TechDictionaryProps {
-  slownik: TechDictionaries;
+  dictionary: TechDictionaries;
   cvData: CVData;
   onTagClick?: (tag: string) => void;
   lang: "pl" | "en";
@@ -31,7 +31,7 @@ interface TechDictionaryProps {
  * @param {TechDictionaryProps} props - Component props.
  * @returns {JSX.Element} The rendered TechDictionary component.
  */
-export const TechDictionary: React.FC<TechDictionaryProps> = ({ slownik, cvData, onTagClick, lang }) => {
+export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvData, onTagClick, lang }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
@@ -49,14 +49,14 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ slownik, cvData,
   };
 
   // Build list of all tags grouped by category
-  const categories = Object.keys(slownik) as Array<keyof TechDictionaries>;
+  const categories = Object.keys(dictionary) as Array<keyof TechDictionaries>;
 
   // Filter based on search and active category
   const filteredTagsByCategory = useMemo(() => {
     const result: Partial<Record<keyof TechDictionaries, TechDictionaryElement[]>> = {};
     for (const cat of categories) {
       if (activeCategory && activeCategory !== cat) continue;
-      const tags = slownik[cat].filter((t) =>
+      const tags = dictionary[cat].filter((t) =>
         t.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         (t.synonyms && t.synonyms.some((syn) => syn.toLowerCase().includes(searchTerm.toLowerCase())))
       );
@@ -65,7 +65,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ slownik, cvData,
       }
     }
     return result;
-  }, [slownik, searchTerm, activeCategory, categories]);
+  }, [dictionary, searchTerm, activeCategory, categories]);
 
   // Relational finder: what is connected to the selected tag
   const tagConnections = useMemo(() => {
@@ -75,7 +75,14 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ slownik, cvData,
     // 1. Find jobs where tag is listed
     const jobs = cvData.employment.filter((job) =>
       job.technologies.some((t) => t.toLowerCase() === tagLower) ||
-      (job.duties && job.duties.some((o) => o.toLowerCase().includes(tagLower)))
+      (job.duties && (
+        (job.duties.pl && job.duties.pl.some((o) => o.toLowerCase().includes(tagLower))) ||
+        (job.duties.en && job.duties.en.some((o) => o.toLowerCase().includes(tagLower)))
+      )) ||
+      (job.description && (
+        (job.description.pl && job.description.pl.toLowerCase().includes(tagLower)) ||
+        (job.description.en && job.description.en.toLowerCase().includes(tagLower))
+      ))
     );
 
     // 2. Find projects where tag is listed
@@ -88,7 +95,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ slownik, cvData,
     const certs = cvData.certificates.filter((c) =>
       (c.technologiesAndDuties && c.technologiesAndDuties.some((t) => t.toLowerCase() === tagLower)) ||
       c.name.toLowerCase().includes(tagLower) ||
-      (c.info && c.info.toLowerCase().includes(tagLower))
+      (c.description && c.description.toLowerCase().includes(tagLower))
     );
 
     // 4. Find defined skill level
@@ -179,6 +186,68 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ slownik, cvData,
         </div>
       </div>
 
+      {/* Level & Icons Legend */}
+      <div className="mb-6 p-4 bg-slate-50 border border-slate-200/60 rounded-2xl animate-fade-in" id="tech-legend">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Left Column: Skill Levels next to elements */}
+          <div>
+            <span className="font-bold text-slate-700 block mb-2 font-mono uppercase tracking-wider text-[10px]">
+              {lang === "pl" ? "Ikonki przy konkretnych elementach (Poziomy znajomości):" : "Icons next to elements (Knowledge Levels):"}
+            </span>
+            <div className="space-y-2 text-xs text-slate-600">
+              <div className="flex items-center gap-2">
+                <Award className="w-4 h-4 text-amber-500 fill-amber-100 animate-pulse" />
+                <span className="font-semibold text-slate-700">{translate("Poziom zaawansowany / ekspert", lang)}</span>
+                <span className="text-slate-400 font-mono text-[10px]">{lang === "pl" ? "(Codzienne użycie, zaawansowane mechanizmy)" : "(Daily usage, advanced mechanisms)"}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-blue-500 fill-blue-50" />
+                <span className="font-semibold text-slate-700">{translate("Poziom średniozaawansowany", lang)}</span>
+                <span className="text-slate-400 font-mono text-[10px]">{lang === "pl" ? "(Samodzielna praca i wdrażanie rozwiązań)" : "(Independent work and implementation)"}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span className="font-semibold text-slate-700">{translate("Ogólna znajomość / Baza wiedzy", lang)}</span>
+                <span className="text-slate-400 font-mono text-[10px]">{lang === "pl" ? "(Podstawowa modyfikacja, rozumienie kodu)" : "(Basic modification, code understanding)"}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Category Group Icons */}
+          <div className="border-t md:border-t-0 md:border-l border-slate-200 pt-3 md:pt-0 md:pl-4">
+            <span className="font-bold text-slate-700 block mb-2 font-mono uppercase tracking-wider text-[10px]">
+              {lang === "pl" ? "Ikony kategorii technologicznych:" : "Technology Category Icons:"}
+            </span>
+            <div className="grid grid-cols-2 gap-1 text-[11px] text-slate-600">
+              <div className="flex items-center gap-1.5">
+                <Code className="w-3.5 h-3.5 text-blue-500" />
+                <span>{lang === "pl" ? "Języki programowania" : "Programming Languages"}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-indigo-500" />
+                <span>{lang === "pl" ? "Frameworki i biblioteki" : "Frameworks & Libraries"}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <HardDrive className="w-3.5 h-3.5 text-emerald-500" />
+                <span>{lang === "pl" ? "Bazy danych i Storage" : "Databases & Storage"}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Cloud className="w-3.5 h-3.5 text-cyan-500" />
+                <span>{lang === "pl" ? "Narzędzia i Chmura" : "Cloud & Tools"}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Terminal className="w-3.5 h-3.5 text-amber-500" />
+                <span>{lang === "pl" ? "OS i Administracja" : "OS & Administration"}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Server className="w-3.5 h-3.5 text-rose-500" />
+                <span>{lang === "pl" ? "API i Integracje" : "API & Integrations"}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Category Tabs */}
       <div className="flex flex-wrap gap-2 mb-6">
         <button
@@ -248,14 +317,14 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ slownik, cvData,
                         }`}
                       >
                         {skillRating.icon}
-                        <span>{tag}</span>
+                        <span>{translate(tag, lang)}</span>
                       </button>
 
                       {/* Tooltip containing workplace and projects where used */}
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 hidden group-hover/tag:block z-50 w-52 bg-slate-950 text-white text-[10px] p-3 rounded-xl shadow-lg leading-relaxed font-sans border border-slate-800 animate-fade-in pointer-events-none">
                         <div className="font-bold text-indigo-300 border-b border-slate-800 pb-1 mb-1.5 flex items-center gap-1">
                           <Tag className="w-3 h-3 text-indigo-400" />
-                          <span>{tag}</span>
+                          <span>{translate(tag, lang)}</span>
                         </div>
                         
                         {tagObj.synonyms && tagObj.synonyms.length > 0 && (

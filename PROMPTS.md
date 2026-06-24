@@ -47,6 +47,14 @@ This file contains a list of key prompts, guidelines, and instructions provided 
 **Treść instrukcji:**
 > Dodaj komentarze ułatwiające orientację w długich ciągach kodu (if, else, catch, switch), uzupełnij brakujące opisy w blokach catch, opisz zastosowane wzorce projektowe i powody decyzji architektonicznych oraz przetłumacz nagłówki na język angielski.
 
+### Prompt 11: Tłumaczenie sekcji "Kandydat o sobie" i dynamiczne przyciski społecznościowe
+**Treść instrukcji:**
+> Dodaj wielojęzyczność do opisu kandydata w pliku JSON oraz dynamicznie generuj i wyświetlaj przyciski kontaktowe (E-mail, Tel) oraz społecznościowe (Portfolio, GitHub, LinkedIn) na podstawie pól w `cv_data.json` tylko wtedy, gdy pola te są zdefiniowane i niepuste.
+
+### Prompt 12: Dwujęzyczne opisy i obowiązki w historii zatrudnienia
+**Treść instrukcji:**
+> Dodaj dwujęzyczne opisy (description) i obowiązki (duties) do wszystkich pozycji historii zatrudnienia (employment) w pliku `cv_data.json` wraz z pełnym wsparciem dla ich wyświetlania, wyszukiwania, dynamicznej edycji i zapisywania w panelu administratora.
+
 ---
 
 ## 🇬🇧 ENGLISH
@@ -90,3 +98,11 @@ This file contains a list of key prompts, guidelines, and instructions provided 
 ### Prompt 10: Enhancing Code Comments, Design Patterns, and Catch Blocks
 **Instruction content:**
 > Add structural navigation comments to help orientation inside long code blocks (if, else, catch, switch), document catch blocks with clear rationale comments, explain utilized design patterns, and translate header comments into English.
+
+### Prompt 11: Candidate Description Translation & Dynamic Social Buttons
+**Instruction content:**
+> Add bilingual support to the candidate's self-description inside the JSON file. Dynamically render and display contact (Email, Phone) and social (Portfolio, GitHub, LinkedIn) buttons based on fields from `cv_data.json` only when they are defined and non-empty.
+
+### Prompt 12: Bilingual Employment Descriptions & Duties
+**Instruction content:**
+> Add bilingual description and duties fields to all entries in the employment section of `cv_data.json`, with comprehensive support for their display, searching, dynamic inline editing, and state persistence in the administration modal.

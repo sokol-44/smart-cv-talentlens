@@ -23,17 +23,26 @@ export interface DatePeriod {
  * @interface Person
  * @property {string} firstName - Given name.
  * @property {string} lastName - Family name.
- * @property {string[]} description - Brief professional overview paragraph list.
- * @property {string} github - URL to GitHub profile.
- * @property {string} linkedin - URL to LinkedIn profile.
+ * @property {object} description - Bilingual brief professional overview paragraph lists.
+ * @property {string} [portfolio] - URL to portfolio website.
+ * @property {string} [github] - URL to GitHub profile.
+ * @property {string} [linkedin] - URL to LinkedIn profile.
+ * @property {string} [email] - Contact email.
+ * @property {string} [tel] - Contact telephone number.
  * @property {object} passions - Bilingual non-professional passions.
  */
 export interface Person {
   firstName: string;
   lastName: string;
-  description: string[];
-  github: string;
-  linkedin: string;
+  description: {
+    pl: string[];
+    en: string[];
+  };
+  portfolio?: string;
+  github?: string;
+  linkedin?: string;
+  email?: string;
+  tel?: string;
   passions?: {
     pl: string;
     en: string;
@@ -56,6 +65,10 @@ export interface Education {
   type: string;
   major: string;
   confirmation?: string;
+  description?: {
+    pl: string;
+    en: string;
+  };
 }
 
 /**
@@ -67,7 +80,7 @@ export interface Education {
  * @property {string} [durationHours] - Optional duration of the course in hours.
  * @property {string} institution - Issuing authority or training center.
  * @property {string} name - Title of course/certificate.
- * @property {string} [info] - Optional additional information or context.
+ * @property {string} [description] - Optional additional information or context.
  * @property {string[]} [technologiesAndDuties] - Tech stack tags covered in certification.
  */
 export interface Certificate {
@@ -76,7 +89,7 @@ export interface Certificate {
   durationHours?: string;
   institution: string;
   name: string;
-  info?: string;
+  description?: string | { pl: string; en: string };
   technologiesAndDuties?: string[];
 }
 
@@ -99,6 +112,8 @@ export interface RolePreset {
  * @property {string | string[] | { pl: string; en: string }} position - Role title(s) occupied.
  * @property {string[]} duties - List of key duties.
  * @property {string[]} technologies - Technologies list used in this role.
+ * @property {object} description - Bilingual description of the tenure/role.
+ * @property {object} duties - Bilingual key duties list.
  * @property {Record<string, string[]>} [versions] - Mapping of used technologies to their versions.
  * @property {string[]} [mainProjects] - Projects names completed during this tenure.
  * @property {string[]} [designPatterns] - Design patterns practiced in this role.
@@ -109,7 +124,8 @@ export interface Employment {
   date: DatePeriod;
   company: string;
   position: string | string[] | { pl: string; en: string };
-  duties: string[];
+  description: { pl: string; en: string };
+  duties: { pl: string[]; en: string[] };
   technologies: string[];
   versions?: Record<string, string[]>;
   mainProjects?: string[];
@@ -138,11 +154,11 @@ export interface Project {
   url?: string;
   company: string[];
   date: DatePeriod;
-  description: string;
+  description: { pl: string; en: string };
   technologies: string[];
   versions?: Record<string, string[]>;
   designPatterns?: string[];
-  notableFeatures?: string[];
+  notableFeatures?: { pl: string[]; en: string[] };
 }
 
 /**
@@ -197,7 +213,7 @@ export interface CVData {
   employment: Employment[];
   projects: Project[];
   skills: Skill[];
-  additionalSkillsAndHobbies: string[];
+  additionalSkillsAndHobbies: { pl: string; en: string }[];
   techDictionaries: TechDictionaries;
   rolePresets?: RolePreset[];
   recruiterNotes?: Record<string, { pl: string; en: string }>;

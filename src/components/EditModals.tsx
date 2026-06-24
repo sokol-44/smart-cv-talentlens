@@ -6,8 +6,8 @@
  */
 
 import React, { useState, useEffect } from "react";
-import { Employment, Project, Certificate } from "../types";
-import { X, Save, Calendar, Tag, Briefcase, Award, FolderGit2 } from "lucide-react";
+import { Employment, Project, Certificate, Education } from "../types";
+import { X, Save, Calendar, Tag, Briefcase, Award, FolderGit2, GraduationCap } from "lucide-react";
 import { translate } from "../utils/translations";
 
 /**
@@ -19,10 +19,12 @@ interface EditModalsProps {
   jobToEdit: Employment | null;
   projectToEdit: Project | null;
   certToEdit: Certificate | null;
+  educationToEdit: Education | null;
   onClose: () => void;
   onSaveJob: (job: Employment) => void;
   onSaveProject: (project: Project) => void;
   onSaveCert: (cert: Certificate) => void;
+  onSaveEducation: (edu: Education) => void;
   lang: "pl" | "en";
 }
 
@@ -38,10 +40,12 @@ export const EditModals: React.FC<EditModalsProps> = ({
   jobToEdit,
   projectToEdit,
   certToEdit,
+  educationToEdit,
   onClose,
   onSaveJob,
   onSaveProject,
   onSaveCert,
+  onSaveEducation,
   lang,
 }) => {
   // Job Form State
@@ -49,7 +53,10 @@ export const EditModals: React.FC<EditModalsProps> = ({
   const [jobStanowisko, setJobStanowisko] = useState("");
   const [jobStart, setJobStart] = useState("");
   const [jobEnd, setJobEnd] = useState("");
-  const [jobObowiazki, setJobObowiazki] = useState("");
+  const [jobDescriptionPl, setJobDescriptionPl] = useState("");
+  const [jobDescriptionEn, setJobDescriptionEn] = useState("");
+  const [jobObowiazkiPl, setJobObowiazkiPl] = useState("");
+  const [jobObowiazkiEn, setJobObowiazkiEn] = useState("");
   const [jobTechs, setJobTechs] = useState("");
 
   // Project Form State
@@ -57,7 +64,10 @@ export const EditModals: React.FC<EditModalsProps> = ({
   const [projFirma, setProjFirma] = useState("");
   const [projStart, setProjStart] = useState("");
   const [projEnd, setProjEnd] = useState("");
-  const [projOpis, setProjOpis] = useState("");
+  const [projOpisPl, setProjOpisPl] = useState("");
+  const [projOpisEn, setProjOpisEn] = useState("");
+  const [projFeaturesPl, setProjFeaturesPl] = useState("");
+  const [projFeaturesEn, setProjFeaturesEn] = useState("");
   const [projTechs, setProjTechs] = useState("");
   const [projUrl, setProjUrl] = useState("");
 
@@ -69,25 +79,41 @@ export const EditModals: React.FC<EditModalsProps> = ({
   const [certOpis, setCertOpis] = useState("");
   const [certTechs, setCertTechs] = useState("");
 
+  // Education Form State
+  const [eduInstitution, setEduInstitution] = useState("");
+  const [eduType, setEduType] = useState("");
+  const [eduMajor, setEduMajor] = useState("");
+  const [eduStart, setEduStart] = useState("");
+  const [eduEnd, setEduEnd] = useState("");
+  const [eduConfirmation, setEduConfirmation] = useState("");
+  const [eduDescriptionPl, setEduDescriptionPl] = useState("");
+  const [eduDescriptionEn, setEduDescriptionEn] = useState("");
+
   useEffect(() => {
     if (jobToEdit) {
       setJobFirma(jobToEdit.company);
       setJobStanowisko(Array.isArray(jobToEdit.position) ? jobToEdit.position.map(s => translate(s, lang)).join(", ") : typeof jobToEdit.position === "object" ? (lang === "pl" ? jobToEdit.position.pl : jobToEdit.position.en) : translate(jobToEdit.position, lang));
       setJobStart(jobToEdit.date.start);
       setJobEnd(jobToEdit.date.end || "");
-      setJobObowiazki(jobToEdit.duties.map(o => translate(o, lang)).join("\n"));
+      setJobDescriptionPl(jobToEdit.description?.pl || "");
+      setJobDescriptionEn(jobToEdit.description?.en || "");
+      setJobObowiazkiPl((jobToEdit.duties?.pl || []).join("\n"));
+      setJobObowiazkiEn((jobToEdit.duties?.en || []).join("\n"));
       setJobTechs(jobToEdit.technologies.join(", "));
     }
   }, [jobToEdit, lang]);
 
   useEffect(() => {
     if (projectToEdit) {
-      setProjNazwa(translate(projectToEdit.name, lang));
+      setProjNazwa(projectToEdit.name);
       setProjFirma(projectToEdit.company.join(", "));
       setProjStart(projectToEdit.date.start);
       setProjEnd(projectToEdit.date.end || "");
-      setProjOpis(translate(projectToEdit.description, lang));
-      setProjTechs(projectToEdit.technologie.join(", "));
+      setProjOpisPl(projectToEdit.description?.pl || "");
+      setProjOpisEn(projectToEdit.description?.en || "");
+      setProjFeaturesPl((projectToEdit.notableFeatures?.pl || []).join("\n"));
+      setProjFeaturesEn((projectToEdit.notableFeatures?.en || []).join("\n"));
+      setProjTechs(projectToEdit.technologies ? projectToEdit.technologies.join(", ") : "");
       setProjUrl(projectToEdit.url || "");
     }
   }, [projectToEdit, lang]);
@@ -98,12 +124,31 @@ export const EditModals: React.FC<EditModalsProps> = ({
       setCertInstytucja(certToEdit.institution);
       setCertData(certToEdit.date);
       setCertGodziny(certToEdit.durationHours || "");
-      setCertOpis(certToEdit.info ? translate(certToEdit.info, lang) : "");
+      setCertOpis(
+        certToEdit.description
+          ? typeof certToEdit.description === "object"
+            ? certToEdit.description[lang] || certToEdit.description.pl || ""
+            : translate(certToEdit.description, lang)
+          : ""
+      );
       setCertTechs(certToEdit.technologiesAndDuties ? certToEdit.technologiesAndDuties.join(", ") : "");
     }
   }, [certToEdit, lang]);
 
-  if (!jobToEdit && !projectToEdit && !certToEdit) return null;
+  useEffect(() => {
+    if (educationToEdit) {
+      setEduInstitution(educationToEdit.institution);
+      setEduType(educationToEdit.type);
+      setEduMajor(educationToEdit.major);
+      setEduStart(educationToEdit.date.start);
+      setEduEnd(educationToEdit.date.end || "");
+      setEduConfirmation(educationToEdit.confirmation || "");
+      setEduDescriptionPl(educationToEdit.description?.pl || "");
+      setEduDescriptionEn(educationToEdit.description?.en || "");
+    }
+  }, [educationToEdit]);
+
+  if (!jobToEdit && !projectToEdit && !certToEdit && !educationToEdit) return null;
 
   // Date Validator helper
   const isValidDate = (dateStr: string) => {
@@ -129,7 +174,14 @@ export const EditModals: React.FC<EditModalsProps> = ({
       company: jobFirma,
       position: jobStanowisko.split(",").map((s) => s.trim()),
       date: { start: jobStart, end: jobEnd || "obecnie" },
-      duties: jobObowiazki.split("\n").map((o) => o.trim()).filter((o) => o.length > 0),
+      description: {
+        pl: jobDescriptionPl.trim(),
+        en: jobDescriptionEn.trim()
+      },
+      duties: {
+        pl: jobObowiazkiPl.split("\n").map((o) => o.trim()).filter((o) => o.length > 0),
+        en: jobObowiazkiEn.split("\n").map((o) => o.trim()).filter((o) => o.length > 0)
+      },
       technologies: jobTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
     };
     onSaveJob(updated);
@@ -152,9 +204,16 @@ export const EditModals: React.FC<EditModalsProps> = ({
       name: projNazwa,
       company: projFirma.split(",").map((f) => f.trim()),
       date: { start: projStart, end: projEnd },
-      description: projOpis,
-      technologie: projTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
+      description: {
+        pl: projOpisPl.trim(),
+        en: projOpisEn.trim(),
+      },
+      technologies: projTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
       url: projUrl || undefined,
+      notableFeatures: {
+        pl: projFeaturesPl.split("\n").map((f) => f.trim()).filter((f) => f.length > 0),
+        en: projFeaturesEn.split("\n").map((f) => f.trim()).filter((f) => f.length > 0),
+      }
     };
     onSaveProject(updated);
   };
@@ -169,10 +228,42 @@ export const EditModals: React.FC<EditModalsProps> = ({
       institution: certInstytucja,
       date: certData,
       durationHours: certGodziny || undefined,
-      info: certOpis || undefined,
+      description: typeof certToEdit.description === "object"
+        ? {
+            ...certToEdit.description,
+            [lang]: certOpis
+          }
+        : certOpis || undefined,
       technologiesAndDuties: certTechs.split(",").map((t) => t.trim()).filter((t) => t.length > 0),
     };
     onSaveCert(updated);
+  };
+
+  const handleSaveEducation = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!educationToEdit) return;
+
+    if (!isValidDate(eduStart) || !isValidDate(eduEnd)) {
+      alert(lang === "pl"
+        ? "Proszę wpisać datę w formacie MM.YYYY (np. 09.2015)"
+        : "Please write the date in MM.YYYY format (e.g. 09.2015)"
+      );
+      return;
+    }
+
+    const updated: Education = {
+      ...educationToEdit,
+      institution: eduInstitution,
+      type: eduType,
+      major: eduMajor,
+      date: { start: eduStart, end: eduEnd },
+      confirmation: eduConfirmation || undefined,
+      description: {
+        pl: eduDescriptionPl.trim(),
+        en: eduDescriptionEn.trim(),
+      },
+    };
+    onSaveEducation(updated);
   };
 
   return (
@@ -197,6 +288,12 @@ export const EditModals: React.FC<EditModalsProps> = ({
               <>
                 <Award className="w-5 h-5 text-purple-500" />
                 <span>{lang === "pl" ? "Edycja Certyfikatu" : "Edit Certificate"} - {certNazwa}</span>
+              </>
+            )}
+            {educationToEdit && (
+              <>
+                <GraduationCap className="w-5 h-5 text-blue-500" />
+                <span>{lang === "pl" ? "Edycja Wykształcenia" : "Edit Education"} - {eduInstitution}</span>
               </>
             )}
           </div>
@@ -279,12 +376,53 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Obowiązki (każdy w nowej linii)" : "Duties (each in a new line)"}</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  {lang === "pl" ? "Opis stanowiska (PL)" : "Role description (PL)"}
+                </label>
                 <textarea
-                  value={jobObowiazki}
-                  onChange={(e) => setJobObowiazki(e.target.value)}
+                  value={jobDescriptionPl}
+                  onChange={(e) => setJobDescriptionPl(e.target.value)}
                   className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                  rows={4}
+                  rows={2}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  {lang === "pl" ? "Opis stanowiska (EN)" : "Role description (EN)"}
+                </label>
+                <textarea
+                  value={jobDescriptionEn}
+                  onChange={(e) => setJobDescriptionEn(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  rows={2}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  {lang === "pl" ? "Obowiązki (PL, każdy w nowej linii)" : "Duties (PL, each in a new line)"}
+                </label>
+                <textarea
+                  value={jobObowiazkiPl}
+                  onChange={(e) => setJobObowiazkiPl(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs"
+                  rows={3}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                  {lang === "pl" ? "Obowiązki (EN, każdy w nowej linii)" : "Duties (EN, each in a new line)"}
+                </label>
+                <textarea
+                  value={jobObowiazkiEn}
+                  onChange={(e) => setJobObowiazkiEn(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs"
+                  rows={3}
                   required
                 />
               </div>
@@ -387,13 +525,44 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Opis projektu" : "Project description"}</label>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Opis projektu (PL)" : "Project description (PL)"}</label>
                 <textarea
-                  value={projOpis}
-                  onChange={(e) => setProjOpis(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                  rows={4}
+                  value={projOpisPl}
+                  onChange={(e) => setProjOpisPl(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs"
+                  rows={3}
                   required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Opis projektu (EN)" : "Project description (EN)"}</label>
+                <textarea
+                  value={projOpisEn}
+                  onChange={(e) => setProjOpisEn(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs"
+                  rows={3}
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Wyróżniające elementy (PL, każda linia to jeden element)" : "Notable features (PL, each line is one item)"}</label>
+                <textarea
+                  value={projFeaturesPl}
+                  onChange={(e) => setProjFeaturesPl(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-xs"
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Wyróżniające elementy (EN, każda linia to jeden element)" : "Notable features (EN, each line is one item)"}</label>
+                <textarea
+                  value={projFeaturesEn}
+                  onChange={(e) => setProjFeaturesEn(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-xs"
+                  rows={3}
                 />
               </div>
 
@@ -504,6 +673,122 @@ export const EditModals: React.FC<EditModalsProps> = ({
                 <button
                   type="submit"
                   className="flex items-center gap-1.5 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-semibold cursor-pointer"
+                >
+                  <Save className="w-4 h-4" />
+                  <span>{translate("Zapisz", lang)}</span>
+                </button>
+              </div>
+            </form>
+          )}
+
+          {/* EDUCATION FORM */}
+          {educationToEdit && (
+            <form onSubmit={handleSaveEducation} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Instytucja / Uczelnia" : "Institution / University"}</label>
+                <input
+                  type="text"
+                  value={eduInstitution}
+                  onChange={(e) => setEduInstitution(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Typ studiów / szkoły" : "Type of studies / school"}</label>
+                <input
+                  type="text"
+                  value={eduType}
+                  onChange={(e) => setEduType(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Kierunek / Profil" : "Major / Profile"}</label>
+                <input
+                  type="text"
+                  value={eduMajor}
+                  onChange={(e) => setEduMajor(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {lang === "pl" ? "Start (MM.YYYY)" : "Start (MM.YYYY)"}
+                  </label>
+                  <input
+                    type="text"
+                    value={eduStart}
+                    onChange={(e) => setEduStart(e.target.value)}
+                    placeholder="np. 09.2010"
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5" />
+                    {lang === "pl" ? "Koniec (MM.YYYY)" : "End (MM.YYYY)"}
+                  </label>
+                  <input
+                    type="text"
+                    value={eduEnd}
+                    onChange={(e) => setEduEnd(e.target.value)}
+                    placeholder="np. 05.2011"
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Potwierdzenie / Dyplom" : "Confirmation / Diploma"}</label>
+                <input
+                  type="text"
+                  value={eduConfirmation}
+                  onChange={(e) => setEduConfirmation(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Opis (PL)</label>
+                <textarea
+                  value={eduDescriptionPl}
+                  onChange={(e) => setEduDescriptionPl(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs text-slate-700"
+                  rows={3}
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Description (EN)</label>
+                <textarea
+                  value={eduDescriptionEn}
+                  onChange={(e) => setEduDescriptionEn(e.target.value)}
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs text-slate-700"
+                  rows={3}
+                />
+              </div>
+
+              <div className="pt-4 border-t border-slate-100 flex justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-600 font-semibold cursor-pointer"
+                >
+                  {translate("Anuluj", lang)}
+                </button>
+                <button
+                  type="submit"
+                  className="flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold cursor-pointer"
                 >
                   <Save className="w-4 h-4" />
                   <span>{translate("Zapisz", lang)}</span>

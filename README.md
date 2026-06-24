@@ -25,7 +25,9 @@ Aplikacja została zbudowana jako nowoczesna aplikacja jednostronicowa (SPA) opa
 * **Recharts** (^2.12.7) – Wykresy i wizualizacja statystyk
 
 ### 4. Zaimplementowane funkcjonalności
-* Dynamiczne i dwujęzyczne (PL/EN) filtrowanie oraz wyszukiwanie we wszystkich widokach CV.
+* Dynamiczne i dwujęzyczne (PL/EN) filtrowanie oraz wyszukiwanie we wszystkich widokach CV, w tym nowo dodany system szybkiego wyszukiwania w sekcji **Zatrudnienie** (filtrowanie po stanowiskach, firmach i technologiach).
+* Graficzna legenda w **Słowniku Technologii** ułatwiająca zrozumienie poziomów zaawansowania kandydata (Ekspert, Średniozaawansowany, Ogólna znajomość).
+* Zunifikowana sekcja metadanych w zakładce **Projekty** i **Zatrudnienie** – estetyczne, ustrukturyzowane wyświetlanie wersji bibliotek oraz wzorców projektowych.
 * System "Dopasowanie Kandydata do Roli" bazujący na analizie tagów i stopnia dopasowania z wizualnymi wykresami.
 * Filtrowanie certyfikatów i szkoleń po latach oraz wyszukiwanie technologii w słowniku wraz z synonimami.
 * Możliwość dodawania dwujęzycznych notatek i komentarzy rekrutacyjnych do każdego stanowiska, projektu i szkolenia.
@@ -77,7 +79,9 @@ The application was developed as a modern Single Page Application (SPA) utilizin
 * **Recharts** (^2.12.7) – Recruiter charts & statistics
 
 ### 4. Implemented Features
-* Dynamic, bilingual (PL/EN) filtering and full-text search across all CV modules.
+* Dynamic, bilingual (PL/EN) filtering and full-text search across all CV modules, including a high-performance fast search in the **Employment** section (filtering across roles, companies, descriptions, and technology stacks).
+* Interactive graphical proficiency level legend in the **Technology Dictionary** to quickly differentiate skills (Expert, Intermediate, General knowledge).
+* Standardized, highly structured display of library versions and software design patterns in both the **Projects** and **Employment** interfaces.
 * Recruiter Match system with instant suitability scoring and visual charts based on selected tags.
 * Filter certifications by year and search technologies in the dictionary, including recognized synonyms.
 * Interactive recruiter notes and feedback comments editable inline for any job, project, or training.

@@ -12,11 +12,11 @@ import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
 /**
- * Props for the CertyfikatyList component.
+ * Props for the CertificatesList component.
  *
- * @interface CertyfikatyListProps
+ * @interface CertificatesListProps
  */
-interface CertyfikatyListProps {
+interface CertificatesListProps {
   certs: Certificate[];
   bookmarks: LocalBookmarks;
   onToggleBookmark: (id: string) => void;
@@ -31,10 +31,10 @@ interface CertyfikatyListProps {
  * Component displaying the list of additional courses and certifications with search and recruitment note functions.
  * Allows filtering and local modification of each item.
  *
- * @param {CertyfikatyListProps} props - Component props.
+ * @param {CertificatesListProps} props - Component props.
  * @returns {JSX.Element} The rendered certifications list component.
  */
-export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
+export const CertificatesList: React.FC<CertificatesListProps> = ({
   certs,
   bookmarks,
   onToggleBookmark,
@@ -80,7 +80,11 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
 
       const transName = translate(c.name, lang);
       const transInst = c.institution;
-      const transInfo = c.info ? translate(c.info, lang) : "";
+      const transInfo = c.description
+        ? typeof c.description === "object"
+          ? c.description[lang] || c.description.pl || ""
+          : translate(c.description, lang)
+        : "";
 
       const matchText =
         transName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -263,9 +267,13 @@ export const CertyfikatyList: React.FC<CertyfikatyListProps> = ({
                 )}
 
                 {/* Info text */}
-                {c.info && (
+                {c.description && (
                   <div className="text-xs text-slate-600 leading-relaxed mb-3">
-                    <SupplementaryText text={translate(c.info, lang)} />
+                    <SupplementaryText text={
+                      typeof c.description === "object"
+                        ? c.description[lang] || c.description.pl || ""
+                        : translate(c.description, lang)
+                    } />
                   </div>
                 )}
               </div>

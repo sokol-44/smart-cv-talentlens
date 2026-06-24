@@ -7,16 +7,16 @@
 
 import React, { useState, useMemo } from "react";
 import { Project, LocalBookmarks, LocalNotes } from "../types";
-import { FolderGit2, Search, ExternalLink, Calendar, MessageSquare, Save, Settings, Award, Edit3, X } from "lucide-react";
+import { FolderGit2, Search, ExternalLink, Calendar, MessageSquare, Save, Settings, Award, Edit3, X, Layers, Code } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
 /**
- * Props for the ProjektyList component.
+ * Props for the ProjectsList component.
  *
- * @interface ProjektyListProps
+ * @interface ProjectsListProps
  */
-interface ProjektyListProps {
+interface ProjectsListProps {
   projects: Project[];
   bookmarks: LocalBookmarks;
   onToggleBookmark: (id: string) => void;
@@ -33,10 +33,10 @@ interface ProjektyListProps {
  * Component for listing main projects with tag filtering, full text search,
  * recruiter note-taking, and modal edit access.
  *
- * @param {ProjektyListProps} props - Component props.
+ * @param {ProjectsListProps} props - Component props.
  * @returns {JSX.Element} The rendered projects list view.
  */
-export const ProjektyList: React.FC<ProjektyListProps> = ({
+export const ProjectsList: React.FC<ProjectsListProps> = ({
   projects,
   bookmarks,
   onToggleBookmark,
@@ -92,7 +92,7 @@ export const ProjektyList: React.FC<ProjektyListProps> = ({
   const filteredProjects = useMemo(() => {
     return projects.filter((p) => {
       const translatedName = p.name;
-      const translatedOpis = translate(p.description, lang);
+      const translatedOpis = p.description[lang] || p.description.pl || p.description.en || "";
       const translatedFirms = p.company.join(", ");
 
       const matchesSearch =
@@ -280,18 +280,18 @@ export const ProjektyList: React.FC<ProjektyListProps> = ({
 
                 {/* Description */}
                 <div className="text-xs text-slate-600 leading-relaxed mb-4">
-                  <SupplementaryText text={translate(p.description, lang)} />
+                  <SupplementaryText text={p.description[lang] || p.description.pl || p.description.en || ""} />
                 </div>
 
                 {/* Notable Features */}
-                {p.notableFeatures && p.notableFeatures.length > 0 && (
+                {p.notableFeatures && (p.notableFeatures[lang] || p.notableFeatures.pl || p.notableFeatures.en) && (p.notableFeatures[lang] || p.notableFeatures.pl || p.notableFeatures.en)!.length > 0 && (
                   <div className="mb-4 bg-slate-50/70 p-3 rounded-xl border border-slate-100">
                     <h4 className="text-[10px] font-mono font-bold text-amber-700 uppercase flex items-center gap-1 mb-1.5">
                       <Award className="w-3.5 h-3.5 text-amber-500" />
                       {translate("Wyróżniające elementy", lang)}
                     </h4>
                     <ul className="space-y-2 text-[11px] text-slate-600 leading-relaxed">
-                      {p.notableFeatures.map((item, idx) => {
+                      {(p.notableFeatures[lang] || p.notableFeatures.pl || p.notableFeatures.en)!.map((item, idx) => {
                         const achKey = `${p.id}-achievement-${idx}`;
                         const hasTooltip = !!tooltips[achKey];
                         const tooltipVal = tooltips[achKey];
@@ -300,7 +300,7 @@ export const ProjektyList: React.FC<ProjektyListProps> = ({
                           <li key={idx} className="group/ach flex items-start gap-1.5 relative">
                             <span className="text-amber-500 font-bold select-none">•</span>
                             <div className="flex-1">
-                              <SupplementaryText text={translate(item, lang)} />
+                              <SupplementaryText text={item} />
                               {hasTooltip && (
                                 <div className="mt-0.5 text-[10px] text-amber-800 bg-amber-50 border border-amber-100/50 px-2 py-0.5 rounded italic w-fit">
                                   {tooltipVal}
@@ -308,7 +308,7 @@ export const ProjektyList: React.FC<ProjektyListProps> = ({
                               )}
                             </div>
                             <button
-                              onClick={() => handleOpenTooltipEdit(achKey, translate(item, lang))}
+                              onClick={() => handleOpenTooltipEdit(achKey, item)}
                               className="opacity-0 group-hover/ach:opacity-100 transition p-0.5 text-slate-400 hover:text-amber-700 rounded hover:bg-slate-100 cursor-pointer shrink-0"
                               title={translate("Dodaj / edytuj krótki komentarz", lang)}
                             >
@@ -336,7 +336,7 @@ export const ProjektyList: React.FC<ProjektyListProps> = ({
                           key={tech}
                           className="relative group/tech inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-900 text-slate-600 rounded text-[10px] font-mono border border-slate-200/50 cursor-help"
                         >
-                          <span>{tech}</span>
+                          <span>{translate(tech, lang)}</span>
                           {hasTooltip && (
                             <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" title={tooltipVal} />
                           )}
@@ -362,19 +362,39 @@ export const ProjektyList: React.FC<ProjektyListProps> = ({
                   </div>
 
                   {/* Versions & Patterns inside footer */}
-                  <div className="mt-2.5 flex flex-wrap justify-between gap-2 text-[10px] text-slate-500 font-mono">
+                  <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-100/60 mt-3 text-xs">
+                    {/* Versions (versions) */}
                     {p.versions && Object.keys(p.versions).length > 0 && (
-                      <div>
-                        <span className="font-bold text-slate-400">WER:</span>{" "}
-                        {Object.entries(p.versions)
-                          .map(([lib, vers]) => `${lib} (${(vers as string[]).join(", ")})`)
-                          .join(", ")}
+                      <div className="w-full sm:w-auto min-w-[150px] mt-2">
+                        <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                          <Layers className="w-3.5 h-3.5 text-slate-400" />
+                          {translate("Wersje oprogramowania", lang)}
+                        </h4>
+                        <div className="space-y-1 text-slate-600 font-mono text-[11px]">
+                          {Object.entries(p.versions).map(([lib, vers]) => (
+                            <div key={lib} className="flex gap-1.5">
+                              <span className="font-semibold text-slate-700">{lib}:</span>
+                              <span className="text-indigo-600 font-bold">{(vers as string[]).join(", ")}</span>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     )}
+
+                    {/* Design Patterns (designPatterns) */}
                     {p.designPatterns && p.designPatterns.length > 0 && (
-                      <div>
-                        <span className="font-bold text-slate-400">WZORCE:</span>{" "}
-                        {p.designPatterns.join(", ")}
+                      <div className="w-full sm:w-auto min-w-[150px] mt-2">
+                        <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                          <Code className="w-3.5 h-3.5 text-slate-400" />
+                          {translate("Wzorce projektowe", lang)}
+                        </h4>
+                        <div className="flex flex-wrap gap-1 text-slate-600 font-mono">
+                          {p.designPatterns.map((pat) => (
+                            <span key={pat} className="bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/60 text-[10px] text-slate-700">
+                              {pat}
+                            </span>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>

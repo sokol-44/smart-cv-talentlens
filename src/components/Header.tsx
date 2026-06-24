@@ -7,7 +7,7 @@
 
 import React from "react";
 import { Person, Employment, Project, Certificate, Skill } from "../types";
-import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, RefreshCw, Globe } from "lucide-react";
+import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, RefreshCw, Globe, Mail, Phone } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -72,36 +72,62 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Social Links & Portfolio Button */}
           <div className="flex flex-wrap gap-3 mb-6">
-            <a
-              href="https://msokolow.waw.pl/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 transition text-sm font-semibold rounded-xl text-white shadow-md cursor-pointer"
-              id="header-portfolio-btn"
-            >
-              <Globe className="w-4 h-4" />
-              <span>{translate("Portfolio", lang)}</span>
-            </a>
-            <a
-              href={person.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
-              id="header-github-btn"
-            >
-              <Github className="w-4 h-4 text-slate-400" />
-              <span>GitHub</span>
-            </a>
-            <a
-              href={person.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
-              id="header-linkedin-btn"
-            >
-              <Linkedin className="w-4 h-4 text-blue-400" />
-              <span>LinkedIn</span>
-            </a>
+            {person.portfolio && (
+              <a
+                href={person.portfolio}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 transition text-sm font-semibold rounded-xl text-white shadow-md cursor-pointer"
+                id="header-portfolio-btn"
+              >
+                <Globe className="w-4 h-4" />
+                <span>{translate("Portfolio", lang)}</span>
+              </a>
+            )}
+            {person.github && (
+              <a
+                href={person.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
+                id="header-github-btn"
+              >
+                <Github className="w-4 h-4 text-slate-400" />
+                <span>GitHub</span>
+              </a>
+            )}
+            {person.linkedin && (
+              <a
+                href={person.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
+                id="header-linkedin-btn"
+              >
+                <Linkedin className="w-4 h-4 text-blue-400" />
+                <span>LinkedIn</span>
+              </a>
+            )}
+            {person.email && (
+              <a
+                href={`mailto:${person.email}`}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
+                id="header-email-btn"
+              >
+                <Mail className="w-4 h-4 text-emerald-400" />
+                <span>{translate("E-mail", lang)}</span>
+              </a>
+            )}
+            {person.tel && (
+              <a
+                href={`tel:${person.tel}`}
+                className="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 transition text-sm font-medium rounded-xl border border-slate-700/60 text-slate-200 cursor-pointer"
+                id="header-tel-btn"
+              >
+                <Phone className="w-4 h-4 text-rose-400" />
+                <span>{translate("Tel", lang)}</span>
+              </a>
+            )}
 
             {isDbModified && (
               <button
@@ -259,13 +285,13 @@ export const Header: React.FC<HeaderProps> = ({
         
         {/* Horizontal scrollbar-thin side scroller container */}
         <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-          {person.description.map((bullet, idx) => (
+          {((person.description && person.description[lang]) || []).map((bullet, idx) => (
             <div
               key={idx}
               className="min-w-[280px] md:min-w-[340px] max-w-[360px] flex-shrink-0 bg-slate-950/40 p-4 rounded-xl border border-slate-800/60 text-sm text-slate-300 animate-fade-in"
             >
               <p className="leading-relaxed text-xs">
-                <SupplementaryText text={translate(bullet, lang)} />
+                <SupplementaryText text={bullet} />
               </p>
             </div>
           ))}
