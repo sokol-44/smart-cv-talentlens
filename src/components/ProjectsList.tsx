@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Project, LocalBookmarks, LocalNotes } from "../types";
-import { FolderGit2, Search, ExternalLink, Calendar, MessageSquare, Save, Settings, Award, Edit3, X, Layers, Code } from "lucide-react";
+import { FolderGit2, Search, ExternalLink, Calendar, MessageSquare, Save, Settings, Award, Edit3, X, Layers, Code, Wrench, AlignLeft } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -18,6 +18,8 @@ import { SupplementaryText } from "../utils/parentheses";
  */
 interface ProjectsListProps {
   projects: Project[];
+  highlightedProjectId?: string | null;
+  onNavigateToCompany?: (companyName: string) => void;
   bookmarks: LocalBookmarks;
   onToggleBookmark: (id: string) => void;
   notes: LocalNotes;
@@ -38,6 +40,8 @@ interface ProjectsListProps {
  */
 export const ProjectsList: React.FC<ProjectsListProps> = ({
   projects,
+  highlightedProjectId = null,
+  onNavigateToCompany,
   bookmarks,
   onToggleBookmark,
   notes,
@@ -160,7 +164,12 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
           return (
             <div
               key={p.id}
-              className="bg-white rounded-2xl border border-slate-100 shadow-xs hover:shadow-md transition flex flex-col justify-between overflow-hidden animate-fade-in"
+              id={`project-card-${p.id}`}
+              className={`bg-white rounded-2xl border transition-all duration-500 flex flex-col justify-between overflow-hidden animate-fade-in ${
+                highlightedProjectId === p.id
+                  ? "border-emerald-500 ring-2 ring-emerald-500/50 bg-emerald-50/10 shadow-lg scale-[1.01]"
+                  : "border-slate-100 shadow-xs hover:shadow-md"
+              }`}
             >
               <div className="p-5 md:p-6">
                 {/* Card Header */}
@@ -180,8 +189,26 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
                         </a>
                       )}
                     </h3>
-                    <div className="text-[11px] font-semibold text-slate-500 uppercase tracking-wide mt-0.5">
-                      {translate("Firma:", lang)} {p.company.join(", ")}
+                    <div className="flex flex-wrap items-center gap-1.5 mt-1.5">
+                      <span className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider">
+                        {translate("Firma:", lang)}
+                      </span>
+                      <div className="flex flex-wrap gap-1 font-mono">
+                        {p.company.map((companyName) => (
+                          <span
+                            key={companyName}
+                            onClick={() => {
+                              if (onNavigateToCompany) {
+                                onNavigateToCompany(companyName);
+                              }
+                            }}
+                            className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg text-[10px] font-semibold border border-slate-200 cursor-pointer transition hover:bg-indigo-50 hover:text-indigo-600 hover:border-indigo-200 inline-block"
+                            title={`${translate("Kliknij, aby przejść do firmy", lang)}: ${companyName}`}
+                          >
+                            {companyName}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
 
@@ -279,8 +306,14 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
                 )}
 
                 {/* Description */}
-                <div className="text-xs text-slate-600 leading-relaxed mb-4">
-                  <SupplementaryText text={p.description[lang] || p.description.pl || p.description.en || ""} />
+                <div className="mb-4">
+                  <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                    <AlignLeft className="w-3.5 h-3.5 text-slate-400" />
+                    {translate("Opis", lang)}
+                  </h4>
+                  <div className="text-xs text-slate-600 leading-relaxed bg-slate-50/40 p-2.5 rounded-xl border border-slate-100/50">
+                    <SupplementaryText text={p.description ? (p.description[lang] || p.description.pl || p.description.en || "") : ""} />
+                  </div>
                 </div>
 
                 {/* Notable Features */}
@@ -325,7 +358,11 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
               {/* Bottom technology tags */}
               <div className="px-5 pb-5 md:px-6 md:pb-6 mt-auto">
                 <div className="pt-3 border-t border-slate-100">
-                  <div className="flex flex-wrap gap-1">
+                  <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-1">
+                    <Wrench className="w-3.5 h-3.5 text-slate-400" />
+                    {translate("Wykorzystane technologie", lang)}
+                  </h4>
+                  <div className="flex flex-wrap gap-1.5">
                     {p.technologies.map((tech) => {
                       const techKey = `${p.id}-tech-${tech}`;
                       const hasTooltip = !!tooltips[techKey];
@@ -383,14 +420,14 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
 
                     {/* Design Patterns (designPatterns) */}
                     {p.designPatterns && p.designPatterns.length > 0 && (
-                      <div className="w-full sm:w-auto min-w-[150px] mt-2">
+                      <div className="w-full md:w-auto md:max-w-xs mt-2">
                         <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
                           <Code className="w-3.5 h-3.5 text-slate-400" />
                           {translate("Wzorce projektowe", lang)}
                         </h4>
                         <div className="flex flex-wrap gap-1 text-slate-600 font-mono">
                           {p.designPatterns.map((pat) => (
-                            <span key={pat} className="bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/60 text-[10px] text-slate-700">
+                            <span key={pat} className="bg-slate-50 px-1.5 py-0.5 rounded border border-slate-200/60 text-[11px]">
                               {pat}
                             </span>
                           ))}

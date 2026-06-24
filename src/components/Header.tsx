@@ -7,7 +7,7 @@
 
 import React from "react";
 import { Person, Employment, Project, Certificate, Skill } from "../types";
-import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, RefreshCw, Globe, Mail, Phone } from "lucide-react";
+import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, RefreshCw, Globe, Mail, Phone, Edit3 } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -32,6 +32,8 @@ interface HeaderProps {
   certificates: Certificate[];
   skills: Skill[];
   onToggleLang?: (lang: "pl" | "en") => void;
+  isAdmin?: boolean;
+  onSaveHeadline?: (pl: string, en: string) => void;
 }
 
 /**
@@ -52,8 +54,28 @@ export const Header: React.FC<HeaderProps> = ({
   projects,
   certificates,
   skills,
-  onToggleLang
+  onToggleLang,
+  isAdmin = false,
+  onSaveHeadline
 }) => {
+  const [isEditingHeadline, setIsEditingHeadline] = React.useState(false);
+  const [headlinePl, setHeadlinePl] = React.useState(person.title?.pl || "Inżynier oprogramowania z ponad 20-letnim doświadczeniem w tworzeniu systemów na dużą skalę, administracji Linux, DevOps oraz strategiach backupowych.");
+  const [headlineEn, setHeadlineEn] = React.useState(person.title?.en || "Software engineer with over 20 years of experience in developing large-scale systems, Linux administration, DevOps, and backup strategies.");
+
+  React.useEffect(() => {
+    if (person.title) {
+      setHeadlinePl(person.title.pl || "");
+      setHeadlineEn(person.title.en || "");
+    }
+  }, [person.title]);
+
+  const handleSaveHeadline = () => {
+    if (onSaveHeadline) {
+      onSaveHeadline(headlinePl, headlineEn);
+    }
+    setIsEditingHeadline(false);
+  };
+
   return (
     <header className="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-800 relative overflow-hidden" id="header-section-container">
       {/* Subtle glowing background effect */}
@@ -66,9 +88,61 @@ export const Header: React.FC<HeaderProps> = ({
             {person.firstName} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{person.lastName}</span>
           </h1>
 
-          <p className="text-slate-400 text-lg mb-4 font-sans max-w-2xl leading-relaxed">
-            <SupplementaryText text={translate("Inżynier oprogramowania z ponad 20-letnim doświadczeniem w tworzeniu systemów na dużą skalę, administracji Linux, DevOps oraz strategiach backupowych.", lang)} />
-          </p>
+          {isEditingHeadline ? (
+            <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/50 mb-4 max-w-2xl animate-fade-in font-sans text-xs">
+              <div className="mb-3">
+                <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-wider">
+                  {lang === "pl" ? "Nagłówek (PL)" : "Headline (PL)"}
+                </label>
+                <textarea
+                  value={headlinePl}
+                  onChange={(e) => setHeadlinePl(e.target.value)}
+                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-xs"
+                  rows={2}
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-wider">
+                  {lang === "pl" ? "Nagłówek (EN)" : "Headline (EN)"}
+                </label>
+                <textarea
+                  value={headlineEn}
+                  onChange={(e) => setHeadlineEn(e.target.value)}
+                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-xs"
+                  rows={2}
+                />
+              </div>
+              <div className="flex justify-end gap-2">
+                <button
+                  onClick={() => setIsEditingHeadline(false)}
+                  className="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 rounded-xl text-slate-200 transition text-[11px] font-semibold cursor-pointer"
+                >
+                  {lang === "pl" ? "Anuluj" : "Cancel"}
+                </button>
+                <button
+                  onClick={handleSaveHeadline}
+                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 rounded-xl text-white transition text-[11px] font-semibold cursor-pointer"
+                >
+                  {lang === "pl" ? "Zapisz" : "Save"}
+                </button>
+              </div>
+            </div>
+          ) : (
+            <p className="text-slate-400 text-lg mb-4 font-sans max-w-2xl leading-relaxed flex items-start gap-2 group/headline">
+              <span>
+                <SupplementaryText text={person.title ? (person.title[lang] || person.title.pl || person.title.en || "") : translate("Inżynier oprogramowania z ponad 20-letnim doświadczeniem w tworzeniu systemów na dużą skalę, administracji Linux, DevOps oraz strategiach backupowych.", lang)} />
+              </span>
+              {isAdmin && (
+                <button
+                  onClick={() => setIsEditingHeadline(true)}
+                  className="opacity-0 group-hover/headline:opacity-100 transition p-1 text-slate-400 hover:text-blue-400 rounded hover:bg-slate-800/80 cursor-pointer shrink-0"
+                  title={lang === "pl" ? "Edytuj nagłówek" : "Edit headline"}
+                >
+                  <Edit3 className="w-4 h-4" />
+                </button>
+              )}
+            </p>
+          )}
 
           {/* Social Links & Portfolio Button */}
           <div className="flex flex-wrap gap-3 mb-6">

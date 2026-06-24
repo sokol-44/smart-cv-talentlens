@@ -34,6 +34,10 @@ export interface DatePeriod {
 export interface Person {
   firstName: string;
   lastName: string;
+  title?: {
+    pl: string;
+    en: string;
+  };
   description: {
     pl: string[];
     en: string[];

@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Employment, LocalBookmarks, LocalNotes } from "../types";
-import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X, Search } from "lucide-react";
+import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X, Search, FolderGit2 } from "lucide-react";
 import { motion } from "motion/react";
 import { translate, translateStanowisko } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
@@ -19,6 +19,9 @@ import { SupplementaryText } from "../utils/parentheses";
  */
 interface EmploymentListProps {
   jobs: Employment[];
+  projects?: any[];
+  onNavigateToProject?: (projectId: string) => void;
+  highlightedJobId?: string | null;
   bookmarks: LocalBookmarks;
   onToggleBookmark: (id: string) => void;
   notes: LocalNotes;
@@ -40,6 +43,9 @@ interface EmploymentListProps {
  */
 export const EmploymentList: React.FC<EmploymentListProps> = ({
   jobs,
+  projects = [],
+  onNavigateToProject,
+  highlightedJobId = null,
   bookmarks,
   onToggleBookmark,
   notes,
@@ -72,12 +78,14 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
       const transCompany = job.company || "";
       const transDescription = job.description ? (job.description[lang] || job.description.pl || job.description.en || "") : "";
       
-      const dutiesObj = job.duties as any;
-      const dutiesList = dutiesObj
-        ? (Array.isArray(dutiesObj)
-            ? dutiesObj
-            : (dutiesObj[lang] || dutiesObj.pl || dutiesObj.en || []))
-        : [];
+      let dutiesList: string[] = [];
+      if (job.duties) {
+        if (typeof job.duties === "object" && !Array.isArray(job.duties)) {
+          dutiesList = job.duties[lang] || job.duties.pl || job.duties.en || [];
+        } else if (Array.isArray(job.duties)) {
+          dutiesList = job.duties;
+        }
+      }
       const dutiesText = dutiesList.join(" ");
 
       const matchesSearch =
@@ -176,7 +184,14 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
                 <Briefcase className="w-3 h-3" />
               </div>
 
-              <div className="bg-white rounded-2xl p-5 md:p-6 border border-slate-100 shadow-xs hover:shadow-md transition animate-fade-in">
+              <div
+                id={`job-card-${job.id}`}
+                className={`bg-white rounded-2xl p-5 md:p-6 border transition-all duration-500 animate-fade-in ${
+                  highlightedJobId === job.id
+                    ? "border-indigo-500 ring-2 ring-indigo-500/50 bg-indigo-50/10 shadow-lg scale-[1.01]"
+                    : "border-slate-100 shadow-xs hover:shadow-md"
+                }`}
+              >
                 {/* Job Header */}
                 <div className="flex flex-col md:flex-row md:items-start justify-between gap-4 mb-4">
                   <div>
@@ -294,12 +309,14 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
                   </h4>
                   <ul className="space-y-2 text-sm text-slate-600">
                     {(() => {
-                      const dutiesObj = job.duties as any;
-                      const dutiesList: string[] = dutiesObj
-                        ? (Array.isArray(dutiesObj)
-                            ? dutiesObj
-                            : (dutiesObj[lang] || dutiesObj.pl || dutiesObj.en || []))
-                        : [];
+                      let dutiesList: string[] = [];
+                      if (job.duties) {
+                        if (typeof job.duties === "object" && !Array.isArray(job.duties)) {
+                          dutiesList = job.duties[lang] || job.duties.pl || job.duties.en || [];
+                        } else if (Array.isArray(job.duties)) {
+                          dutiesList = job.duties;
+                        }
+                      }
                       return dutiesList.map((duty, idx) => {
                         const dutyKey = `${job.id}-duty-${idx}`;
                         const hasTooltip = !!tooltips[dutyKey];
@@ -309,7 +326,7 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
                           <li key={idx} className="group/duty flex items-start gap-2 relative">
                             <span className="text-indigo-400 font-mono mt-1 text-xs select-none">■</span>
                             <div className="flex-1 leading-relaxed">
-                              <SupplementaryText text={duty} />
+                              <SupplementaryText text={translate(duty, lang)} />
                               
                               {/* Hover floating comment/tooltip */}
                               {hasTooltip && (
@@ -426,6 +443,35 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
                             {techDev}
                           </span>
                         ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Realizowane projekty */}
+                  {job.mainProjects && job.mainProjects.length > 0 && (
+                    <div className="w-full mt-2">
+                      <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                        <FolderGit2 className="w-3.5 h-3.5 text-slate-400 animate-pulse" />
+                        {translate("Realizowane projekty", lang)}
+                      </h4>
+                      <div className="flex flex-wrap gap-1 font-mono">
+                        {job.mainProjects.map((projName) => {
+                          const matchedProj = projects.find((p) => p.name === projName);
+                          return (
+                            <span
+                              key={projName}
+                              onClick={() => {
+                                if (matchedProj && onNavigateToProject) {
+                                  onNavigateToProject(matchedProj.id);
+                                }
+                              }}
+                              className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-lg text-[10px] font-semibold border border-slate-200 cursor-pointer transition hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200 inline-flex items-center"
+                              title={matchedProj ? `${translate("Kliknij, aby przejść do projektu", lang)}: ${projName}` : projName}
+                            >
+                              {projName}
+                            </span>
+                          );
+                        })}
                       </div>
                     </div>
                   )}

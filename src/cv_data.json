@@ -2,6 +2,10 @@
   "person": {
     "firstName": "Michał",
     "lastName": "Sokołowski",
+    "title": {
+      "pl": "Inżynier oprogramowania z ponad 20-letnim doświadczeniem w tworzeniu systemów na dużą skalę, administracji Linux, DevOps oraz strategiach backupowych.",
+      "en": "Software engineer with over 20 years of experience in developing large-scale systems, Linux administration, DevOps, and backup strategies."
+    },
     "description": {
       "pl": [
         "Pełen pasji i zorientowany na wyniki programista, od zawsze interesujący się komputerami i programowaniem, począwszy od komputera ZX Spectrum w latach 80. Posiada doświadczenie w projektowaniu i tworzeniu systemów na dużą skalę, w tym platform e-commerce, rozwiązań rekrutacyjnych, narzędzi do planowania i raportowania, systemów mailingowych oraz aplikacji tworzonych na zamówienie.",

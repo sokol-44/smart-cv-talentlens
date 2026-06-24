@@ -113,6 +113,46 @@ export default function App() {
   const [lang, setLang] = useState<"pl" | "en">("pl");
   const [tooltips, setTooltips] = useState<Record<string, string>>({});
   const [isAdmin, setIsAdmin] = useState(false);
+  const [highlightedJobId, setHighlightedJobId] = useState<string | null>(null);
+  const [highlightedProjectId, setHighlightedProjectId] = useState<string | null>(null);
+
+  const handleNavigateToJob = (jobId: string) => {
+    setActiveTab("jobs");
+    setHighlightedJobId(jobId);
+    setTimeout(() => {
+      const el = document.getElementById(`job-card-${jobId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+    setTimeout(() => {
+      setHighlightedJobId(null);
+    }, 2500);
+  };
+
+  const handleNavigateToProject = (projectId: string) => {
+    setActiveTab("projects");
+    setHighlightedProjectId(projectId);
+    setTimeout(() => {
+      const el = document.getElementById(`project-card-${projectId}`);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    }, 100);
+    setTimeout(() => {
+      setHighlightedProjectId(null);
+    }, 2500);
+  };
+
+  const handleNavigateToCompany = (companyName: string) => {
+    if (!cvData) return;
+    const matchedJob = cvData.employment.find(
+      (job) => job.company.toLowerCase() === companyName.toLowerCase()
+    );
+    if (matchedJob) {
+      handleNavigateToJob(matchedJob.id);
+    }
+  };
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
@@ -198,6 +238,7 @@ export default function App() {
           const mergedPerson = {
             ...initialCVData.person,
             ...parsed.person,
+            title: parsed.person.title || initialCVData.person.title,
             description: {
               pl: parsed.person.description?.pl || initialCVData.person.description.pl,
               en: parsed.person.description?.en || initialCVData.person.description.en
@@ -213,11 +254,39 @@ export default function App() {
             };
           });
 
+          // Merge newly added projects fields (like descriptions)
+          const mergedProjects = parsed.projects.map((proj: any) => {
+            const initialProj = initialCVData.projects.find((p) => p.id === proj.id) as any || {};
+            const finalDesc = (proj.description && typeof proj.description === "object" && (proj.description.pl || proj.description.en))
+              ? proj.description
+              : initialProj.description;
+            return {
+              ...initialProj,
+              ...proj,
+              description: finalDesc
+            };
+          });
+
+          // Merge newly added certificates fields (like descriptions)
+          const mergedCertificates = parsed.certificates.map((cert: any) => {
+            const initialCert = initialCVData.certificates.find((c) => c.id === cert.id) as any || {};
+            const finalDesc = (cert.description && typeof cert.description === "object" && (cert.description.pl || cert.description.en))
+              ? cert.description
+              : initialCert.description;
+            return {
+              ...initialCert,
+              ...cert,
+              description: finalDesc
+            };
+          });
+
           const mergedParsed = {
             ...initialCVData,
             ...parsed,
             person: mergedPerson,
-            education: mergedEducation
+            education: mergedEducation,
+            projects: mergedProjects,
+            certificates: mergedCertificates
           };
 
           setCvData(mergedParsed);
@@ -313,6 +382,19 @@ export default function App() {
     }
   };
 
+  // Save headline
+  const handleSaveHeadline = (pl: string, en: string) => {
+    if (cvData) {
+      updateLocalData({
+        ...cvData,
+        person: {
+          ...cvData.person,
+          title: { pl, en },
+        },
+      });
+    }
+  };
+
   // CRUD Save operations
   const handleSaveJob = (updatedJob: Employment) => {
     if (!cvData) return;
@@ -403,6 +485,8 @@ export default function App() {
           certificates={cvData.certificates}
           skills={cvData.skills}
           onToggleLang={handleToggleLang}
+          isAdmin={isAdmin}
+          onSaveHeadline={handleSaveHeadline}
         />
 
         {/* Tab Navigation */}
@@ -536,6 +620,9 @@ export default function App() {
             <section className="print:block animate-fade-in">
               <EmploymentList
                 jobs={cvData.employment}
+                projects={cvData.projects}
+                onNavigateToProject={handleNavigateToProject}
+                highlightedJobId={highlightedJobId}
                 bookmarks={bookmarks}
                 onToggleBookmark={handleToggleBookmark}
                 notes={notes}
@@ -553,6 +640,8 @@ export default function App() {
             <section className="print:block animate-fade-in">
               <ProjectsList
                 projects={cvData.projects}
+                highlightedProjectId={highlightedProjectId}
+                onNavigateToCompany={handleNavigateToCompany}
                 bookmarks={bookmarks}
                 onToggleBookmark={handleToggleBookmark}
                 notes={notes}
