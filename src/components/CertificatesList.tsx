@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Certificate, LocalBookmarks, LocalNotes } from "../types";
-import { Award, Calendar, Clock, Search, MessageSquare, Save, Settings, ShieldCheck } from "lucide-react";
+import { Award, Calendar, Clock, Search, MessageSquare, Save, Settings, ShieldCheck, AlignLeft } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -268,12 +268,18 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
 
                 {/* Info text */}
                 {c.description && (
-                  <div className="text-xs text-slate-600 leading-relaxed mb-3">
-                    <SupplementaryText text={
-                      typeof c.description === "object"
-                        ? c.description[lang] || c.description.pl || ""
-                        : translate(c.description, lang)
-                    } />
+                  <div className="mb-3">
+                    <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                      <AlignLeft className="w-3.5 h-3.5 text-slate-400" />
+                      {translate("Opis", lang)}
+                    </h4>
+                    <div className="text-xs text-slate-600 leading-relaxed bg-slate-50/40 p-2.5 rounded-xl border border-slate-100/50">
+                      <SupplementaryText text={
+                        typeof c.description === "object"
+                          ? c.description[lang] || c.description.pl || c.description.en || ""
+                          : translate(c.description, lang)
+                      } />
+                    </div>
                   </div>
                 )}
               </div>
