@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Certificate, LocalBookmarks, LocalNotes } from "../types";
-import { Award, Calendar, Clock, Search, MessageSquare, Save, Settings, ShieldCheck, AlignLeft } from "lucide-react";
+import { Award, Calendar, Clock, Search, MessageSquare, Save, Settings, ShieldCheck, AlignLeft, Wrench } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -286,15 +286,21 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
 
               {/* Technologies / Tags */}
               {c.technologiesAndDuties && c.technologiesAndDuties.length > 0 && (
-                <div className="flex flex-wrap gap-1 mt-2 pt-2 border-t border-slate-50">
-                  {c.technologiesAndDuties.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-0.5 bg-purple-50 text-purple-700 rounded text-[10px] font-mono border border-purple-100/40"
-                    >
-                      {tech}
-                    </span>
-                  ))}
+                <div className="mt-4 pt-3 border-t border-slate-100">
+                  <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-1">
+                    <Wrench className="w-3.5 h-3.5 text-slate-400" />
+                    {translate("Omawiane technologie", lang)}
+                  </h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {c.technologiesAndDuties.map((tech) => (
+                      <div
+                        key={tech}
+                        className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-900 text-slate-600 rounded text-[10px] font-mono border border-slate-200/50 transition-colors"
+                      >
+                        <span>{translate(tech, lang)}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

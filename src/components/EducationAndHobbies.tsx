@@ -6,8 +6,8 @@
  */
 
 import React, { useState } from "react";
-import { Education } from "../types";
-import { GraduationCap, Calendar, BookOpen, Compass, ShieldCheck, Edit3, Save, X } from "lucide-react";
+import { Education, Employment } from "../types";
+import { GraduationCap, Calendar, BookOpen, Compass, ShieldCheck, Edit3, Save, X, Wrench } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -26,6 +26,7 @@ interface EducationAndHobbiesProps {
   onEditEducation?: (edu: Education, index: number) => void;
   selectedYearFilter?: string;
   onYearFilterChange?: (year: string) => void;
+  employment?: Employment[];
 }
 
 /**
@@ -42,6 +43,7 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
   isAdmin = false,
   onSavePasje,
   onEditEducation,
+  employment = [],
 }) => {
   const [isEditingPasje, setIsEditingPasje] = useState(false);
   const [pasjePl, setPasjePl] = useState(pasje?.pl || "Pozazawodowe pasje Michała, od gier RPG, żeglarstwa po mikroelektronikę i ogrodnictwo.");
@@ -74,59 +76,85 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
         </h2>
 
         <div className="space-y-4">
-          {education.map((edu, idx) => (
-            <div
-              key={idx}
-              className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs hover:shadow-sm transition animate-fade-in"
-            >
-              <div className="flex justify-between items-start gap-4 mb-2">
-                <div>
-                  <span className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded text-[10px] font-mono border border-blue-100 uppercase font-bold">
-                    {translate(edu.type, lang)}
-                  </span>
-                  <h3 className="font-bold text-sm text-slate-950 mt-1.5 leading-snug">
-                    <SupplementaryText text={translate(edu.major, lang)} />
-                  </h3>
-                  <div className="text-xs text-slate-500 font-semibold mt-1 flex items-center gap-1">
-                    <BookOpen className="w-3.5 h-3.5" />
-                    {edu.institution}
-                  </div>
-                </div>
+          {education.map((edu, idx) => {
+            const matchingEmpTechs = employment
+              .filter((emp) => emp.company.trim() === edu.institution.trim())
+              .flatMap((emp) => emp.technologies || []);
+            const uniqueMatchingTechs = Array.from(new Set(matchingEmpTechs));
 
-                <div className="flex flex-col items-end gap-2 shrink-0">
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-mono text-slate-600">
-                    <Calendar className="w-3.5 h-3.5 text-blue-500" />
-                    {edu.date.start} – {edu.date.end}
-                  </span>
-                  {isAdmin && onEditEducation && (
-                    <button
-                      onClick={() => onEditEducation(edu, idx)}
-                      className="p-1 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-lg transition cursor-pointer"
-                      title={translate("Edytuj", lang)}
-                    >
-                      <Edit3 className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {edu.description && (
-                <div className="mt-3 text-xs text-slate-600 leading-relaxed border-l-2 border-slate-200 pl-2.5">
-                  <SupplementaryText text={lang === "pl" ? edu.description.pl : edu.description.en} />
-                </div>
-              )}
-
-              {edu.confirmation && (
-                <div className="mt-3 text-xs p-2.5 bg-slate-50 border border-slate-150 rounded-lg text-slate-600 flex items-start gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+            return (
+              <div
+                key={idx}
+                className="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs hover:shadow-sm transition animate-fade-in"
+              >
+                <div className="flex justify-between items-start gap-4 mb-2">
                   <div>
-                    <span className="font-bold text-slate-700">{translate("Uzyskane potwierdzenie:", lang)}</span>{" "}
-                    <SupplementaryText text={translate(edu.confirmation, lang)} />
+                    <span className="px-2 py-0.5 bg-blue-50 text-blue-700 rounded text-[10px] font-mono border border-blue-100 uppercase font-bold">
+                      {translate(edu.type, lang)}
+                    </span>
+                    <h3 className="font-bold text-sm text-slate-950 mt-1.5 leading-snug">
+                      <SupplementaryText text={translate(edu.major, lang)} />
+                    </h3>
+                    <div className="text-xs text-slate-500 font-semibold mt-1 flex items-center gap-1">
+                      <BookOpen className="w-3.5 h-3.5" />
+                      {edu.institution}
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col items-end gap-2 shrink-0">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-mono text-slate-600">
+                      <Calendar className="w-3.5 h-3.5 text-blue-500" />
+                      {edu.date.start} – {edu.date.end}
+                    </span>
+                    {isAdmin && onEditEducation && (
+                      <button
+                        onClick={() => onEditEducation(edu, idx)}
+                        className="p-1 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-lg transition cursor-pointer"
+                        title={translate("Edytuj", lang)}
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                   </div>
                 </div>
-              )}
-            </div>
-          ))}
+
+                {edu.description && (
+                  <div className="mt-3 text-xs text-slate-600 leading-relaxed border-l-2 border-slate-200 pl-2.5">
+                    <SupplementaryText text={lang === "pl" ? edu.description.pl : edu.description.en} />
+                  </div>
+                )}
+
+                {edu.confirmation && (
+                  <div className="mt-3 text-xs p-2.5 bg-slate-50 border border-slate-150 rounded-lg text-slate-600 flex items-start gap-1.5">
+                    <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                    <div>
+                      <span className="font-bold text-slate-700">{translate("Uzyskane potwierdzenie:", lang)}</span>{" "}
+                      <SupplementaryText text={translate(edu.confirmation, lang)} />
+                    </div>
+                  </div>
+                )}
+
+                {uniqueMatchingTechs.length > 0 && (
+                  <div className="mt-4 pt-3 border-t border-slate-100">
+                    <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-1">
+                      <Wrench className="w-3.5 h-3.5 text-slate-400" />
+                      {translate("Omawiane technologie", lang)}
+                    </h4>
+                    <div className="flex flex-wrap gap-1.5">
+                      {uniqueMatchingTechs.map((tech) => (
+                        <div
+                          key={tech}
+                          className="inline-flex items-center gap-1 px-2.5 py-0.5 bg-slate-100 hover:bg-indigo-50 hover:text-indigo-900 text-slate-600 rounded text-[10px] font-mono border border-slate-200/50 transition-colors"
+                        >
+                          <span>{translate(tech, lang)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 

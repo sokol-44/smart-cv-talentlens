@@ -7,7 +7,7 @@
 
 import React, { useState, useRef } from "react";
 import { CVData } from "../types";
-import { Database, Upload, Download, CheckCircle, AlertCircle, Eye, Lock } from "lucide-react";
+import { Database, Upload, Download, CheckCircle, AlertCircle, Eye, Lock, ArrowLeft } from "lucide-react";
 import { translate } from "../utils/translations";
 
 /**
@@ -21,7 +21,7 @@ interface LocalDbAdminProps {
   onResetDb: () => void;
   isDbModified: boolean;
   lang: "pl" | "en";
-  onVerifyPassword: (password: string) => Promise<boolean>;
+  onBackToEdit: () => void;
 }
 
 /**
@@ -38,28 +38,11 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
   onResetDb,
   isDbModified,
   lang,
-  onVerifyPassword,
+  onBackToEdit,
 }) => {
   const [activeTable, setActiveTable] = useState<"employment" | "projects" | "certificates" | "skills">("employment");
   const [importStatus, setImportStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Password authorization state
-  const [password, setPassword] = useState("");
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [passError, setPassError] = useState("");
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const isOk = await onVerifyPassword(password);
-    /* if block comment: sets authenticated status if the security check passes */
-    if (isOk) {
-      setIsAuthenticated(true);
-      setPassError("");
-    } else {
-      setPassError(lang === "pl" ? "Niepoprawne hasło!" : "Incorrect password!");
-    }
-  };
 
   // Download DB as JSON
   const handleExportJson = () => {
@@ -120,53 +103,6 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
     fileInputRef.current?.click();
   };
 
-  if (!isAuthenticated) {
-    return (
-      <div className="bg-slate-900 text-slate-100 rounded-3xl p-8 border border-slate-800 shadow-xl max-w-md mx-auto text-center my-12" id="db-admin-login-container">
-        <div className="w-16 h-16 bg-indigo-500/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-indigo-500/20">
-          <Lock className="w-8 h-8 text-indigo-400" />
-        </div>
-        <h3 className="text-xl font-bold text-white mb-2">{translate("Panel Administracyjny", lang)}</h3>
-        <p className="text-xs text-slate-400 mb-6 leading-relaxed">
-          {lang === "pl"
-            ? "Dostęp do bazy danych wymaga autoryzacji lokalnego administratora."
-            : "Database access requires local administrator authorization."}
-        </p>
-
-        <form onSubmit={handleLogin} className="space-y-4">
-          <div className="text-left font-sans">
-            <label className="block text-[10px] font-bold text-slate-500 uppercase mb-1.5 tracking-wider font-mono">
-              {lang === "pl" ? "Hasło administratora (domyślne: admin)" : "Admin password (default: admin)"}
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="w-full px-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 text-white font-mono placeholder-slate-700"
-              autoFocus
-            />
-          </div>
-
-          {passError && (
-            <p className="text-xs text-red-400 flex items-center gap-1.5 justify-center font-mono">
-              <AlertCircle className="w-3.5 h-3.5" />
-              <span>{passError}</span>
-            </p>
-          )}
-
-          <button
-            type="submit"
-            className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
-          >
-            <Lock className="w-3.5 h-3.5" />
-            <span>{lang === "pl" ? "Autoryzuj" : "Authorize"}</span>
-          </button>
-        </form>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-slate-900 text-slate-100 rounded-3xl p-6 border border-slate-800 shadow-xl" id="db-admin-panel-container">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-800">
@@ -184,6 +120,14 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
 
         {/* Export / Import actions */}
         <div className="flex flex-wrap gap-2 shrink-0">
+          <button
+            onClick={onBackToEdit}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl border border-slate-700 transition cursor-pointer"
+            id="back-to-edit-btn"
+          >
+            <ArrowLeft className="w-3.5 h-3.5 text-blue-400" />
+            <span>{lang === "pl" ? "Powrót do edycji" : "Back to edit"}</span>
+          </button>
           <input
             type="file"
             ref={fileInputRef}

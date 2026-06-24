@@ -86,12 +86,12 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
     const certificates = cvData.certificates || [];
     const skills = cvData.skills || [];
 
-    // 1. Check matching projects and calculate compatibility percentage for each
+    // 1. Check matching projects and calculate compatibility percentage for each (out of technologies used in the project)
     const matchingProjects = projects
       .map((p) => {
-        const pTechs = p && p.technologie ? p.technologie : [];
+        const pTechs = p && p.technologies ? p.technologies : [];
         const matchCount = pTechs.filter((tech) => tagsLower.includes(tech.toLowerCase())).length;
-        const pct = activeTags.length > 0 ? Math.round((matchCount / activeTags.length) * 100) : 0;
+        const pct = pTechs.length > 0 ? Math.round((matchCount / pTechs.length) * 100) : 0;
         return {
           ...p,
           matchCount,
@@ -99,7 +99,7 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
         };
       })
       .filter((p) => p.matchCount > 0)
-      .sort((a, b) => b.pct - a.pct || b.matchCount - a.matchCount);
+      .sort((a, b) => b.matchCount - a.matchCount || b.pct - a.pct);
 
     // 2. Check matching jobs
     const matchingJobs = employment.filter((j) =>
@@ -264,12 +264,12 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
                         <div className="flex items-center justify-between">
                           <span className="font-semibold text-slate-800 truncate max-w-[150px]">{p.name}</span>
                           <span className="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">
-                            {p.pct}% {lang === "pl" ? "zgodności" : "match"}
+                            {p.pct}% {lang === "pl" ? "zgodnych tech." : "tech match"}
                           </span>
                         </div>
                         <div className="text-[10px] text-slate-400 flex items-center justify-between">
                           <span>{p.date?.start || ""}</span>
-                          <span>{p.matchCount} / {activeTags.length} {lang === "pl" ? "tagów" : "tags"}</span>
+                          <span>{p.matchCount} / {p.technologies?.length || 0} {lang === "pl" ? "zgodnych" : "matched"}</span>
                         </div>
                       </div>
                     ))}

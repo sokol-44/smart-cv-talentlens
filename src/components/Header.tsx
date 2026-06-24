@@ -7,7 +7,7 @@
 
 import React from "react";
 import { Person, Employment, Project, Certificate, Skill } from "../types";
-import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, RefreshCw, Globe, Mail, Phone, Edit3 } from "lucide-react";
+import { Github, Linkedin, Briefcase, Award, FolderGit2, GraduationCap, RefreshCw, Globe, Mail, Phone, Edit3, Database } from "lucide-react";
 import { translate } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
 
@@ -217,30 +217,18 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Local DB Status Panel with Language Selector Above Statistics */}
+        {/* Local DB Status Panel with Statistics */}
         <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl w-full md:w-auto md:min-w-[300px]">
           <div className="flex items-center justify-between gap-3 text-xs font-mono text-slate-400 mb-4 border-b border-slate-800 pb-2.5">
-            <span className="flex items-center gap-1 text-slate-300 font-semibold uppercase tracking-wider text-[10px]">
-              <Globe className="w-3.5 h-3.5 text-blue-400" />
-              <span>{translate("Język / Language", lang)}</span>
+            <span className="flex items-center gap-1.5 text-slate-300 font-semibold uppercase tracking-wider text-[10px]">
+              <Database className="w-3.5 h-3.5 text-blue-400" />
+              <span>{lang === "pl" ? "Lokalna Baza Danych" : "Local Database"}</span>
             </span>
-            <div className="flex gap-1.5">
-              <button
-                onClick={() => onToggleLang?.("pl")}
-                className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition ${
-                  lang === "pl" ? "bg-blue-600 text-white" : "bg-slate-800 hover:bg-slate-700 text-slate-400"
-                }`}
-              >
-                PL
-              </button>
-              <button
-                onClick={() => onToggleLang?.("en")}
-                className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition ${
-                  lang === "en" ? "bg-blue-600 text-white" : "bg-slate-800 hover:bg-slate-700 text-slate-400"
-                }`}
-              >
-                EN
-              </button>
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10px] font-bold text-emerald-400 uppercase">
+                {lang === "pl" ? "Lokalna" : "Local"}
+              </span>
             </div>
           </div>
 

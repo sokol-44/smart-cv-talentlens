@@ -186,6 +186,8 @@ export const staticTranslations: Record<string, string> = {
   "obowiązki i zadania": "responsibilities and tasks",
   "Wykorzystane technologie": "Technologies used",
   "wykorzystane technologie": "technologies used",
+  "Omawiane technologie": "Covered technologies",
+  "omawiane technologie": "covered technologies",
   "Szkolenia": "Training sessions",
   "Poziom": "Level",
   "Dodaj komentarz (tooltip) do tego elementu": "Add comment (tooltip) to this item",
