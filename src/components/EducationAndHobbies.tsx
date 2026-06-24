@@ -204,8 +204,10 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
 
           <div className="grid grid-cols-1 gap-2.5">
             {hobbies.map((hobby, idx) => {
-              // Get translated string directly from JSON object
-              const translatedHobby = hobby[lang] || hobby.pl || hobby.en || "";
+              // Get translated string directly from JSON object or fallback if it is a string
+              const translatedHobby = typeof hobby === "object" && hobby !== null
+                ? (hobby[lang] || hobby.pl || hobby.en || "")
+                : (hobby || "");
               // Extract label (before colon)
               const parts = translatedHobby.split(":");
               const isLabelPresent = parts.length > 1;

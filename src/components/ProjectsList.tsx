@@ -386,13 +386,15 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
                             </div>
                           )}
 
-                          <button
-                            onClick={() => handleOpenTooltipEdit(techKey, tech)}
-                            className="opacity-0 group-hover/tech:opacity-100 transition p-0.5 text-slate-400 hover:text-indigo-900 rounded cursor-pointer"
-                            title={translate("Dodaj / edytuj komentarz do technologii", lang)}
-                          >
-                            <Edit3 className="w-2.5 h-2.5" />
-                          </button>
+                          {isAdmin && (
+                            <button
+                              onClick={() => handleOpenTooltipEdit(techKey, tech)}
+                              className="opacity-0 group-hover/tech:opacity-100 transition p-0.5 text-slate-400 hover:text-indigo-900 rounded cursor-pointer"
+                              title={translate("Dodaj / edytuj komentarz do technologii", lang)}
+                            >
+                              <Edit3 className="w-2.5 h-2.5" />
+                            </button>
+                          )}
                         </div>
                       );
                     })}

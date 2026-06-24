@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo } from "react";
 import { Employment, LocalBookmarks, LocalNotes } from "../types";
-import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X, Search, FolderGit2 } from "lucide-react";
+import { Briefcase, Calendar, Wrench, Bookmark, MessageSquare, Save, Settings, Layers, Code, Edit3, X, Search, FolderGit2, AlignLeft, ClipboardList, Compass } from "lucide-react";
 import { motion } from "motion/react";
 import { translate, translateStanowisko } from "../utils/translations";
 import { SupplementaryText } from "../utils/parentheses";
@@ -297,14 +297,21 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
 
                 {/* Job Description */}
                 {job.description && (
-                  <div className="mb-4 text-xs md:text-sm text-slate-600 leading-relaxed italic bg-slate-50/50 p-3 rounded-xl border border-slate-100/50">
-                    <SupplementaryText text={job.description[lang] || job.description.pl || ""} />
+                  <div className="mb-4">
+                    <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                      <AlignLeft className="w-3.5 h-3.5 text-slate-400" />
+                      {translate("Opis", lang)}
+                    </h4>
+                    <div className="text-xs text-slate-600 leading-relaxed bg-slate-50/40 p-2.5 rounded-xl border border-slate-100/50">
+                      <SupplementaryText text={job.description[lang] || job.description.pl || job.description.en || ""} />
+                    </div>
                   </div>
                 )}
 
                 {/* Job Duties / Responsibilities */}
                 <div className="mb-4">
-                  <h4 className="text-xs font-mono text-slate-400 font-bold uppercase tracking-wider mb-2">
+                  <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-2 flex items-center gap-1">
+                    <ClipboardList className="w-3.5 h-3.5 text-slate-400" />
                     {translate("Obowiązki i zadania", lang)}
                   </h4>
                   <ul className="space-y-2 text-sm text-slate-600">
@@ -383,13 +390,15 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
                               </div>
                             )}
 
-                            <button
-                              onClick={() => handleOpenTooltipEdit(techKey, tech)}
-                              className="opacity-0 group-hover/tech:opacity-100 transition p-0.5 text-indigo-400 hover:text-indigo-900 rounded cursor-pointer"
-                              title={translate("Dodaj / edytuj komentarz do technologii", lang)}
-                            >
-                              <Edit3 className="w-2.5 h-2.5" />
-                            </button>
+                            {isAdmin && (
+                              <button
+                                onClick={() => handleOpenTooltipEdit(techKey, tech)}
+                                className="opacity-0 group-hover/tech:opacity-100 transition p-0.5 text-indigo-400 hover:text-indigo-900 rounded cursor-pointer"
+                                title={translate("Dodaj / edytuj komentarz do technologii", lang)}
+                              >
+                                <Edit3 className="w-2.5 h-2.5" />
+                              </button>
+                            )}
                           </div>
                         );
                       })}
@@ -434,7 +443,8 @@ export const EmploymentList: React.FC<EmploymentListProps> = ({
                   {/* Tech Techniques */}
                   {job.devMethodologies && job.devMethodologies.length > 0 && (
                     <div className="w-full mt-2">
-                      <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5">
+                      <h4 className="text-[10px] font-mono text-slate-400 font-bold uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                        <Compass className="w-3.5 h-3.5 text-slate-400" />
                         {translate("Metodologie i standardy", lang)}
                       </h4>
                       <div className="flex flex-wrap gap-1 font-mono">

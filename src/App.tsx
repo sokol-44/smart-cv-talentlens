@@ -280,13 +280,28 @@ export default function App() {
             };
           });
 
+          // Merge newly added employment fields (like descriptions)
+          const mergedEmployment = parsed.employment.map((job: any) => {
+            const initialJob = initialCVData.employment.find((j) => j.id === job.id) as any || {};
+            const finalDesc = (job.description && typeof job.description === "object" && (job.description.pl || job.description.en))
+              ? job.description
+              : initialJob.description;
+            return {
+              ...initialJob,
+              ...job,
+              description: finalDesc
+            };
+          });
+
           const mergedParsed = {
             ...initialCVData,
             ...parsed,
             person: mergedPerson,
             education: mergedEducation,
             projects: mergedProjects,
-            certificates: mergedCertificates
+            certificates: mergedCertificates,
+            employment: mergedEmployment,
+            additionalSkillsAndHobbies: initialCVData.additionalSkillsAndHobbies
           };
 
           setCvData(mergedParsed);
