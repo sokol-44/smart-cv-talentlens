@@ -164,9 +164,19 @@ export default function App() {
   const [editingEducation, setEditingEducation] = useState<Education | null>(null);
   const [editingEducationIndex, setEditingEducationIndex] = useState<number | null>(null);
 
-  // Helper to migrate legacy notes to translated objects
+  /**
+   * Helper utility to migrate legacy recruiter notes into modern localized translation objects.
+   * Design Pattern: Adapter/Data Transformer pattern.
+   * Design Decision: Standardizes plain string notes to { pl, en } structures to support multi-language routing seamlessly.
+   *
+   * @param {string | null} rawNotesStr - Stringified JSON representing recruiter notes.
+   * @param {any} [parsedCvDataNotes] - Parsed recruiter notes from the CV dataset directly.
+   * @returns {LocalNotes} The updated localized notes representation.
+   */
   const migrateNotes = (rawNotesStr: string | null, parsedCvDataNotes?: any): LocalNotes => {
     let result: LocalNotes = {};
+    
+    /* if block comment: prioritize database-integrated recruiter notes if available */
     if (parsedCvDataNotes && typeof parsedCvDataNotes === "object") {
       Object.keys(parsedCvDataNotes).forEach((k) => {
         const val = parsedCvDataNotes[k];
@@ -178,6 +188,8 @@ export default function App() {
       });
       return result;
     }
+    
+    /* if block comment: fallback to loading raw client-side local notes from localStorage */
     if (rawNotesStr) {
       try {
         const parsed = JSON.parse(rawNotesStr);
@@ -189,7 +201,11 @@ export default function App() {
             result[k] = val;
           }
         });
-      } catch (e) {}
+      } catch (e) {
+        // Explanation: Silently catch and log local storage corruption. 
+        // We use an empty fallback object to avoid disrupting user experience with high-level application crashes.
+        console.warn("Recruiter notes parsing error in migrateNotes:", e);
+      }
     }
     return result;
   };

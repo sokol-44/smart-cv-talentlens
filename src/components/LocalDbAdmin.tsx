@@ -100,6 +100,10 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
           });
         }
       } catch (err) {
+        // Explanation: Parse or syntax errors in the uploaded JSON file are caught here.
+        // Design Decision: Instead of crashing the page, we display a localized, user-friendly error message in the UI state
+        // and keep the current database intact.
+        console.error("Failed to parse imported JSON database:", err);
         setImportStatus({
           type: "error",
           message: lang === "pl"
@@ -108,6 +112,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
         });
       }
     };
+    // Design Pattern: Web API asynchronous stream/file reader delegation.
     reader.readAsText(file);
   };
 

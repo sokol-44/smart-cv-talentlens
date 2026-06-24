@@ -267,18 +267,24 @@ export const staticTranslations: Record<string, string> = {
 
 /**
  * Gets custom translations map from localStorage.
+ * Design Pattern: Registry/Cache Store reader.
+ * Design Decision: Prevents application boot crashes by catching localStorage JSON parsing syntax exceptions.
  */
 export function getCustomTranslations(): Record<string, string> {
   try {
     const stored = localStorage.getItem("cv_custom_translations");
     return stored ? JSON.parse(stored) : {};
   } catch (e) {
+    // Explanation: Corrupted or invalid JSON data in localStorage is safely disregarded,
+    // returning an empty dictionary to ensure fallback translations still work.
+    console.warn("Custom translations parse error, falling back to empty map:", e);
     return {};
   }
 }
 
 /**
  * Saves a custom translation to localStorage.
+ * Design Pattern: Registry/Cache Store writer.
  */
 export function saveCustomTranslation(original: string, translation: string) {
   if (!original) return;
@@ -287,7 +293,8 @@ export function saveCustomTranslation(original: string, translation: string) {
     custom[original] = translation;
     localStorage.setItem("cv_custom_translations", JSON.stringify(custom));
   } catch (e) {
-    console.error("Failed to save custom translation", e);
+    // Explanation: Log writing/quota errors from localStorage safely to avoid disrupting user workflow.
+    console.error("Failed to save custom translation:", e);
   }
 }
 
