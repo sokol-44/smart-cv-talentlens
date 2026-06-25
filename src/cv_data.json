@@ -257,11 +257,11 @@
         "en": "A specialized workshop focused on deploying and maintaining network services in a SLES 10 environment. It covered the configuration and administration of key infrastructure services including DNS, DHCP, file sharing (Samba, NFS), and network communication security"
       },
       "technologiesAndDuties": [
-        "administrator systemów Linux"
+        "administrator systemów Linux",
         "Shell",
         "DNS",
         "DHCP",
-        "Samba"
+        "Samba",
         "NFS"
       ]
     }
@@ -1303,6 +1303,162 @@
     {
       "name": "russian",
       "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Płatności Online",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Alpine Linux",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Ionic Framework",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Android",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "iOS",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "HTML",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "CSS",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "SSH",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Shell",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Linux",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "QEMU",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Hyper-V",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Red Hat",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "CentOS",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "PLD Linux Distribution",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Borg Backup",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Joomla",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "TCP/IP",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "DHCP",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "DNS",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Routing",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "nauczanie maszynowe",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Pascal",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Clipper",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "user.com",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Google Analytics",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Google Cloud Platform",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Message Queues",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "PHPUnit",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Wiek biologiczny (Empathy)",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Import Cenników",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Omnibus",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Apache Cordova",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "Mobile App",
+      "proficiencyLevel": "podstawowy"
+    },
+    {
+      "name": "administrator systemów Linux",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Firebird DB",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Borg backup",
+      "proficiencyLevel": "zaawansowany"
+    },
+    {
+      "name": "Mass Mailing",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "RSS",
+      "proficiencyLevel": "średni"
     }
   ],
   "additionalSkillsAndHobbies": [
@@ -1437,6 +1593,32 @@
         "synonyms": [
           "AHK"
         ]
+      },
+      {
+        "name": "pozycjonowanie",
+        "synonyms": []
+      },
+      {
+        "name": "Shell",
+        "synonyms": [
+          "Shell Scripting",
+          "sh",
+          "sh script"
+        ]
+      },
+      {
+        "name": "Pascal",
+        "synonyms": [
+          "Turbo Pascal",
+          "Pascal Language"
+        ]
+      },
+      {
+        "name": "Clipper",
+        "synonyms": [
+          "Clipper 87",
+          "Clipper Compiler"
+        ]
       }
     ],
     "frameworksAndLibraries": [
@@ -1514,6 +1696,20 @@
         "synonyms": [
           "Doctrine",
           "Symfony ORM"
+        ]
+      },
+      {
+        "name": "Joomla",
+        "synonyms": [
+          "Joomla CMS",
+          "Joomla!"
+        ]
+      },
+      {
+        "name": "PHPUnit",
+        "synonyms": [
+          "PHP Unit Testing",
+          "PHPUnit Framework"
         ]
       }
     ],
@@ -1629,6 +1825,14 @@
           "HyperV",
           "Microsoft Hyper-V"
         ]
+      },
+      {
+        "name": "QEMU",
+        "synonyms": [
+          "Quick Emulator",
+          "QEMU Virtualization",
+          "KVM QEMU"
+        ]
       }
     ],
     "operatingSystemsAndAdmin": [
@@ -1691,7 +1895,46 @@
         "name": "Borg backup",
         "synonyms": [
           "Borg",
+          "backup",
           "BorgBackup"
+        ]
+      },
+      {
+        "name": "Red Hat Linux",
+        "synonyms": [
+          "RedHatLinux"
+        ]
+      },
+      {
+        "name": "Android",
+        "synonyms": [
+          "Android OS",
+          "Google Android",
+          "Android SDK"
+        ]
+      },
+      {
+        "name": "iOS",
+        "synonyms": [
+          "iOS OS",
+          "Apple iOS",
+          "iOS SDK"
+        ]
+      },
+      {
+        "name": "PLD Linux Distribution",
+        "synonyms": [
+          "PLD",
+          "PLD Linux",
+          "Polish Linux Distribution"
+        ]
+      },
+      {
+        "name": "administrator systemów Linux",
+        "synonyms": [
+          "Linux Sysadmin",
+          "Linux Administration",
+          "System Admin"
         ]
       }
     ],
@@ -1751,6 +1994,15 @@
         "synonyms": [
           "Really Simple Syndication",
           "RSS Feed"
+        ]
+      },
+      {
+        "name": "Płatności Online",
+        "synonyms": [
+          "Online Payments",
+          "Payment Gateways",
+          "Stripe",
+          "PayU"
         ]
       }
     ],
@@ -1850,6 +2102,22 @@
         "synonyms": [
           "Sender Policy Framework"
         ]
+      },
+      {
+        "name": "SSH",
+        "synonyms": [
+          "Secure Shell",
+          "OpenSSH",
+          "SSH Key"
+        ]
+      },
+      {
+        "name": "Mass Mailing",
+        "synonyms": [
+          "Bulk Mailing",
+          "Mailing masowy",
+          "Newsletter System"
+        ]
       }
     ],
     "otherTools": [
@@ -1891,6 +2159,72 @@
         "synonyms": [
           "RPi",
           "RaspberryPi"
+        ]
+      },
+      {
+        "name": "Java",
+        "synonyms": []
+      },
+      {
+        "name": "AI Prompt",
+        "synonyms": [
+          "AIPrompt"
+        ]
+      },
+      {
+        "name": "SelfHosting",
+        "synonyms": []
+      },
+      {
+        "name": "RabbitMQ",
+        "synonyms": []
+      },
+      {
+        "name": "english",
+        "synonyms": []
+      },
+      {
+        "name": "russian",
+        "synonyms": []
+      },
+      {
+        "name": "nauczanie maszynowe",
+        "synonyms": [
+          "Machine Learning",
+          "ML",
+          "Uczenie maszynowe"
+        ]
+      },
+      {
+        "name": "Wiek biologiczny (Empathy)",
+        "synonyms": [
+          "Empathy Biological Age",
+          "Biologiczny wiek",
+          "Empathy Integration"
+        ]
+      },
+      {
+        "name": "Import Cenników",
+        "synonyms": [
+          "Price Import",
+          "Cenniki Import",
+          "Excel Import"
+        ]
+      },
+      {
+        "name": "Omnibus",
+        "synonyms": [
+          "Dyrektywa Omnibus",
+          "Omnibus Directive",
+          "Price Monitoring"
+        ]
+      },
+      {
+        "name": "Mobile App",
+        "synonyms": [
+          "Mobile Application",
+          "Aplikacje mobilne",
+          "Hybrid App"
         ]
       }
     ]
