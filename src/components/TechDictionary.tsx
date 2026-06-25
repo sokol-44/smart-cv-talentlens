@@ -7,7 +7,7 @@
 
 import React, { useState, useMemo } from "react";
 import { TechDictionaries, CVData, TechDictionaryElement } from "../types";
-import { Search, Tag, Server, Code, HardDrive, Cloud, Layers, Terminal, Cpu, CheckCircle2, Award, Briefcase, FolderGit2 } from "lucide-react";
+import { Search, Tag, Server, Code, HardDrive, Cloud, Layers, Terminal, Cpu, CheckCircle2, Award, Briefcase, FolderGit2, Edit3 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { translate } from "../utils/translations";
 
@@ -21,6 +21,8 @@ interface TechDictionaryProps {
   cvData: CVData;
   onTagClick?: (tag: string) => void;
   lang: "pl" | "en";
+  isAdmin?: boolean;
+  onUpdateCvData?: (newCvData: CVData) => void;
 }
 
 /**
@@ -31,10 +33,93 @@ interface TechDictionaryProps {
  * @param {TechDictionaryProps} props - Component props.
  * @returns {JSX.Element} The rendered TechDictionary component.
  */
-export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvData, onTagClick, lang }) => {
+export const TechDictionary: React.FC<TechDictionaryProps> = ({
+  dictionary,
+  cvData,
+  onTagClick,
+  lang,
+  isAdmin = false,
+  onUpdateCvData
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+
+  // States for Technology Editor
+  const [editingTag, setEditingTag] = useState<TechDictionaryElement | null>(null);
+  const [editingCategory, setEditingCategory] = useState<keyof TechDictionaries | null>(null);
+  const [editLevel, setEditLevel] = useState<string>("brak");
+  const [editCustomLevel, setEditCustomLevel] = useState<string>("");
+  const [editSynonyms, setEditSynonyms] = useState<string>("");
+
+  // Opens the edit modal and populates it with the technology's current settings
+  const handleOpenEditModal = (tagObj: TechDictionaryElement, category: keyof TechDictionaries) => {
+    setEditingTag(tagObj);
+    setEditingCategory(category);
+    setEditSynonyms(tagObj.synonyms ? tagObj.synonyms.join(", ") : "");
+
+    const existingSkill = cvData.skills.find(s => s.name.toLowerCase() === tagObj.name.toLowerCase());
+    if (existingSkill) {
+      const level = existingSkill.proficiencyLevel;
+      if (["zaawansowany", "średni", "podstawowy", "zasłyszany"].includes(level)) {
+        setEditLevel(level);
+        setEditCustomLevel("");
+      } else {
+        setEditLevel("custom");
+        setEditCustomLevel(level);
+      }
+    } else {
+      setEditLevel("brak");
+      setEditCustomLevel("");
+    }
+  };
+
+  // Saves the edited values to the global CV data
+  const handleSaveEdit = () => {
+    if (!editingTag || !editingCategory || !onUpdateCvData) return;
+
+    const updatedCvData = JSON.parse(JSON.stringify(cvData)) as CVData;
+
+    // Parse synonyms from comma-separated list
+    const newSynonyms = editSynonyms
+      .split(",")
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    // 1. Update synonyms inside the techDictionaries under the given category
+    const categoryList = updatedCvData.techDictionaries[editingCategory];
+    if (categoryList) {
+      const targetItem = categoryList.find(t => t.name.toLowerCase() === editingTag.name.toLowerCase());
+      if (targetItem) {
+        targetItem.synonyms = newSynonyms;
+      }
+    }
+
+    // 2. Update level in skills
+    const targetLevel = editLevel === "custom" ? editCustomLevel.trim() : editLevel;
+    const existingSkillIndex = updatedCvData.skills.findIndex(
+      s => s.name.toLowerCase() === editingTag.name.toLowerCase()
+    );
+
+    if (targetLevel === "brak" || targetLevel === "") {
+      if (existingSkillIndex !== -1) {
+        updatedCvData.skills.splice(existingSkillIndex, 1);
+      }
+    } else {
+      if (existingSkillIndex !== -1) {
+        updatedCvData.skills[existingSkillIndex].proficiencyLevel = targetLevel;
+      } else {
+        updatedCvData.skills.push({
+          name: editingTag.name,
+          proficiencyLevel: targetLevel
+        });
+      }
+    }
+
+    onUpdateCvData(updatedCvData);
+    setEditingTag(null);
+    setEditingCategory(null);
+  };
 
   // Friendly display names for dictionary categories
   const categoryMeta: Record<keyof TechDictionaries, { label: string; icon: any; color: string }> = {
@@ -144,6 +229,18 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvDa
         icon: <CheckCircle2 className="w-3.5 h-3.5 text-blue-500 fill-blue-50" />,
         color: "text-blue-700 font-medium",
       };
+    } else if (level.includes("podstawow") || level.includes("basic")) {
+      return {
+        level: translate("Stopień zaawansowania", lang) + ": " + translate(rating.proficiencyLevel, lang),
+        icon: <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />,
+        color: "text-emerald-600 font-medium",
+      };
+    } else if (level.includes("zasłyszan") || level.includes("heard")) {
+      return {
+        level: translate("Stopień zaawansowania", lang) + ": " + translate(rating.proficiencyLevel, lang),
+        icon: <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" />,
+        color: "text-slate-500 font-medium",
+      };
     } else {
       return {
         level: translate("Stopień zaawansowania", lang) + ": " + translate(rating.proficiencyLevel, lang),
@@ -207,13 +304,13 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvDa
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span className="font-semibold text-slate-700">{translate("Ogólna znajomość / Baza wiedzy", lang)}</span>
+                <span className="font-semibold text-slate-700">{translate("Poziom podstawowy", lang)}</span>
                 <span className="text-slate-400 font-mono text-[10px]">{lang === "pl" ? "(Podstawowa modyfikacja, rozumienie kodu)" : "(Basic modification, code understanding)"}</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-slate-400" />
-                <span className="font-semibold text-slate-700">{translate("Poziom podstawowy", lang)}</span>
-                <span className="text-slate-400 font-mono text-[10px]">({translate("Wie o narzędziu, ale nie używał go w praktyce", lang)})</span>
+                <span className="font-semibold text-slate-700">{translate("Słyszał", lang)}</span>
+                <span className="text-slate-400 font-mono text-[10px]">{lang === "pl" ? "(Wie o narzędziu, ale nie używał go w praktyce)" : "(Knows about the tool but has not used it in practice)"}</span>
               </div>
             </div>
           </div>
@@ -321,17 +418,36 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvDa
 
                   return (
                     <div key={tag} className="relative group/tag inline-block">
-                      <button
-                        onClick={() => handleSelectTag(tag)}
-                        className={`flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-lg border transition duration-150 cursor-pointer ${
-                          selectedTag === tag
-                            ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
-                            : "bg-white hover:bg-indigo-50 hover:text-indigo-900 text-slate-700 border-slate-200/60"
-                        }`}
-                      >
-                        {skillRating.icon}
-                        <span>{translate(tag, lang)}</span>
-                      </button>
+                      {isAdmin ? (
+                        <button
+                          onClick={() => handleSelectTag(tag)}
+                          className={`flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 text-xs rounded-lg border transition duration-150 cursor-pointer ${
+                            selectedTag === tag
+                              ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
+                              : "bg-white hover:bg-indigo-50 hover:text-indigo-900 text-slate-700 border-slate-200/60"
+                          }`}
+                        >
+                          {skillRating.icon}
+                          <span>{translate(tag, lang)}</span>
+                          <span
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleOpenEditModal(tagObj, key);
+                            }}
+                            className="p-1 hover:bg-indigo-100 hover:text-indigo-600 rounded ml-1 transition text-slate-400 cursor-pointer inline-flex items-center"
+                            title={lang === "pl" ? "Edytuj cechy" : "Edit characteristics"}
+                          >
+                            <Edit3 className="w-3 h-3" />
+                          </span>
+                        </button>
+                      ) : (
+                        <div
+                          className="flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-lg border bg-white text-slate-700 border-slate-200/60 shadow-xs cursor-default"
+                        >
+                          {skillRating.icon}
+                          <span>{translate(tag, lang)}</span>
+                        </div>
+                      )}
 
                       {/* Tooltip containing workplace and projects where used */}
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 hidden group-hover/tag:block z-50 w-52 bg-slate-950 text-white text-[10px] p-3 rounded-xl shadow-lg leading-relaxed font-sans border border-slate-800 animate-fade-in pointer-events-none">
@@ -489,6 +605,131 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvDa
               </div>
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Edit technology characteristics modal for logged-in users */}
+      <AnimatePresence>
+        {editingTag && editingCategory && (
+          <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-fade-in">
+            <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-2xl">
+                  <Edit3 className="w-6 h-6" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-sm">
+                    {lang === "pl" ? "Edytuj cechy technologii" : "Edit technology characteristics"}
+                  </h3>
+                  <p className="text-[11px] text-slate-400">
+                    {lang === "pl" ? "Słownik technologii i narzędzi" : "Technology dictionary & tools"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                {/* Tech Name (Read-Only) */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1">
+                    {lang === "pl" ? "Nazwa technologii:" : "Technology name:"}
+                  </label>
+                  <input
+                    type="text"
+                    value={editingTag.name}
+                    disabled
+                    className="w-full px-3 py-2 border border-slate-200 bg-slate-50 rounded-xl text-xs font-semibold text-slate-500 cursor-not-allowed focus:outline-none"
+                  />
+                </div>
+
+                {/* Proficiency Level Select */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1">
+                    {lang === "pl" ? "Stopień zaawansowania:" : "Proficiency level:"}
+                  </label>
+                  <select
+                    value={editLevel}
+                    onChange={(e) => setEditLevel(e.target.value)}
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  >
+                    <option value="brak">
+                      {lang === "pl" ? "Brak / Usuń z umiejętności" : "None / Remove from skills"}
+                    </option>
+                    <option value="zaawansowany">
+                      {lang === "pl" ? "zaawansowany" : "advanced"}
+                    </option>
+                    <option value="średni">
+                      {lang === "pl" ? "średni" : "intermediate"}
+                    </option>
+                    <option value="podstawowy">
+                      {lang === "pl" ? "podstawowy" : "basic"}
+                    </option>
+                    <option value="zasłyszany">
+                      {lang === "pl" ? "zasłyszany" : "heard of"}
+                    </option>
+                    <option value="custom">
+                      {lang === "pl" ? "Inny / Własny..." : "Other / Custom..."}
+                    </option>
+                  </select>
+                </div>
+
+                {/* Custom Level Text Input (shown only if 'custom' is selected) */}
+                {editLevel === "custom" && (
+                  <div className="animate-fade-in">
+                    <label className="block text-xs font-semibold text-slate-500 mb-1">
+                      {lang === "pl" ? "Wpisz własny stopień zaawansowania:" : "Type custom proficiency level:"}
+                    </label>
+                    <input
+                      type="text"
+                      value={editCustomLevel}
+                      onChange={(e) => setEditCustomLevel(e.target.value)}
+                      placeholder={lang === "pl" ? "np. ekspert, upper-intermediate" : "e.g. expert, upper-intermediate"}
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    />
+                  </div>
+                )}
+
+                {/* Synonyms list */}
+                <div>
+                  <label className="block text-xs font-semibold text-slate-500 mb-1">
+                    {lang === "pl" ? "Synonimy (rozdzielone przecinkami):" : "Synonyms (comma-separated):"}
+                  </label>
+                  <input
+                    type="text"
+                    value={editSynonyms}
+                    onChange={(e) => setEditSynonyms(e.target.value)}
+                    placeholder={lang === "pl" ? "np. JS, ES6, JavaScript" : "e.g. JS, ES6, JavaScript"}
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                  />
+                  <p className="text-[10px] text-slate-400 mt-1 leading-normal">
+                    {lang === "pl"
+                      ? "Synonimy pomagają rekruterom wyszukiwać tę technologię za pomocą różnych haseł."
+                      : "Synonyms help recruiters search for this technology using different terms."}
+                  </p>
+                </div>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex justify-end gap-2 pt-2 border-t border-slate-100">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setEditingTag(null);
+                    setEditingCategory(null);
+                  }}
+                  className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer font-medium"
+                >
+                  {lang === "pl" ? "Anuluj" : "Cancel"}
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSaveEdit}
+                  className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+                >
+                  {lang === "pl" ? "Zapisz" : "Save"}
+                </button>
+              </div>
+            </div>
+          </div>
         )}
       </AnimatePresence>
     </div>

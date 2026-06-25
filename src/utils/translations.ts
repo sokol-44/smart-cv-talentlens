@@ -118,6 +118,8 @@ export const staticTranslations: Record<string, string> = {
   "zaawansowany": "advanced",
   "średni": "intermediate",
   "podstawowy": "basic",
+  "zasłyszany": "heard of",
+  "Słyszał": "Heard of",
   "komunikatywny": "communicative",
 
   // Hobbies & extra skills

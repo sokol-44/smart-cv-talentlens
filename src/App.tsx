@@ -822,6 +822,8 @@ export default function App() {
                 dictionary={cvData.techDictionaries}
                 cvData={cvData}
                 lang={lang}
+                isAdmin={isAdmin}
+                onUpdateCvData={updateLocalData}
               />
             </section>
           )}

@@ -1174,6 +1174,10 @@
       "proficiencyLevel": "średni"
     },
     {
+      "name": "Laminas",
+      "proficiencyLevel": "zasłyszany"
+    },
+    {
       "name": "Laravel",
       "proficiencyLevel": "średni"
     },
@@ -1339,7 +1343,7 @@
     },
     {
       "name": "english",
-      "proficiencyLevel": "komunikatywny"
+      "proficiencyLevel": "zaawansowany"
     },
     {
       "name": "russian",
@@ -1363,7 +1367,7 @@
     },
     {
       "name": "iOS",
-      "proficiencyLevel": "podstawowy"
+      "proficiencyLevel": "zasłyszany"
     },
     {
       "name": "HTML",
@@ -1641,7 +1645,11 @@
       },
       {
         "name": "pozycjonowanie",
-        "synonyms": []
+        "synonyms": [
+          "page rank",
+          "SEO",
+          "Search engine marketing"
+          ]
       },
       {
         "name": "Shell",
@@ -1672,6 +1680,13 @@
         "synonyms": [
           "Laravel Framework",
           "PHP Laravel"
+        ]
+      },
+      {
+        "name": "Laminas",
+        "synonyms": [
+          "Laminas Framework",
+          "Laminas & Mezzio"
         ]
       },
       {

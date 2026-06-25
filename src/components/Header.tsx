@@ -205,17 +205,6 @@ export const Header: React.FC<HeaderProps> = ({
               </a>
             )}
 
-            {isDbModified && (
-              <button
-                onClick={onResetDb}
-                className="flex items-center gap-2 px-4 py-2 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 transition text-sm font-medium rounded-xl border border-amber-500/40 cursor-pointer"
-                title={translate("Przywróć początkowe dane z pliku JSON", lang)}
-                id="header-reset-db-btn"
-              >
-                <RefreshCw className="w-4 h-4" />
-                <span>{translate("Resetuj Bazę Danych", lang)}</span>
-              </button>
-            )}
           </div>
         </div>
 
