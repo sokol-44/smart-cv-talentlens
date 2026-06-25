@@ -46,6 +46,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
       adminManualTitle: "Dla Administratora (Tryb Edycji)",
       adminManualText: "Aby wejść w tryb administracyjny, kliknij ikonkę zębatki (⚙️) w stopce strony i podaj hasło autoryzacyjne. Po zalogowaniu uzyskasz dostęp do: edycji danych kandydata inline, zapisywania dwujęzycznych notatek rekrutera (osobno dla języka polskiego i angielskiego), edycji pozazawodowych pasji Michała oraz pełnego panelu administracyjnego bazy danych (eksport i import plików JSON). Konfiguracja hasła znajduje się w kodzie aplikacji.",
       pwdLocationNote: "Wskazówka bezpieczeństwa: hasło autoryzacyjne jest zdefiniowane bezpośrednio w kodzie (/src/App.tsx). Domyślne hasła to 'admin' lub 'm_sokolowski'.",
+      githubRepoText: "Kod źródłowy na GitHub",
       runGuideTitle: "Instrukcja samodzielnego uruchamiania strony",
       runGuideSteps: [
         "Pobierz kod źródłowy aplikacji (wypakuj archiwum ZIP).",
@@ -82,6 +83,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
       adminManualTitle: "For the Administrator (Edit Mode)",
       adminManualText: "To enter administration/edit mode, click the gear (⚙️) icon in the footer and provide the authorization password. Once authenticated, you can: edit candidate data inline, save bilingual recruiter comments (separately for Polish and English), edit Michał's non-professional passions, and access the full JSON import/export suite. Password settings are configured in the codebase.",
       pwdLocationNote: "Security note: The authorization password is defined directly in the source code (/src/App.tsx). Default passwords are 'admin' or 'm_sokolowski'.",
+      githubRepoText: "Source code on GitHub",
       runGuideTitle: "Self-Running Instructions",
       runGuideSteps: [
         "Download the application source code (unpack the ZIP archive).",
@@ -131,13 +133,24 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
         <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
           <Terminal className="w-48 h-48" />
         </div>
-        <div className="relative z-10 max-w-3xl space-y-2">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-xs font-mono text-indigo-300">
-            <Info className="w-3.5 h-3.5" />
-            Vibe Coding Showcase
-          </span>
+        <div className="relative z-10 w-full space-y-3">
+          <div className="flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-xs font-mono text-indigo-300">
+              <Info className="w-3.5 h-3.5" />
+              Vibe Coding Showcase
+            </span>
+            <a
+              href="https://github.com/sokol-44/smart-cv-talentlens"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 rounded-xl text-xs font-medium text-indigo-200 hover:text-white transition-colors shadow-xs shrink-0"
+            >
+              <Github className="w-4 h-4" />
+              <span>{t.githubRepoText}</span>
+            </a>
+          </div>
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t.title}</h1>
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed">{t.subtitle}</p>
+          <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-3xl">{t.subtitle}</p>
         </div>
       </div>
 

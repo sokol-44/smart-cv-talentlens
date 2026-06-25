@@ -8,14 +8,14 @@
     },
     "description": {
       "pl": [
-        "Pełen pasji i zorientowany na wyniki programista, od zawsze interesujący się komputerami i programowaniem, począwszy od komputera ZX Spectrum w latach 80. Posiada doświadczenie w projektowaniu i tworzeniu systemów na dużą skalę, w tym platform e-commerce, rozwiązań rekrutacyjnych, narzędzi do planowania i raportowania, systemów mailingowych oraz aplikacji tworzonych na zamówienie.",
-        "Biegły w programowaniu front-endowym i full-stackowym, z doskonałą znajomością JavaScript, HTML, CSS, TypeScript, Angular i Vue. Posiada wysokie umiejętności w zakresie SQL, ze specjalizacją w PostgreSQL i MySQL, a także doświadczenie w tworzeniu silników stron internetowych i zautomatyzowanych systemów raportowania z wykorzystaniem PHP, bash i skryptów cron. Dba o jakość poprzez testowanie zarówno ręczne, jak i automatyczne.",
+        "Jestem pełnym pasji i zorientowanym na wyniki programistą. Komputerami i programowaniem interesuję się od zawsze, począwszy od pracy z komputerem ZX Spectrum w latach 80. Posiadam doświadczenie w projektowaniu i tworzeniu systemów na dużą skalę, w tym platform e-commerce, rozwiązań rekrutacyjnych, narzędzi do planowania i raportowania, systemów mailingowych oraz aplikacji tworzonych na zamówienie.",
+        "Specjalizuję się w programowaniu front-endowym i full-stackowym, posiadając bardzo dobrą znajomość JavaScript, HTML, CSS, TypeScript, Angular i Vue. Mam wysokie umiejętności w zakresie SQL, ze specjalizacją w PostgreSQL i MySQL, a także doświadczenie w tworzeniu silników stron internetowych oraz zautomatyzowanych systemów raportowania z wykorzystaniem PHP, Bash i skryptów cron. Przywiązuję dużą wagę do jakości oprogramowania, wykorzystując zarówno testy manualne, jak i automatyczne.",
         "Posiadam wykształcenie w zakresie sztucznej inteligencji / sieci neuronowych oraz wdrażania uczenia maszynowego, uzupełnione współcześnie o wiedzę o LLM/AI. Biegle posługuję się środowiskami Windows i Linux, posiadam praktyczne doświadczenie w zarządzaniu serwerami Linux oraz ich optymalizacji. Dążę do dostarczania innowacyjnych rozwiązań, które łączą technologię, biznes i ludzi, zapewniając spójne i wartościowe wyniki.",
         "Najlepiej sprawdzam się w rolach, które wykraczają poza realizację pojedynczych funkcji. Wyróżniam się umiejętnością hiperkoncentracji, strategicznego myślenia o problemach i dbałością o szczegóły — cechami, które pomagają mi projektować solidne i skalowalne rozwiązania. Najskuteczniej pracuję, gdy mam pełny kontekst i jasne zrozumienie szerszego systemu i celów. Priorytetowo traktuję długoterminową łatwość utrzymania, rozszerzalność i przyszłą adaptowalność, co czasami może oznaczać poświęcenie krótkoterminowej szybkości realizacji na rzecz wyższej wartości długoterminowej."
       ],
       "en": [
-        "A passionate and results-oriented developer who has always been interested in computers and programming since the ZX Spectrum computer in the 80s. Has experience in designing and developing large-scale systems, including e-commerce platforms, recruitment solutions, planning and reporting tools, mailing systems, and custom-built applications.",
-        "Proficient in front-end and full-stack programming, with excellent knowledge of JavaScript, HTML, CSS, TypeScript, Angular, and Vue. Highly skilled in SQL, specializing in PostgreSQL and MySQL, with experience in creating web engines and automated reporting systems using PHP, bash, and cron scripts. Cares about quality through both manual and automated testing.",
+        "I am a passionate and results-driven software developer with a lifelong interest in computers and programming, dating back to my first experiences with the ZX Spectrum in the 1980s. I have extensive experience in designing and developing large-scale systems, including e-commerce platforms, recruitment solutions, planning and reporting tools, mailing systems, and custom-built applications tailored to specific business needs.",
+        "I am proficient in front-end and full-stack development, with strong expertise in JavaScript, HTML, CSS, TypeScript, Angular, and Vue. I possess advanced SQL skills, specializing in PostgreSQL and MySQL, and have experience building website engines and automated reporting systems using PHP, Bash, and cron scripts. I am committed to delivering high-quality software through both manual and automated testing practices.",
         "Educated in artificial intelligence / neural networks and machine learning implementation, complemented modernly with knowledge of LLM/AI. Proficient in Windows and Linux environments, with practical experience in Linux server management and optimization. Strives to deliver innovative solutions that combine technology, business, and people, ensuring coherent and valuable outcomes.",
         "I perform best in roles that go beyond implementing single features. I stand out with my ability to hyperfocus, think strategically about problems, and pay attention to detail—traits that help me design solid and scalable solutions. I work most effectively when I have full context and a clear understanding of the broader system and goals. I prioritize long-term maintainability, extensibility, and future adaptability, which may sometimes mean sacrificing short-term speed for higher long-term value."
       ]
@@ -53,10 +53,10 @@
       "institution": "Politechnika Warszawska",
       "type": "studia wyższe",
       "major": "Studia wyższe: Wydział Informatyki i Technik Informacyjnych",
-      "confirmation": "obroniona praca dyplomowa (magister inżynier)",
+      "confirmation": "Obroniona praca dyplomowa (magister inżynier)",
       "description": {
-        "pl": "Szeroki program studiów inżynierskich i magisterskich ze specjalnością w sieciach komputerowych, bazach danych i sztucznej inteligencji / sieci neuronowe.",
-        "en": "Broad engineering and master's degree program specializing in computer networks, databases, and artificial intelligence / neural networks."
+        "pl": "Program o profilu łączącym klasyczną elektronikę z inżynierią systemów komputerowych. Studia kładły silny nacisk na synergię sprzętu (hardware) i oprogramowania, obejmując projektowanie układów mikroprocesorowych, zaawansowanych systemów elektronicznych oraz integrację warstwy fizycznej z kodem. Liczne projekty inżynierskie oraz praca w laboratoriach rozwinęły umiejętności praktycznego rozwiązywania złożonych problemów technicznych.",
+        "en": "A curriculum combining classical electronics with computer systems engineering. The program placed a strong emphasis on the synergy between hardware and software, covering the design of microprocessor systems, advanced electronic circuits, and the integration of the physical layer with code. Numerous engineering projects and extensive laboratory work developed strong practical skills in solving complex technical problems."
       }
     },
     {
@@ -67,10 +67,10 @@
       "institution": "XLV Liceum Ogólnokształcące im. Romualda Traugutta w Warszawie",
       "type": "liceum ogólnokształcące",
       "major": "Profil Matematyczno-Fizyczny z rozszerzoną informatyką",
-      "confirmation": "matura",
+      "confirmation": "Matura",
       "description": {
-        "pl": "Rozszerzony program nauk ścisłych, który ugruntował podstawy algorytmiki i programowania.",
-        "en": "Advanced science curriculum that consolidated the fundamentals of algorithms and programming."
+        "pl": "Nauka w klasie o profilu matematyczno-fizycznym z rozszerzoną informatyką pozwoliła na zbudowanie silnych fundamentów algorytmicznych i technicznych. Program obejmował naukę programowania strukturalnego (Turbo Pascal, Turbo C) oraz bazodanowego (Clipper 87). Praktyczna nauka odbywała się w środowisku sieciowym opartym na systemie Novell NetWare, pod kontrolą systemów MS-DOS oraz Windows 3.11, co ukształtowało zrozumienie niskopoziomowej architektury systemów komputerowych.",
+        "en": "Completed a mathematics and physics profile with an extended computer science curriculum. Built a solid engineering foundation through hands-on programming in Turbo Pascal, Turbo C and Clipper 87. Gained early system and networking experience by working in laboratory environments running MS-DOS and Windows 3.11 within a Novell NetWare network architecture."
       }
     }
   ],
@@ -82,8 +82,8 @@
       "institution": "Eskadra Bielika",
       "name": "Eskadra Bielika",
       "description": {
-        "pl": "Jak postawić lokalny model RAG w oparciu o Dockera, Bielika i Ollame",
-        "en": "How to set up a local RAG model based on Docker, Bielik, and Ollama"
+        "pl": "Szkolenie techniczne z zakresu architektury i wdrażania dużych modeli językowych (LLM). Program obejmował zaawansowaną teorię (tokenizacja, kwantyzacja modeli, mechanizmy powstawania halucynacji) oraz praktyczną implementację systemów AI. W ramach warsztatów samodzielnie wdrożyłem lokalny system RAG oparty o polski model Bielik oraz EmbeddingGemma, z wykorzystaniem kontenerów Docker i narzędzia Ollama.",
+        "en": "Technical training focused on the architecture and deployment of Large Language Models (LLMs). The curriculum covered advanced theoretical foundations (tokenization, model quantization, and hallucination mechanisms) combined with hands-on AI system implementation. As part of the workshop, I successfully deployed a local RAG system powered by the Polish Bielik and EmbeddingGemma models, utilizing Docker containers and Ollama."
       },
       "technologiesAndDuties": [
         "AI",
@@ -97,8 +97,8 @@
       "institution": "Niebezpiecznik",
       "name": "Vibe Coding",
       "description": {
-        "pl": "Rynkowe i szybkie podejście do asystentów AI w programowaniu.",
-        "en": "Market-ready and fast approach to AI assistants in programming."
+        "pl": "Praktyczny warsztat zorientowany na maksymalizację produktywności programistycznej poprzez wykorzystanie asystentów AI w codziennej inżynierii oprogramowania. Szkolenie dostarczyło przekrojowej wiedzy o narzędziach AI wspomagających pisanie kodu, metodach szybkiego prototypowania i rozwijania aplikacji, a także o rynkowych możliwościach bezpiecznego hostowania i integracji projektów z zewnętrznymi modelami LLM.",
+        "en": "A practical, hands-on workshop focused on maximizing developer productivity by leveraging AI assistants in daily software engineering workflows. The training provided a comprehensive overview of AI-assisted coding tools, rapid application prototyping, and feature development, alongside a market-driven evaluation of secure hosting options and external LLM/AI API integrations."
       },
       "technologiesAndDuties": [
         "AI",
@@ -112,8 +112,8 @@
       "institution": "Google",
       "name": "Umiejętności Jutra AI",
       "description": {
-        "pl": "Strategiczne wdrażanie AI w firmie bez ślepego ulegania 'hype’owi'.",
-        "en": "Strategic implementation of AI in a company without blindly succumbing to the 'hype'."
+        "pl": "Intensywny program szkoleniowy dedykowany strategicznemu wdrażaniu sztucznej inteligencji w organizacjach. Kurs rozwijał kompetencje z zakresu zaawansowanej inżynierii promptów (łańcuchy zapytań, dedykowane agenty/gemy), zarządzania bezpieczeństwem danych, minimalizowania ryzyka halucynacji systemów oraz wykorzystania AI do optymalizacji efektywności procesów. Szkolenie ugruntowało krytyczne, biznesowe podejście do wdrażania AI z zachowaniem rygorystycznej kontroli jakości kodu i procedur produkcyjnych.",
+        "en": "An intensive training program dedicated to the strategic implementation of artificial intelligence within business organizations. The course developed competencies in advanced prompt engineering (chain-of-thought prompting, customized agents/gems), data security management, mitigation of AI hallucinations, and workflow optimization. It reinforced a pragmatic, business-oriented approach to AI adoption while maintaining strict quality control over production code."
       },
       "technologiesAndDuties": [
         "LLM",
@@ -128,8 +128,8 @@
       "institution": "DataWorkshop",
       "name": "Practical LLM",
       "description": {
-        "pl": "Zaawansowane informacje, wraz z przykładami, o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON) oraz użyciu w połączeniu z klasycznymi aplikacjami i hurtowniami danych.",
-        "en": "Advanced information, along with examples, on using LLMs for data analysis combined with Python (Pydantic, JSON), and integration with classic applications and data warehouses."
+        "pl": "Zaawansowane szkolenie inżynieryjne skoncentrowane na integracji modeli LLM z produkcyjnym kodem w języku Python. Program skupiał się na budowaniu stabilnych, odpornych na błędy systemów oraz programistycznym ekstrahowaniu ustrukturyzowanych informacji z niespójnych danych tekstowych za pomocą API, łącząc zaawansowaną inżynierię oprogramowania z możliwościami nowoczesnej sztucznej inteligencji.",
+        "en": "An advanced engineering course focused on the robust integration of LLM models with production-grade Python code. The program centered on building stable, fault-tolerant software systems and programmatically extracting structured data from unformatted text via APIs, effectively bridging advanced software engineering with cutting-edge AI capabilities."
       },
       "technologiesAndDuties": [
         "nauczanie maszynowe",
@@ -146,8 +146,8 @@
       "institution": "DataWorkshop",
       "name": "DWthon LLM",
       "description": {
-        "pl": "Podstawowe informacje o użyciu LLM do analizy danych w połączeniu z Pythonem (Pydantic, JSON).",
-        "en": "Basic information on using LLMs for data analysis in combination with Python (Pydantic, JSON)."
+        "pl": "Podstawowa, skrócona, ale informacyjna wersja szkolenia 'Practical LLM'",
+        "en": "A basic, condensed, yet informative version of the “Practical LLM” training course."
       },
       "technologiesAndDuties": [
         "deterministryczne użycie LLM",
@@ -191,6 +191,10 @@
       "durationHours": "6",
       "institution": "Microsoft",
       "name": "Microsoft Office Project Server 2007, Managing Projects",
+      "description": {
+        "pl": "Praktyczny kurs z zakresu zarządzania projektami na poziomie przedsiębiorstwa (EPM). Program obejmował zaawansowane harmonogramowanie, centralne zarządzanie zasobami, monitorowanie postępów prac oraz raportowanie z wykorzystaniem platformy Project Server.",
+        "en": "A practical course on Enterprise Project Management (EPM). The curriculum covered advanced project scheduling, centralized resource management, progress tracking, and performance reporting utilizing the Project Server platform."
+      },
       "technologiesAndDuties": [
         "manager projektów"
       ]
@@ -201,8 +205,13 @@
       "durationHours": "8",
       "institution": "SUSE Linux",
       "name": "SUSE Linux Enterprise Server 10 Fundamentals (3071)",
+      "description": {
+        "pl": "Kurs wprowadzający z fundamentów obsługi systemu operacyjnego SLES 10. Szkolenie obejmowało poruszanie się w wierszu poleceń (CLI), strukturę systemu plików, podstawowe zarządzanie użytkownikami oraz konfigurację uprawnień.",
+        "en": "An introductory course on the foundations of the SLES 10 operating system. The training covered command-line interface (CLI) navigation, file system structure, basic user management, and permissions configuration."
+      },
       "technologiesAndDuties": [
-        "administrator systemów Linux"
+        "administrator systemów Linux",
+        "Shell"
       ]
     },
     {
@@ -211,8 +220,13 @@
       "durationHours": "8",
       "institution": "SUSE Linux",
       "name": "SUSE Linux Enterprise Server 10 Administration (3072)",
+      "description": {
+        "pl": "Warsztat dedykowany standardowej administracji systemem SLES 10. Obejmował instalację i konfigurację systemu za pomocą narzędzia YaST, zarządzanie pakietami oprogramowania, konfigurację procesów startowych (booting) oraz podstawowe zarządzanie pamięcią masową.",
+        "en": "A workshop dedicated to core SLES 10 system administration. It covered system installation and configuration using the YaST tool, software package management, boot process configuration, and essential storage management."
+      },
       "technologiesAndDuties": [
-        "administrator systemów Linux"
+        "administrator systemów Linux",
+        "Shell"
       ]
     },
     {
@@ -221,8 +235,15 @@
       "durationHours": "8",
       "institution": "SUSE Linux",
       "name": "SUSE Linux Enterprise Server 10 Advanced Administration (3073)",
+      "description": {
+        "pl": "Zaawansowany kurs inżynierii systemowej SLES 10. Program koncentrował się na konfiguracji bezpiecznych pamięci masowych (LVM, RAID), automatyzacji zadań administracyjnych, zaawansowanym zabezpieczaniu systemu (security hardening) oraz procedurach backupu i odzyskiwania danych (disaster recovery).",
+        "en": "An advanced SLES 10 systems engineering course. The program focused on secure enterprise storage configuration (LVM, RAID), administrative task automation, system security hardening, and backup and disaster recovery procedures."
+      },
       "technologiesAndDuties": [
-        "administrator systemów Linux"
+        "administrator systemów Linux",
+        "Shell",
+        "LVM",
+        "RAID"
       ]
     },
     {
@@ -231,8 +252,17 @@
       "durationHours": "8",
       "institution": "SUSE Linux",
       "name": "SUSE Linux Enterprise Server 10: Networking Services (3074)",
+      "description": {
+        "pl": "Specjalistyczny warsztat poświęcony wdrażaniu i utrzymaniu usług sieciowych w środowisku SLES 10. Obejmował konfigurację i administrację kluczowymi usługami infrastrukturalnymi, takimi jak DNS, DHCP, udostępnianie plików (Samba, NFS) oraz zabezpieczanie komunikacji sieciowej.",
+        "en": "A specialized workshop focused on deploying and maintaining network services in a SLES 10 environment. It covered the configuration and administration of key infrastructure services including DNS, DHCP, file sharing (Samba, NFS), and network communication security"
+      },
       "technologiesAndDuties": [
         "administrator systemów Linux"
+        "Shell",
+        "DNS",
+        "DHCP",
+        "Samba"
+        "NFS"
       ]
     }
   ],
@@ -249,8 +279,8 @@
         "en": "Senior PHP Developer"
       },
       "description": {
-        "pl": "Starszy programista PHP odpowiedzialny za migrację i modernizację głównego portalu medycznego.",
-        "en": "Senior PHP Developer responsible for migration and modernization of the main medical portal."
+        "pl": "Jedna z największych i najnowocześniejszych ogólnopolskich sieci laboratoriów diagnostycznych, oferująca kompleksowe usługi z zakresu analiz medycznych oraz wdrażająca zaawansowane systemy zarządzania informacją laboratoryjną.",
+        "en": "One of the largest and most modern nationwide networks of diagnostic laboratories, providing comprehensive medical testing services and deploying advanced laboratory information management systems (LIMS)."
       },
       "duties": {
         "pl": [
@@ -324,8 +354,8 @@
         "en": "Developer"
       },
       "description": {
-        "pl": "Projektowanie i rozwój interfejsów webowych oraz aplikacji hybrydowej do sterowania systemami inteligentnego domu.",
-        "en": "Designing and developing web interfaces and hybrid mobile apps for smart home systems."
+        "pl": "Firma inżynieryjno-technologiczna specjalizująca się w projektowaniu, programowaniu i integracji zaawansowanych systemów inteligentnego domu (Smart Home), automatyki budynkowej (BMS) oraz instalacji audio-wideo.",
+        "en": "An engineering and technology company specializing in the design, programming, and integration of advanced smart home systems, building automation (BMS), and high-end audio-video installations."
       },
       "duties": {
         "pl": [
@@ -365,8 +395,8 @@
         "en": "Co-owner / Board Member"
       },
       "description": {
-        "pl": "Kompleksowa rola obejmująca zarządzanie projektami IT, programowanie full-stack oraz administrację rozproszoną infrastrukturą serwerową Linux.",
-        "en": "Comprehensive role covering IT project management, full-stack programming, and administration of distributed Linux server infrastructure."
+        "pl": "Przedsiębiorstwo technologiczno-handlowe dostarczające dedykowane rozwiązania informatyczne, systemy e-commerce oraz platformy B2B wspierające automatyzację procesów biznesowych i operacyjnych.",
+        "en": "A technology and commerce enterprise delivering dedicated IT solutions, e-commerce systems, and B2B platforms supporting the automation of business and operational processes."
       },
       "duties": {
         "pl": [
@@ -462,13 +492,14 @@
         "en": "Web Development, Linux System Administrator"
       },
       "description": {
-        "pl": "Rozwój aplikacji webowych oraz administracja produkcyjnymi serwerami internetowymi Linux.",
-        "en": "Web application development and Linux production web servers administration."
+        "pl": "Wsparcie techniczne firm, operator telekomunikacyjny i dostawca usług internetowych (ISP), specjalizujący się w budowie i utrzymaniu infrastruktury sieciowej, transmisji danych oraz dostarczaniu nowoczesnych usług hostingowych, sieciowych i helpdesk.",
+        "en": "IT outsourcing comany, telecommunications operator and Internet Service Provider (ISP), specializing in the deployment and maintenance of broadband network infrastructure, data transmission, and the provisioning of modern hosting, network services and IT heldesk"
       },
       "duties": {
         "pl": [
           "Administracja serwerami Linux (Ubuntu, Red Hat/CentOs)",
-          "Tworzenie stron www (PHP/JS/HTML/CSS)"
+          "Tworzenie stron www (PHP/JS/HTML/CSS)",
+          "JavaScript"
         ],
         "en": [
           "Linux systems administration (Ubuntu, Red Hat/CentOS)",
@@ -484,7 +515,10 @@
         "HTML",
         "CSS",
         "Shell",
-        "JavaScript"
+        "JavaScript",
+        "SSH",
+        "Shell",
+        "Joomla"
       ],
       "versions": {
         "PHP": [
@@ -516,8 +550,8 @@
         "en": "Sales Representative & Project Manager"
       },
       "description": {
-        "pl": "Zarządzanie projektami i relacjami handlowymi w początkowym okresie działalności.",
-        "en": "Project management and sales relations management during the initial operational period."
+        "pl": "Agencja technologiczno-interaktywna i software house, koncentrujący się na projektowaniu, tworzeniu i rozwoju dedykowanych aplikacji webowych, systemów biznesowych oraz nowoczesnych rozwiązań cyfrowych.",
+        "en": "A technology agency and software house focused on the design, creation, and development of bespoke web applications, enterprise business systems, and modern digital solutions."
       },
       "duties": {
         "pl": [
@@ -552,8 +586,8 @@
         "en": "Support for Presentation of Latest Technologies"
       },
       "description": {
-        "pl": "Wsparcie operacyjne przy wdrażaniu nowatorskich systemów komunikacyjnych.",
-        "en": "Operational support during the deployment of innovative communication systems."
+        "pl": "Spółka technologiczna specjalizująca się w dostarczaniu zaawansowanych e-usług, systemów transakcyjnych oraz innowacyjnych platform internetowych wspierających transformację cyfrową i dostępność cyfrową w sektorze biznesowym.",
+        "en": "A technology company specializing in the provisioning of advanced e-services, transactional systems, and innovative web platforms supporting digital transformation and digital accessibility within the business sector."
       },
       "duties": {
         "pl": [
