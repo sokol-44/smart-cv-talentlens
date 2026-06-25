@@ -111,7 +111,31 @@ export default function App() {
   const [bookmarks, setBookmarks] = useState<LocalBookmarks>({});
   const [isDbModified, setIsDbModified] = useState(false);
   const [activeTab, setActiveTab] = useState<"match" | "jobs" | "projects" | "certs" | "dictionary" | "about" | "admin">("match");
-  const [lang, setLang] = useState<"pl" | "en">("pl");
+  const [lang, setLang] = useState<"pl" | "en">(() => {
+    try {
+      const storedLang = localStorage.getItem(LANG_KEY) as "pl" | "en" | null;
+      if (storedLang === "pl" || storedLang === "en") {
+        return storedLang;
+      }
+    } catch (e) {
+      console.warn("Could not read language from localStorage:", e);
+    }
+
+    try {
+      if (typeof navigator !== "undefined" && navigator.languages) {
+        const hasPolish = navigator.languages.some(
+          (l) => typeof l === "string" && l.toLowerCase().startsWith("pl")
+        );
+        if (!hasPolish) {
+          return "en";
+        }
+      }
+    } catch (e) {
+      console.warn("Could not detect browser languages:", e);
+    }
+
+    return "pl";
+  });
   const [tooltips, setTooltips] = useState<Record<string, string>>({});
   const [isAdmin, setIsAdmin] = useState(false);
   const [highlightedJobId, setHighlightedJobId] = useState<string | null>(null);
