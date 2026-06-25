@@ -1648,7 +1648,8 @@
         "synonyms": [
           "page rank",
           "SEO",
-          "Search engine marketing"
+          "search engine marketing",
+          "SEM"
           ]
       },
       {
@@ -1656,6 +1657,7 @@
         "synonyms": [
           "Shell Scripting",
           "sh",
+          "bash",
           "sh script"
         ]
       },
@@ -1784,8 +1786,8 @@
       {
         "name": "MySQL",
         "synonyms": [
-          "My",
-          "Oracle MySQL"
+          "Oracle MySQL",
+          "MariaDB"
         ]
       },
       {
