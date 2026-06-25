@@ -307,51 +307,91 @@ export default function App() {
           };
 
           // Merge newly added education fields (like descriptions)
-          const mergedEducation = parsed.education.map((edu: any, index: number) => {
-            const initialEdu = initialCVData.education[index] || {};
-            return {
-              ...initialEdu,
-              ...edu
-            };
-          });
+          const mergedEducation = [
+            ...parsed.education.map((edu: any, index: number) => {
+              const initialEdu = initialCVData.education[index] || {};
+              return {
+                ...initialEdu,
+                ...edu
+              };
+            }),
+            ...initialCVData.education.slice(parsed.education.length)
+          ];
 
           // Merge newly added projects fields (like descriptions)
-          const mergedProjects = parsed.projects.map((proj: any) => {
-            const initialProj = initialCVData.projects.find((p) => p.id === proj.id) as any || {};
-            const finalDesc = (proj.description && typeof proj.description === "object" && (proj.description.pl || proj.description.en))
-              ? proj.description
-              : initialProj.description;
-            return {
-              ...initialProj,
-              ...proj,
-              description: finalDesc
-            };
-          });
+          const mergedProjects = [
+            ...parsed.projects.map((proj: any) => {
+              const initialProj = initialCVData.projects.find((p) => p.id === proj.id) as any || {};
+              const finalDesc = (proj.description && typeof proj.description === "object" && (proj.description.pl || proj.description.en))
+                ? proj.description
+                : initialProj.description;
+              return {
+                ...initialProj,
+                ...proj,
+                description: finalDesc
+              };
+            }),
+            ...initialCVData.projects.filter(
+              (p) => !parsed.projects.some((parsedProj: any) => parsedProj.id === p.id)
+            )
+          ];
 
           // Merge newly added certificates fields (like descriptions)
-          const mergedCertificates = parsed.certificates.map((cert: any) => {
-            const initialCert = initialCVData.certificates.find((c) => c.id === cert.id) as any || {};
-            const finalDesc = (cert.description && typeof cert.description === "object" && (cert.description.pl || cert.description.en))
-              ? cert.description
-              : initialCert.description;
-            return {
-              ...initialCert,
-              ...cert,
-              description: finalDesc
-            };
-          });
+          const mergedCertificates = [
+            ...parsed.certificates.map((cert: any) => {
+              const initialCert = initialCVData.certificates.find((c) => c.id === cert.id) as any || {};
+              const finalDesc = (cert.description && typeof cert.description === "object" && (cert.description.pl || cert.description.en))
+                ? cert.description
+                : initialCert.description;
+              return {
+                ...initialCert,
+                ...cert,
+                description: finalDesc
+              };
+            }),
+            ...initialCVData.certificates.filter(
+              (c) => !parsed.certificates.some((parsedCert: any) => parsedCert.id === c.id)
+            )
+          ];
 
           // Merge newly added employment fields (like descriptions)
-          const mergedEmployment = parsed.employment.map((job: any) => {
-            const initialJob = initialCVData.employment.find((j) => j.id === job.id) as any || {};
-            const finalDesc = (job.description && typeof job.description === "object" && (job.description.pl || job.description.en))
-              ? job.description
-              : initialJob.description;
-            return {
-              ...initialJob,
-              ...job,
-              description: finalDesc
-            };
+          const mergedEmployment = [
+            ...parsed.employment.map((job: any) => {
+              const initialJob = initialCVData.employment.find((j) => j.id === job.id) as any || {};
+              const finalDesc = (job.description && typeof job.description === "object" && (job.description.pl || job.description.en))
+                ? job.description
+                : initialJob.description;
+              return {
+                ...initialJob,
+                ...job,
+                description: finalDesc
+              };
+            }),
+            ...initialCVData.employment.filter(
+              (j) => !parsed.employment.some((parsedJob: any) => parsedJob.id === j.id)
+            )
+          ];
+
+          // Merge newly added skills
+          const mergedSkills = [
+            ...parsed.skills,
+            ...initialCVData.skills.filter(
+              (s) => !parsed.skills.some((parsedSkill: any) => parsedSkill.name.toLowerCase() === s.name.toLowerCase())
+            )
+          ];
+
+          // Merge newly added techDictionaries categories
+          const mergedTechDictionaries = { ...parsed.techDictionaries };
+          Object.keys(initialCVData.techDictionaries).forEach((cat) => {
+            const initialCatArray = initialCVData.techDictionaries[cat as keyof typeof initialCVData.techDictionaries] || [];
+            const parsedCatArray = parsed.techDictionaries[cat] || [];
+            
+            mergedTechDictionaries[cat] = [
+              ...parsedCatArray,
+              ...initialCatArray.filter(
+                (item: any) => !parsedCatArray.some((parsedItem: any) => parsedItem.name.toLowerCase() === item.name.toLowerCase())
+              )
+            ];
           });
 
           const mergedParsed = {
@@ -362,10 +402,13 @@ export default function App() {
             projects: mergedProjects,
             certificates: mergedCertificates,
             employment: mergedEmployment,
+            skills: mergedSkills,
+            techDictionaries: mergedTechDictionaries,
             additionalSkillsAndHobbies: initialCVData.additionalSkillsAndHobbies
           };
 
           setCvData(mergedParsed);
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(mergedParsed));
           setNotes(migrateNotes(storedNotes, parsed.recruiterNotes));
         } else {
           // If incomplete schema is present, reset it with initial data from JSON

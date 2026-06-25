@@ -1093,6 +1093,47 @@
           "High performance, allowing operation on shared hosting offered by nazwa.pl in 2007."
         ]
       }
+    },
+    {
+      "id": "proj-12",
+      "name": "Smart CV / TalentLens",
+      "url": "https://github.com/sokol-44/smart-cv-talentlens",
+      "company": [
+        "Freelancer"
+      ],
+      "date": {
+        "start": "06.2026",
+        "end": "06.2026"
+      },
+      "description": {
+        "pl": "Nowoczesna, inteligentna i interaktywna platforma prezentacji kompetencji zawodowych (Smart CV / TalentLens) z automatycznym dopasowywaniem profilu kandydata do ról rekrutacyjnych. Aplikacja została w pełni zaprojektowana i zaimplementowana w nowatorskiej formule 'Vibe Coding' przy użyciu zaawansowanych asystentów AI i modeli LLM.",
+        "en": "A modern, intelligent, and interactive professional competency showcase platform (Smart CV / TalentLens) featuring automated role-matching algorithms. The application was fully designed and implemented using the innovative 'Vibe Coding' methodology powered by state-of-the-art AI assistants and LLM models."
+      },
+      "technologies": [
+        "Vibe Coding"
+      ],
+      "versions": {},
+      "designPatterns": [
+        "Strategy",
+        "Singleton",
+        "Factory",
+        "Component-Based Architecture",
+        "Provider Pattern"
+      ],
+      "notableFeatures": {
+        "pl": [
+          "Zbudowanie systemu w pełni w oparciu o metodologię 'Vibe Coding' z asystą modeli LLM.",
+          "Stworzenie zaawansowanego algorytmu ważonego dopasowywania słów kluczowych i synonimów do profili stanowisk (TalentLens).",
+          "Wdrożenie lokalnego systemu przechowywania danych w celu umożliwienia trwałej edycji i zachowywania bookmarks i notatek rekrutera.",
+          "Kompletna dwujęzyczność aplikacji (język polski i angielski) z zachowaniem pełnej elastyczności edycji."
+        ],
+        "en": [
+          "Building the entire application using the innovative 'Vibe Coding' methodology assisted by LLM models.",
+          "Creating an advanced weighted algorithm matching professional keywords and synonyms with recruiter job profiles (TalentLens).",
+          "Implementing a client-side data storage layer enabling persistent edits, bookmarked elements, and custom recruiter notes.",
+          "Full application bilingualism (Polish and English) with comprehensive dynamic localization."
+        ]
+      }
     }
   ],
   "skills": [
@@ -1458,6 +1499,10 @@
     },
     {
       "name": "RSS",
+      "proficiencyLevel": "średni"
+    },
+    {
+      "name": "Vibe Coding",
       "proficiencyLevel": "średni"
     }
   ],
@@ -2225,6 +2270,16 @@
           "Mobile Application",
           "Aplikacje mobilne",
           "Hybrid App"
+        ]
+      },
+      {
+        "name": "Vibe Coding",
+        "synonyms": [
+          "AI-assisted Coding",
+          "AI Assisted Development",
+          "AI Coding",
+          "Vibe-Coding",
+          "VibeCoding"
         ]
       }
     ]
