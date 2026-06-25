@@ -29,7 +29,6 @@ import {
   CheckCircle,
   Info,
   Settings,
-  Globe,
 } from "lucide-react";
 
 import { initialCVData } from "./initialData";
@@ -529,45 +528,6 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-50/50 text-slate-800 font-sans">
       <div className="max-w-7xl mx-auto px-4 py-6 md:py-10 space-y-8 print:p-0">
-        {/* Language selector block */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white border border-slate-100 p-4 rounded-2xl shadow-xs print:hidden gap-4">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-50 rounded-xl text-blue-600 shrink-0">
-              <Globe className="w-5 h-5 animate-pulse" />
-            </div>
-            <div>
-              <span className="text-sm font-bold text-slate-800 block">
-                {lang === "pl" ? "Wybierz język prezentacji" : "Select presentation language"}
-              </span>
-              <span className="text-xs text-slate-400 block font-sans">
-                {lang === "pl" ? "Zmień język całego dokumentu CV i narzędzi rekrutacyjnych" : "Change the language of the entire CV document and recruitment tools"}
-              </span>
-            </div>
-          </div>
-          <div className="flex gap-2 w-full sm:w-auto shrink-0">
-            <button
-              onClick={() => handleToggleLang("pl")}
-              className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition duration-200 cursor-pointer text-center ${
-                lang === "pl"
-                  ? "bg-blue-600 text-white shadow-md border border-blue-600"
-                  : "bg-white hover:bg-slate-50 text-slate-600 border border-slate-200"
-              }`}
-            >
-              Polski (PL)
-            </button>
-            <button
-              onClick={() => handleToggleLang("en")}
-              className={`flex-1 sm:flex-none px-4 py-2 rounded-xl text-xs font-bold transition duration-200 cursor-pointer text-center ${
-                lang === "en"
-                  ? "bg-blue-600 text-white shadow-md border border-blue-600"
-                  : "bg-white hover:bg-slate-50 text-slate-600 border border-slate-200"
-              }`}
-            >
-              English (EN)
-            </button>
-          </div>
-        </div>
-
         {/* Dynamic header and summary statistics card */}
         <Header
           person={cvData.person}

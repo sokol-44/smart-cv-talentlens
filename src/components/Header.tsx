@@ -77,10 +77,12 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-800 relative overflow-hidden" id="header-section-container">
-      {/* Subtle glowing background effect */}
-      <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
+    <header className="bg-slate-900 text-white rounded-3xl p-6 md:p-8 shadow-xl border border-slate-800 relative z-20" id="header-section-container">
+      {/* Subtle glowing background effect contained in an absolute wrapper with overflow-hidden */}
+      <div className="absolute inset-0 rounded-3xl overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-0 right-0 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl -mr-20 -mt-20" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-indigo-500/10 rounded-full blur-3xl -ml-20 -mb-20" />
+      </div>
 
       <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-6">
         <div>
@@ -217,22 +219,50 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
 
-        {/* Local DB Status Panel with Statistics */}
-        <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl w-full md:w-auto md:min-w-[300px]">
-          <div className="flex items-center justify-between gap-3 text-xs font-mono text-slate-400 mb-4 border-b border-slate-800 pb-2.5">
-            <span className="flex items-center gap-1.5 text-slate-300 font-semibold uppercase tracking-wider text-[10px]">
-              <Database className="w-3.5 h-3.5 text-blue-400" />
-              <span>{lang === "pl" ? "Lokalna Baza Danych" : "Local Database"}</span>
-            </span>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-bold text-emerald-400 uppercase">
-                {lang === "pl" ? "Lokalna" : "Local"}
-              </span>
+        {/* Language selector and Local Panel with Statistics */}
+        <div className="flex flex-col gap-4 w-full md:w-auto md:min-w-[300px]">
+          {/* Language selector block */}
+          <div className="flex flex-col gap-3 bg-slate-950/40 border border-slate-800/80 p-3.5 rounded-2xl print:hidden" id="header-lang-selector">
+            <div className="flex items-center gap-2.5">
+              <div className="p-1.5 bg-blue-500/10 rounded-lg text-blue-400 shrink-0">
+                <Globe className="w-4 h-4 animate-pulse" />
+              </div>
+              <div className="min-w-0">
+                <span className="text-xs font-bold text-slate-200 block leading-tight">
+                  {lang === "pl" ? "Język prezentacji" : "Presentation language"}
+                </span>
+                <span className="text-[10px] text-slate-400 block font-sans truncate">
+                  {lang === "pl" ? "Zmiana języka całego CV i narzędzi" : "Change the language of CV & tools"}
+                </span>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              <button
+                onClick={() => onToggleLang?.("pl")}
+                className={`flex-1 px-3 py-1.5 rounded-xl text-[11px] font-bold transition duration-200 cursor-pointer text-center ${
+                  lang === "pl"
+                    ? "bg-blue-600 text-white shadow-md border border-blue-600"
+                    : "bg-slate-900/80 hover:bg-slate-850 text-slate-400 border border-slate-800"
+                }`}
+              >
+                Polski (PL)
+              </button>
+              <button
+                onClick={() => onToggleLang?.("en")}
+                className={`flex-1 px-3 py-1.5 rounded-xl text-[11px] font-bold transition duration-200 cursor-pointer text-center ${
+                  lang === "en"
+                    ? "bg-blue-600 text-white shadow-md border border-blue-600"
+                    : "bg-slate-900/80 hover:bg-slate-850 text-slate-400 border border-slate-800"
+                }`}
+              >
+                English (EN)
+              </button>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-3 font-mono">
+          {/* Local Panel with Statistics */}
+          <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl w-full">
+            <div className="grid grid-cols-2 gap-3 font-mono">
             {/* Box "Etaty" with hover list tooltip */}
             <div className="relative group/box bg-slate-900/50 p-2.5 rounded-xl border border-slate-800 hover:border-slate-700/60 transition cursor-help">
               <div className="text-slate-500 text-[10px] uppercase flex items-center gap-1">
@@ -338,6 +368,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </div>
+    </div>
 
       {/* Expanded about me side scroller: "Kandydat o sobie" with all description elements */}
       <div className="mt-6 pt-6 border-t border-slate-800/80">
