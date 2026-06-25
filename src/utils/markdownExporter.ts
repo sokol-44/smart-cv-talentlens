@@ -14,6 +14,7 @@
  */
 
 import { CVData, Employment, Project, Education, Certificate, Skill } from "../types";
+import { sanitizeFilenamePart, getFormattedCurrentDate } from "./stringUtils";
 
 /**
  * Interface mapping localized labels for structural markdown sections.
@@ -621,12 +622,9 @@ export const triggerMarkdownDownload = (cvData: CVData, lang: "pl" | "en"): void
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     
-    const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    const rawLastName = removeAccents(cvData.person?.lastName || "Sokolowski");
-    const rawFirstName = removeAccents(cvData.person?.firstName || "Michal");
-    const cleanLastName = rawLastName.toLowerCase().replace(/[\s\W]+/g, "_");
-    const cleanFirstName = rawFirstName.toLowerCase().replace(/[\s\W]+/g, "_");
-    const today = new Date().toISOString().slice(0, 10);
+    const cleanLastName = sanitizeFilenamePart(cvData.person?.lastName || "Sokolowski");
+    const cleanFirstName = sanitizeFilenamePart(cvData.person?.firstName || "Michal");
+    const today = getFormattedCurrentDate();
     
     // 4. Format download filename clearly
     link.href = url;

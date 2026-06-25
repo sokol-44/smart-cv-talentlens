@@ -19,6 +19,13 @@ Szczegółowe wyjaśnienie powodów powstania projektu, tła rynkowego oraz prob
 ### 2. Sposób utworzenia i architektura
 Aplikacja została zaprojektowana i zbudowana jako nowoczesna aplikacja jednostronicowa (SPA) oparta na bibliotece React z szybkim systemem budowania Vite i pełnym typowaniem TypeScript. **Aplikacja powstała w całości w procesie "Vibe coding" z minimalną ingerencją człowieka w kod źródłowy**, wykorzystując potencjał zaawansowanych modeli AI do generowania kodu, automatycznego tłumaczenia i bezpiecznej refaktoryzacji. Stylizacja została oparta na nowoczesnym podejściu Tailwind CSS, zapewniając pełną responsywność i lekki interfejs. Wszystkie dane CV są wczytywane z lokalnego pliku JSON i synchronizowane w czasie rzeczywistym z lokalną bazą danych przeglądarki (LocalStorage) za pomocą Web Crypto API (HMAC SHA-512) dla bezpieczeństwa logowania i pełnej prywatności.
 
+#### Szczegóły Architektoniczne i Wzorce Projektowe:
+* **Single Source of Truth (SSOT)**: Scentralizowany stan całej aplikacji (dane CV, notatki, zakładki, tooltipy, filtry) w komponencie głównym `App.tsx` realizuje jednokierunkowy przepływ danych (one-way data flow) i gwarantuje brak niespójności stanów podrzędnych. (Wzorzec State / Mediator).
+* **Bezpieczny Moduł Autoryzacji (Web Crypto API)**: Panel administracyjny weryfikuje dostęp bez przechowywania haseł jawnym tekstem. Wpisane hasło jest asynchronicznie haszowane algorytmem HMAC-SHA-512 z unikalną solą bezpośrednio po stronie klienta, po czym porównywane z zapisanym podpisem (Wzorzec Security Proxy).
+* **Wzorzec Adapter (I18n & Translations)**: Klasa mapująca tłumaczenia `translations.ts` funkcjonuje jako dynamiczny adapter lokalizacyjny, gwarantując elastyczność dodawania nowych języków i odporność na brak zdefiniowanych wartości.
+* **Wzorzec Budowniczy (Builder Pattern)**: Moduł `markdownExporter.ts` stopniowo, z rygorystyczną kontrolą składni, buduje dokument Markdown (.md) ze złożonej struktury obiektów (Zatrudnienie, Projekty, Certyfikaty), dając czysty, pozbawiony niepotrzebnych ozdobników plik.
+* **Wzorzec Repozytorium / Data Access Object (DAO)**: Operacje na LocalStorage (odczyt, zapis, migracje bazy i transakcje resetu) są odseparowane od logiki interfejsu i chronione przed błędami parsowania uszkodzonych obiektów JSON dzięki bezpiecznym blokom `try-catch` z automatycznym przywracaniem domyślnych danych.
+
 ### 3. Użyte technologie i wersje
 * **Google AI Studio** (API / Portal) – Generowanie i wspomaganie programowania
 * **Gemini 3.5 Flash** (LLM Model) – Inteligentne wspomaganie, translacja i refaktoryzacja
@@ -76,6 +83,13 @@ A detailed explanation of the project's background, market context, and the recr
 
 ### 2. Creation Method & Architecture
 The application was developed as a modern Single Page Application (SPA) utilizing React, Vite, and TypeScript. **The codebase was fully generated through "Vibe coding" with minimal human intervention**, exploiting the capabilities of advanced AI models for code drafting, translation, and secure refactoring. Styling is powered by Tailwind CSS for a highly responsive, performant, and elegant user experience. All CV data is loaded from a local JSON file and synchronized in real-time with the browser's LocalStorage. Session authentication is implemented securely using the browser's Web Crypto API (HMAC SHA-512) to ensure user privacy and offline security.
+
+#### Architectural Details & Design Patterns:
+* **Single Source of Truth (SSOT)**: A centralized global state engine in `App.tsx` (managing CV data, notes, bookmarks, custom tooltips, filters) drives all child rendering with a strict one-way data flow to prevent visual synchronization conflicts (State / Mediator pattern).
+* **Secure Web Crypto API Authorization**: The admin section authenticates actions without persisting raw credentials. User password entry is securely hashed client-side with HMAC-SHA-512 and a cryptographic salt inside the browser before validation (Security Proxy pattern).
+* **Adapter Pattern (I18n & Mappings)**: The translations dictionary (`translations.ts`) wraps bilingual resource keys, serving as a unified lookup adapter that dynamically retrieves texts according to the active language (PL/EN) with safe fallback support.
+* **Builder Pattern (Markdown Generation)**: The `markdownExporter.ts` engine employs a structured Builder pattern, sequentially filtering, formatting, and assembling heterogeneous resume parts into a high-quality Markdown stream.
+* **Repository & Data Access Object (DAO) Abstraction**: All LocalStorage interactions (write, read, schema upgrades, default resets) are isolated from layout markup, utilizing strict JSON serialization/deserialization guards to prevent boot crashes on corrupted browser cache values.
 
 ### 3. Technologies Used & Versions
 * **Google AI Studio** (API / Portal) – Generation and programming assistance

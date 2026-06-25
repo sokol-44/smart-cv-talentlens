@@ -87,7 +87,7 @@ export const Header: React.FC<HeaderProps> = ({
       <div className="relative z-10 flex flex-col md:flex-row md:items-start justify-between gap-6">
         <div>
           <h1 className="text-4xl md:text-5xl font-sans font-bold tracking-tight text-white mb-2">
-            {person.firstName} <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{person.lastName}</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-400">{person.firstName} {person.lastName}</span>
           </h1>
 
           {isEditingHeadline ? (

@@ -38,6 +38,14 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
       purposeText: "Aplikacja została stworzona w celu nowoczesnej, interaktywnej i wielojęzycznej prezentacji kwalifikacji zawodowych, historii zatrudnienia, zrealizowanych projektów oraz uzyskanych certyfikatów. Projekt stanowi również praktyczny pokaz 'Vibe Coding' – nowoczesnego podejścia do wytwarzania oprogramowania we współpracy z modelami AI (Gemini 3.5 Flash w Google AI Studio) przy minimalnym nakładzie ręcznego pisania kodu. System został zoptymalizowany dla rekruterów oraz menedżerów technicznych poszukujących odpowiednich kandydatów na stanowiska inżynieryjne, umożliwiając szybkie dopasowanie profili do specyfiki ról projektowych.",
       creationTitle: "Sposób utworzenia i architektura",
       creationText: "Aplikacja została zaprojektowana jako nowoczesna aplikacja jednostronicowa (SPA) w oparciu o React i Vite. Powstała ona w procesie 'Vibe coding' z minimalną ingerencją człowieka w kod źródłowy, wykorzystując zaawansowane modele sztucznej inteligencji. System wykorzystuje zaawansowany system dynamicznej translacji treści, mechanizmy autoryzacji oparte o szyfrowanie asynchroniczne i Web Crypto API (HMAC SHA-512) dla bezpieczeństwa oraz synchronizację bazy danych CV w czasie rzeczywistym z LocalStorage. Projekt został w całości ustrukturyzowany z silnym typowaniem TypeScript, co gwarantuje poprawność i skalowalność. Kod źródłowy jest w pełni zgodny z rygorystycznymi standardami jakości, co potwierdzają pomyślne kompilacje produkcyjne.",
+      archTitle: "Wzorce projektowe i decyzje architektoniczne",
+      archPoints: [
+        { title: "Single Source of Truth (SSOT)", desc: "Główny stan aplikacji (dane CV, notatki rekrutera, zakładki, filtry, tooltipy) jest scentralizowany w komponencie App.tsx. Zapewnia to spójność danych i jednokierunkowy przepływ (one-way data flow) do wszystkich podkomponentów (Wzorzec State / Mediator)." },
+        { title: "Kryptografia Web Crypto API", desc: "Autoryzacja trybu admina wykorzystuje asynchroniczne haszowanie HMAC-SHA-512 z unikalną solą kryptograficzną bezpośrednio w przeglądarce klienta. Hasło nigdy nie jest przechowywane ani przesyłane jako tekst jawny (Wzorzec Security Proxy)." },
+        { title: "Wzorzec Adapter (Translations)", desc: "Moduł translations.ts działa jako adapter słownikowy, mapując dynamicznie etykiety i struktury danych z modelu JSON w zależności od wybranego języka (PL/EN)." },
+        { title: "Wzorzec Budowniczy (Builder Pattern)", desc: "Generator markdownExporter.ts reprezentuje podejście budowniczego, etap po etapie weryfikując, sortując i składając poszczególne elementy CV (Zatrudnienie, Projekty, Edukacja) w jednolity dokument Markdown bez zanieczyszczeń." },
+        { title: "Wzorzec Repozytorium i DAO", desc: "Abstrakcja operacji na localStorage (odczyt, zapis, migracje, resetowanie stanu bazy) działa jako wirtualna warstwa dostępu do danych, zapewniając bezpieczne przywracanie domyślnego pliku cv_data.json w razie błędu." }
+      ],
       techTitle: "Użyte technologie i wersje",
       featuresTitle: "Zaimplementowane funkcjonalności",
       manualTitle: "Krótka instrukcja obsługi",
@@ -75,6 +83,14 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
       purposeText: "This application was created to provide a modern, interactive, and bilingual presentation of professional qualifications, employment history, completed projects, and certifications. The system also serves as a practical showcase of 'Vibe Coding' – a modern approach to software development in collaboration with AI models (Gemini 3.5 Flash in Google AI Studio) with minimal manual code drafting. The system is optimized for recruiters and engineering managers looking for candidates for engineering roles, enabling rapid matching of profiles against project requirements.",
       creationTitle: "Creation Method & Architecture",
       creationText: "The application is engineered as a state-of-the-art Single Page Application (SPA) built with React and Vite. It was created through 'Vibe coding' with minimal human intervention in the codebase, utilizing advanced artificial intelligence models. It incorporates a sophisticated dynamic translation system, authorization mechanisms powered by the Web Crypto API (utilizing HMAC SHA-512) for client-side security, and real-time database synchronization with LocalStorage. The entire codebase features strict TypeScript typing ensuring robustness and scalability. The architecture adheres to high-quality code patterns and passes strict production compilation checks.",
+      archTitle: "Design Patterns & Architectural Decisions",
+      archPoints: [
+        { title: "Single Source of Truth (SSOT)", desc: "The core application state (CV data, recruiter notes, bookmarks, filters, tooltips) is centralized in App.tsx. This guarantees high data consistency and a clean one-way data flow to all nested sub-components (State / Mediator pattern)." },
+        { title: "Web Crypto API Cryptography", desc: "Admin authorization utilizes client-side HMAC-SHA-512 hashing with a unique cryptographic salt. Passwords are never saved or processed as plaintext, ensuring absolute security (Security Proxy pattern)." },
+        { title: "Adapter Pattern (Translations)", desc: "The translations.ts engine operates as a translation adapter, dynamically resolving dictionary labels and structural mappings from the JSON data depending on the active locale (PL/EN)." },
+        { title: "Builder Pattern (Document Generation)", desc: "The markdownExporter.ts component utilizes a Builder pattern approach to inspect, sort, and assemble heterogeneous CV sections (Employment, Projects, Education) into a clean, robust Markdown document." },
+        { title: "Repository & DAO Patterns", desc: "Virtual database operations on localStorage (load, save, migrate, reset state) abstract local storage IO, ensuring safe fallback to the pristine cv_data.json on parsing exceptions." }
+      ],
       techTitle: "Technologies Used & Versions",
       featuresTitle: "Implemented Features",
       manualTitle: "User & Admin Guide",
@@ -177,6 +193,29 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
               {t.creationTitle}
             </h2>
             <p className="text-sm text-slate-600 leading-relaxed">{t.creationText}</p>
+          </div>
+
+          {/* Card 2b: Architecture & Design Patterns */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-100 shadow-xs space-y-4">
+            <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+              <span className="p-1.5 bg-indigo-50 text-indigo-600 rounded-lg shrink-0">
+                <Layers className="w-5 h-5" />
+              </span>
+              {(t as any).archTitle}
+            </h2>
+            <div className="space-y-3">
+              {(t as any).archPoints?.map((item: any, idx: number) => (
+                <div key={idx} className="space-y-1 p-3 bg-slate-50/60 rounded-xl border border-slate-100/50">
+                  <h4 className="text-xs font-bold text-indigo-950 flex items-center gap-1.5 font-sans">
+                    <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
+                    {item.title}
+                  </h4>
+                  <p className="text-xs text-slate-600 leading-relaxed pl-3 font-sans">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Card 3: Implemented features list */}
