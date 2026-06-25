@@ -43,6 +43,7 @@ interface LocalizedLabels {
   major: string;
   degreeType: string;
   confirmation: string;
+  companyLabel: string;
 }
 
 /**
@@ -73,6 +74,7 @@ const LABEL_TRANSLATIONS: Record<"pl" | "en", LocalizedLabels> = {
     major: "Kierunek",
     degreeType: "Rodzaj studiów",
     confirmation: "Uzyskane potwierdzenie",
+    companyLabel: "Firma / Klient",
   },
   en: {
     contactInfo: "Contact Information",
@@ -98,6 +100,7 @@ const LABEL_TRANSLATIONS: Record<"pl" | "en", LocalizedLabels> = {
     major: "Major",
     degreeType: "Degree type",
     confirmation: "Obtained confirmation",
+    companyLabel: "Company / Client",
   }
 };
 
@@ -231,14 +234,30 @@ const buildExperienceSection = (employmentList: Employment[], labels: LocalizedL
     
     md += `### ${job.company}\n`;
     md += `- **${labels.position}**: *${formattedPos}*\n`;
-    md += `- **${labels.period}**: ${formattedDate}\n\n`;
+    md += `- **${labels.period}**: ${formattedDate}\n`;
+    
+    // IF: Render main projects completed if available
+    if (job.mainProjects && job.mainProjects.length > 0) {
+      const projectsLabel = lang === "pl" ? "Realizowane projekty" : "Completed projects";
+      md += `- **${projectsLabel}**: ${job.mainProjects.join(", ")}\n`;
+    }
+    
+    md += `\n`;
     
     if (descText) {
       md += `${descText}\n\n`;
     }
     
-    // IF: Render key duties list if available
-    const dutiesList = job.duties ? (job.duties[lang] || job.duties["pl"] || []) : [];
+    // IF: Render key duties list if available - handle both array and localized object structures
+    let dutiesList: string[] = [];
+    if (job.duties) {
+      if (Array.isArray(job.duties)) {
+        dutiesList = job.duties;
+      } else if (typeof job.duties === "object") {
+        dutiesList = job.duties[lang] || job.duties["pl"] || job.duties["en"] || [];
+      }
+    }
+
     if (dutiesList && dutiesList.length > 0) {
       md += `#### ${labels.duties}:\n`;
       dutiesList.forEach((duty) => {
@@ -296,9 +315,12 @@ const buildProjectsSection = (projects: Project[], labels: LocalizedLabels, lang
   projects.forEach((proj) => {
     const formattedDate = formatDateRange(proj.date, lang);
     const descText = proj.description ? (proj.description[lang] || proj.description["pl"] || "") : "";
-    const companyText = proj.company && proj.company.length > 0 ? `(${proj.company.join(", ")})` : "";
+    const companyText = proj.company && proj.company.length > 0 ? proj.company.join(", ") : "";
     
-    md += `### ${proj.name} ${companyText}\n`;
+    md += `### ${proj.name}\n`;
+    if (companyText) {
+      md += `- **${labels.companyLabel}**: ${companyText}\n`;
+    }
     md += `- **${labels.period}**: ${formattedDate}\n`;
     
     if (proj.url) {
@@ -310,8 +332,16 @@ const buildProjectsSection = (projects: Project[], labels: LocalizedLabels, lang
       md += `${descText}\n\n`;
     }
 
-    // IF: Notable Features check
-    const features = proj.notableFeatures ? (proj.notableFeatures[lang] || proj.notableFeatures["pl"] || []) : [];
+    // IF: Notable Features check - handle both array and localized object structures
+    let features: string[] = [];
+    if (proj.notableFeatures) {
+      if (Array.isArray(proj.notableFeatures)) {
+        features = proj.notableFeatures;
+      } else if (typeof proj.notableFeatures === "object") {
+        features = proj.notableFeatures[lang] || proj.notableFeatures["pl"] || proj.notableFeatures["en"] || [];
+      }
+    }
+
     if (features && features.length > 0) {
       md += `#### ${labels.notableFeatures}:\n`;
       features.forEach((feat) => {
@@ -591,14 +621,16 @@ export const triggerMarkdownDownload = (cvData: CVData, lang: "pl" | "en"): void
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     
-    const rawLastName = cvData.person?.lastName || "Sokolowski";
-    const rawFirstName = cvData.person?.firstName || "Michal";
+    const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const rawLastName = removeAccents(cvData.person?.lastName || "Sokolowski");
+    const rawFirstName = removeAccents(cvData.person?.firstName || "Michal");
     const cleanLastName = rawLastName.toLowerCase().replace(/[\s\W]+/g, "_");
     const cleanFirstName = rawFirstName.toLowerCase().replace(/[\s\W]+/g, "_");
+    const today = new Date().toISOString().slice(0, 10);
     
     // 4. Format download filename clearly
     link.href = url;
-    link.download = `cv_${cleanFirstName}_${cleanLastName}_${lang}.md`;
+    link.download = `cv_${cleanFirstName}_${cleanLastName}_${lang}_${today}.md`;
     
     // 5. Inject element and programmatically trigger download event
     document.body.appendChild(link);

@@ -47,9 +47,17 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
   // Download DB as JSON
   const handleExportJson = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cvData, null, 2));
+    
+    const removeAccents = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const rawLastName = removeAccents(cvData.person?.lastName || "Sokolowski");
+    const rawFirstName = removeAccents(cvData.person?.firstName || "Michal");
+    const cleanLastName = rawLastName.toLowerCase().replace(/[\s\W]+/g, "_");
+    const cleanFirstName = rawFirstName.toLowerCase().replace(/[\s\W]+/g, "_");
+    const today = new Date().toISOString().slice(0, 10);
+
     const downloadAnchor = document.createElement("a");
     downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `cv_database_${new Date().toISOString().slice(0, 10)}.json`);
+    downloadAnchor.setAttribute("download", `cv_database_${cleanFirstName}_${cleanLastName}_${today}.json`);
     document.body.appendChild(downloadAnchor);
     downloadAnchor.click();
     downloadAnchor.remove();

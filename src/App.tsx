@@ -32,6 +32,7 @@ import {
   Settings,
   Shield,
   FileDown,
+  RefreshCw,
 } from "lucide-react";
 
 import { initialCVData } from "./initialData";
@@ -184,6 +185,9 @@ export default function App() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
   const [showExportMenu, setShowExportMenu] = useState(false);
+  const [showReloadConfirm, setShowReloadConfirm] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showReloadSuccess, setShowReloadSuccess] = useState(false);
 
   // Close the Markdown export menu when clicking outside of it
   useEffect(() => {
@@ -328,7 +332,10 @@ export default function App() {
               return {
                 ...initialProj,
                 ...proj,
-                description: finalDesc
+                company: (proj.company && proj.company.length > 0) ? proj.company : (initialProj.company || []),
+                description: finalDesc,
+                technologies: (proj.technologies && proj.technologies.length > 0) ? proj.technologies : (initialProj.technologies || []),
+                notableFeatures: (proj.notableFeatures && (proj.notableFeatures.pl || proj.notableFeatures.en)) ? proj.notableFeatures : (initialProj.notableFeatures || { pl: [], en: [] })
               };
             }),
             ...initialCVData.projects.filter(
@@ -343,10 +350,12 @@ export default function App() {
               const finalDesc = (cert.description && typeof cert.description === "object" && (cert.description.pl || cert.description.en))
                 ? cert.description
                 : initialCert.description;
+              const certTechs = cert.technologiesAndDuties || cert.technologies;
               return {
                 ...initialCert,
                 ...cert,
-                description: finalDesc
+                description: finalDesc,
+                technologiesAndDuties: (certTechs && certTechs.length > 0) ? certTechs : (initialCert.technologiesAndDuties || [])
               };
             }),
             ...initialCVData.certificates.filter(
@@ -364,7 +373,9 @@ export default function App() {
               return {
                 ...initialJob,
                 ...job,
-                description: finalDesc
+                description: finalDesc,
+                duties: (job.duties && (job.duties.pl || job.duties.en)) ? job.duties : (initialJob.duties || { pl: [], en: [] }),
+                technologies: (job.technologies && job.technologies.length > 0) ? job.technologies : (initialJob.technologies || [])
               };
             }),
             ...initialCVData.employment.filter(
@@ -546,20 +557,36 @@ export default function App() {
 
   // Reset database using the local project JSON file (1)
   const handleResetDb = () => {
-    const confirmMsg = translate("Czy na pewno chcesz przywrócić domyślne CV z pliku JSON? Wszystkie wprowadzone modyfikacje zostaną usunięte.", lang);
-    /* if block comment: confirmation dialog check for destructive db resets */
-    if (window.confirm(confirmMsg)) {
-      setCvData(initialCVData);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCVData));
-      setNotes({});
-      localStorage.setItem(NOTES_KEY, JSON.stringify({}));
-      setBookmarks({});
-      localStorage.setItem(BOOKMARKS_KEY, JSON.stringify({}));
-      setTooltips({});
-      localStorage.setItem(TOOLTIPS_KEY, JSON.stringify({}));
-      setIsDbModified(false);
-      localStorage.setItem(MODIFIED_KEY, "false");
-    }
+    setShowResetConfirm(true);
+  };
+
+  const executeResetDb = () => {
+    setCvData(initialCVData);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCVData));
+    setNotes({});
+    localStorage.setItem(NOTES_KEY, JSON.stringify({}));
+    setBookmarks({});
+    localStorage.setItem(BOOKMARKS_KEY, JSON.stringify({}));
+    setTooltips({});
+    localStorage.setItem(TOOLTIPS_KEY, JSON.stringify({}));
+    setIsDbModified(false);
+    localStorage.setItem(MODIFIED_KEY, "false");
+    setShowResetConfirm(false);
+    window.location.reload();
+  };
+
+  // Reload data from pristine cv_data.json
+  const handleReloadFromJson = () => {
+    setShowReloadConfirm(true);
+  };
+
+  const executeReloadFromJson = () => {
+    setCvData(initialCVData);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(initialCVData));
+    setIsDbModified(false);
+    localStorage.setItem(MODIFIED_KEY, "false");
+    setShowReloadConfirm(false);
+    setShowReloadSuccess(true);
   };
 
   // Import uploaded JSON CV
@@ -881,6 +908,16 @@ export default function App() {
               )} {/* END IF */}
             </div>
 
+            <button
+              onClick={handleReloadFromJson}
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-600 hover:text-slate-800 transition cursor-pointer text-xs font-semibold shadow-xs"
+              title={lang === "pl" ? "Załaduj ponownie z pliku cv_data.json" : "Reload from cv_data.json file"}
+              id="reload-json-button"
+            >
+              <RefreshCw className="w-4 h-4 text-emerald-650 shrink-0" />
+              <span>{lang === "pl" ? "Załaduj z pliku" : "Reload from file"}</span>
+            </button>
+
             {isAdmin ? (
               <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl border border-emerald-200/50 shadow-xs">
                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
@@ -978,6 +1015,124 @@ export default function App() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Reset DB Confirmation Modal */}
+      {showResetConfirm && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-rose-50 text-rose-600 rounded-2xl animate-pulse">
+                <RefreshCw className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 text-sm">
+                  {lang === "pl" ? "Przywrócenie domyślnych danych" : "Restore Default Data"}
+                </h3>
+                <p className="text-[11px] text-slate-400">
+                  {lang === "pl" ? "Potwierdzenie operacji" : "Operation confirmation"}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              {lang === "pl"
+                ? "Czy na pewno chcesz przywrócić domyślne CV z pliku JSON? Wszystkie wprowadzone modyfikacje, notatki, zakładki i podpowiedzi zostaną usunięte."
+                : "Are you sure you want to restore the default CV from the JSON file? All entered modifications, notes, bookmarks, and tooltips will be deleted."}
+            </p>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer font-medium"
+              >
+                {translate("Anuluj", lang)}
+              </button>
+              <button
+                onClick={executeResetDb}
+                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+              >
+                {lang === "pl" ? "Przywróć dane" : "Restore data"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reload JSON Confirmation Modal */}
+      {showReloadConfirm && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-indigo-50 text-indigo-600 rounded-2xl animate-pulse">
+                <RefreshCw className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 text-sm">
+                  {lang === "pl" ? "Załaduj z pliku cv_data.json" : "Reload from cv_data.json"}
+                </h3>
+                <p className="text-[11px] text-slate-400">
+                  {lang === "pl" ? "Potwierdzenie operacji" : "Operation confirmation"}
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-600 leading-relaxed">
+              {lang === "pl"
+                ? "Czy chcesz ponownie załadować dane z pliku cv_data.json? Wszystkie Twoje lokalne modyfikacje w bazie zostaną nadpisane oryginalną zawartością pliku."
+                : "Do you want to reload data from cv_data.json? All your local modifications in the database will be overwritten by the original file contents."}
+            </p>
+
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                onClick={() => setShowReloadConfirm(false)}
+                className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer font-medium"
+              >
+                {translate("Anuluj", lang)}
+              </button>
+              <button
+                onClick={executeReloadFromJson}
+                className="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+              >
+                {lang === "pl" ? "Załaduj z pliku" : "Reload from file"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Reload Success Modal */}
+      {showReloadSuccess && (
+        <div className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs flex items-center justify-center z-50 p-4 animate-fade-in">
+          <div className="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-slate-100 space-y-4 text-center">
+            <div className="mx-auto w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center">
+              <RefreshCw className="w-6 h-6 animate-spin" />
+            </div>
+            
+            <div className="space-y-1">
+              <h3 className="font-bold text-slate-900 text-sm">
+                {lang === "pl" ? "Sukces!" : "Success!"}
+              </h3>
+              <p className="text-xs text-slate-500">
+                {lang === "pl"
+                  ? "Dane zostały pomyślnie załadowane z pliku cv_data.json! Strona zostanie teraz odświeżona."
+                  : "Data has been successfully reloaded from cv_data.json! The page will now be refreshed."}
+              </p>
+            </div>
+
+            <div className="pt-2">
+              <button
+                onClick={() => {
+                  setShowReloadSuccess(false);
+                  window.location.reload();
+                }}
+                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+              >
+                OK
+              </button>
+            </div>
           </div>
         </div>
       )}
