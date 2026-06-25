@@ -201,18 +201,6 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
                     Michał Sokołowski
                   </div>
                 </div>
-                
-                <div className="md:border-l md:border-slate-200 md:pl-4 flex-1 space-y-2 text-xs text-slate-600">
-                  <div className="font-semibold text-slate-800">
-                    {lang === "pl" ? "Statystyki portfolio:" : "Portfolio statistics:"}
-                  </div>
-                  <div className="grid grid-cols-2 gap-2 font-mono text-[11px]">
-                    <div>• {lang === "pl" ? "Doświadczenie:" : "Experience:"} <span className="font-bold text-indigo-700">{jobsCount} {lang === "pl" ? "firm" : "companies"}</span></div>
-                    <div>• {lang === "pl" ? "Projekty:" : "Projects:"} <span className="font-bold text-indigo-700">{projectsCount}</span></div>
-                    <div>• {lang === "pl" ? "Umiejętności:" : "Skills:"} <span className="font-bold text-indigo-700">{skillsCount}</span></div>
-                    <div>• {lang === "pl" ? "Certyfikaty:" : "Certificates:"} <span className="font-bold text-indigo-700">{certsCount}</span></div>
-                  </div>
-                </div>
               </div>
 
               <div className="text-sm text-slate-600 leading-relaxed space-y-3">
