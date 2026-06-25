@@ -18,6 +18,7 @@ import { RecruiterMatch } from "./components/RecruiterMatch";
 import { LocalDbAdmin } from "./components/LocalDbAdmin";
 import { EditModals } from "./components/EditModals";
 import { AboutApp } from "./components/AboutApp";
+import { triggerMarkdownDownload } from "./utils/markdownExporter";
 
 import {
   UserCheck,
@@ -30,6 +31,7 @@ import {
   Info,
   Settings,
   Shield,
+  FileDown,
 } from "lucide-react";
 
 import { initialCVData } from "./initialData";
@@ -181,6 +183,24 @@ export default function App() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
+  const [showExportMenu, setShowExportMenu] = useState(false);
+
+  // Close the Markdown export menu when clicking outside of it
+  useEffect(() => {
+    // FUNCTION: Event listener to check if the user clicked outside the export dropdown
+    const handleOutsideClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // IF: check if menu is open and click occurred outside both the button and dropdown
+      if (showExportMenu && target && !target.closest("#markdown-export-button") && !target.closest("#markdown-export-dropdown")) {
+        setShowExportMenu(false);
+      } // END IF
+    };
+    
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [showExportMenu]);
 
   // Modals state
   const [editingJob, setEditingJob] = useState<Employment | null>(null);
@@ -767,6 +787,57 @@ export default function App() {
           </div>
           
           <div className="flex items-center gap-2">
+            {/* Design Decision: Ephemeral language selection dropdown with relative containment */}
+            <div className="relative">
+              <button
+                onClick={() => setShowExportMenu(!showExportMenu)}
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-600 hover:text-slate-800 transition cursor-pointer text-xs font-semibold shadow-xs"
+                title={lang === "pl" ? "Eksportuj dane CV do pliku Markdown (.md)" : "Export CV data to Markdown file (.md)"}
+                id="markdown-export-button"
+              >
+                <FileDown className="w-4 h-4 text-indigo-600" />
+                <span>{lang === "pl" ? "Eksportuj" : "Export"}</span>
+              </button>
+              
+              {/* IF: Check if showExportMenu is active to render language selection dropdown */}
+              {showExportMenu && (
+                <div 
+                  className="absolute bottom-full right-0 mb-2 w-44 bg-white border border-slate-200 rounded-2xl shadow-xl py-1.5 z-40 text-left"
+                  id="markdown-export-dropdown"
+                >
+                  <div className="px-3 py-1 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                    {lang === "pl" ? "Wybierz język:" : "Select language:"}
+                  </div>
+                  <button
+                    onClick={() => {
+                      // IF: Verify cvData is defined before generating file download
+                      if (cvData) {
+                        triggerMarkdownDownload(cvData, "pl");
+                      } // END IF
+                      setShowExportMenu(false);
+                    }}
+                    className="w-full text-left px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50 hover:text-indigo-650 transition cursor-pointer font-medium flex items-center gap-2"
+                  >
+                    <span>🇵🇱</span>
+                    <span>Polski (PL)</span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      // IF: Verify cvData is defined before generating file download
+                      if (cvData) {
+                        triggerMarkdownDownload(cvData, "en");
+                      } // END IF
+                      setShowExportMenu(false);
+                    }}
+                    className="w-full text-left px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50 hover:text-indigo-650 transition cursor-pointer font-medium flex items-center gap-2"
+                  >
+                    <span>🇬🇧</span>
+                    <span>English (EN)</span>
+                  </button>
+                </div>
+              )} {/* END IF */}
+            </div>
+
             {isAdmin ? (
               <div className="flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-3 py-1.5 rounded-xl border border-emerald-200/50 shadow-xs">
                 <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>

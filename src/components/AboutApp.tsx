@@ -37,7 +37,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
       purposeTitle: "Cel utworzenia",
       purposeText: "Aplikacja została stworzona w celu nowoczesnej, interaktywnej i wielojęzycznej prezentacji kwalifikacji zawodowych, historii zatrudnienia, zrealizowanych projektów oraz uzyskanych certyfikatów. Projekt stanowi również praktyczny pokaz 'Vibe Coding' – nowoczesnego podejścia do wytwarzania oprogramowania we współpracy z modelami AI (Gemini 3.5 Flash w Google AI Studio) przy minimalnym nakładzie ręcznego pisania kodu. System został zoptymalizowany dla rekruterów oraz menedżerów technicznych poszukujących odpowiednich kandydatów na stanowiska inżynieryjne, umożliwiając szybkie dopasowanie profili do specyfiki ról projektowych.",
       creationTitle: "Sposób utworzenia i architektura",
-      creationText: "Aplikacja została zaprojektowana jako nowoczesna aplikacja jednostronicowa (SPA) w oparciu o React i Vite. Wykorzystuje zaawansowany system dynamicznej translacji treści, mechanizmy autoryzacji oparte o szyfrowanie asynchroniczne i Web Crypto API (HMAC SHA-512) dla bezpieczeństwa oraz synchronizację bazy danych CV w czasie rzeczywistym z LocalStorage. Projekt został w całości ustrukturyzowany z silnym typowaniem TypeScript, co gwarantuje poprawność i skalowalność. Kod źródłowy jest w pełni zgodny z rygorystycznymi standardami jakości, co potwierdzają pomyślne kompilacje produkcyjne.",
+      creationText: "Aplikacja została zaprojektowana jako nowoczesna aplikacja jednostronicowa (SPA) w oparciu o React i Vite. Powstała ona w procesie 'Vibe coding' z minimalną ingerencją człowieka w kod źródłowy, wykorzystując zaawansowane modele sztucznej inteligencji. System wykorzystuje zaawansowany system dynamicznej translacji treści, mechanizmy autoryzacji oparte o szyfrowanie asynchroniczne i Web Crypto API (HMAC SHA-512) dla bezpieczeństwa oraz synchronizację bazy danych CV w czasie rzeczywistym z LocalStorage. Projekt został w całości ustrukturyzowany z silnym typowaniem TypeScript, co gwarantuje poprawność i skalowalność. Kod źródłowy jest w pełni zgodny z rygorystycznymi standardami jakości, co potwierdzają pomyślne kompilacje produkcyjne.",
       techTitle: "Użyte technologie i wersje",
       featuresTitle: "Zaimplementowane funkcjonalności",
       manualTitle: "Krótka instrukcja obsługi",
@@ -73,7 +73,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
       purposeTitle: "Purpose of Creation",
       purposeText: "This application was created to provide a modern, interactive, and bilingual presentation of professional qualifications, employment history, completed projects, and certifications. The system also serves as a practical showcase of 'Vibe Coding' – a modern approach to software development in collaboration with AI models (Gemini 3.5 Flash in Google AI Studio) with minimal manual code drafting. The system is optimized for recruiters and engineering managers looking for candidates for engineering roles, enabling rapid matching of profiles against project requirements.",
       creationTitle: "Creation Method & Architecture",
-      creationText: "The application is engineered as a state-of-the-art Single Page Application (SPA) built with React and Vite. It incorporates a sophisticated dynamic translation system, authorization mechanisms powered by the Web Crypto API (utilizing HMAC SHA-512) for client-side security, and real-time database synchronization with LocalStorage. The entire codebase features strict TypeScript typing ensuring robustness and scalability. The architecture adheres to high-quality code patterns and passes strict production compilation checks.",
+      creationText: "The application is engineered as a state-of-the-art Single Page Application (SPA) built with React and Vite. It was created through 'Vibe coding' with minimal human intervention in the codebase, utilizing advanced artificial intelligence models. It incorporates a sophisticated dynamic translation system, authorization mechanisms powered by the Web Crypto API (utilizing HMAC SHA-512) for client-side security, and real-time database synchronization with LocalStorage. The entire codebase features strict TypeScript typing ensuring robustness and scalability. The architecture adheres to high-quality code patterns and passes strict production compilation checks.",
       techTitle: "Technologies Used & Versions",
       featuresTitle: "Implemented Features",
       manualTitle: "User & Admin Guide",
@@ -110,13 +110,12 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
   const techStack = [
     { name: "Google AI Studio", version: "API / Portal", desc: lang === "pl" ? "Generowanie i wspomaganie programowania" : "Generation and programming assistance" },
     { name: "Gemini 3.5 Flash", version: "LLM Model", desc: lang === "pl" ? "Inteligentne wspomaganie, translacja i refaktoryzacja" : "Intelligent assistance, translation & refactoring" },
-    { name: "React", version: "^18.3.1", desc: lang === "pl" ? "Główna biblioteka UI" : "Core UI Library" },
-    { name: "Vite", version: "^5.4.1", desc: lang === "pl" ? "Szybkie środowisko budowania" : "Modern frontend build tool" },
-    { name: "TypeScript", version: "^5.5.3", desc: lang === "pl" ? "Statyczne typowanie" : "Statically typed JavaScript" },
-    { name: "Tailwind CSS", version: "^4.0.0", desc: lang === "pl" ? "Responsywny silnik stylów" : "Responsive utility-first styling" },
-    { name: "Motion (Framer)", version: "^11.5.4", desc: lang === "pl" ? "Płynne animacje przejść" : "Fluid visual transitions" },
-    { name: "Lucide React", version: "^0.439.0", desc: lang === "pl" ? "Wektorowy pakiet ikon" : "Vector icon pack" },
-    { name: "Recharts", version: "^2.12.7", desc: lang === "pl" ? "Wykresy i wizualizacja statystyk" : "Recruiter charts & statistics" }
+    { name: "React", version: "^19.0.1", desc: lang === "pl" ? "Główna biblioteka UI" : "Core UI Library" },
+    { name: "Vite", version: "^6.2.3", desc: lang === "pl" ? "Szybkie środowisko budowania" : "Modern frontend build tool" },
+    { name: "TypeScript", version: "~5.8.2", desc: lang === "pl" ? "Statyczne typowanie" : "Statically typed JavaScript" },
+    { name: "Tailwind CSS", version: "^4.1.14", desc: lang === "pl" ? "Responsywny silnik stylów (z pluginem Vite)" : "Responsive utility-first styling (with Vite plugin)" },
+    { name: "Motion (Framer)", version: "^12.23.24", desc: lang === "pl" ? "Płynne animacje i przejścia" : "Fluid visual transitions & animations" },
+    { name: "Lucide React", version: "^0.546.0", desc: lang === "pl" ? "Wektorowy pakiet ikon" : "Vector icon pack" }
   ];
 
   return (
