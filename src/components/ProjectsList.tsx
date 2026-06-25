@@ -54,6 +54,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedTech, setSelectedTech] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>("default");
   const [activeNoteProjId, setActiveNoteProjId] = useState<string | null>(null);
   const [noteTextPl, setNoteTextPl] = useState("");
   const [noteTextEn, setNoteTextEn] = useState("");
@@ -85,6 +86,30 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
     }
   };
 
+  // Helper to parse dates for sorting (MM.YYYY or YYYY)
+  const parseDateString = (dateStr: string, isEnd = false): Date => {
+    if (!dateStr || dateStr.toLowerCase().trim() === "obecnie" || dateStr.toLowerCase().trim() === "present" || dateStr.toLowerCase().trim() === "") {
+      return new Date();
+    }
+    const parts = dateStr.split(".");
+    if (parts.length === 2) {
+      const month = parseInt(parts[0], 10) - 1;
+      const year = parseInt(parts[1], 10);
+      return new Date(year, month, isEnd ? 28 : 1);
+    }
+    if (/^\d{4}$/.test(dateStr)) {
+      const year = parseInt(dateStr, 10);
+      return new Date(year, isEnd ? 11 : 0, isEnd ? 31 : 1);
+    }
+    return new Date(0);
+  };
+
+  const getProjectDurationMs = (p: Project): number => {
+    const start = parseDateString(p.date.start, false);
+    const end = parseDateString(p.date.end, true);
+    return end.getTime() - start.getTime();
+  };
+
   // Get list of all technologies used in projects for filtering
   const allProjectTechs = useMemo(() => {
     const techs = new Set<string>();
@@ -111,6 +136,44 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
       return matchesSearch && matchesTech;
     });
   }, [projects, searchTerm, selectedTech, lang]);
+
+  // Sort projects based on selected sortBy criteria
+  const sortedProjects = useMemo(() => {
+    const cloned = [...filteredProjects];
+    if (sortBy === "default") {
+      return cloned;
+    }
+    cloned.sort((a, b) => {
+      if (sortBy === "start_asc") {
+        const dateA = parseDateString(a.date.start, false);
+        const dateB = parseDateString(b.date.start, false);
+        return dateA.getTime() - dateB.getTime();
+      }
+      if (sortBy === "start_desc") {
+        const dateA = parseDateString(a.date.start, false);
+        const dateB = parseDateString(b.date.start, false);
+        return dateB.getTime() - dateA.getTime();
+      }
+      if (sortBy === "end_asc") {
+        const dateA = parseDateString(a.date.end, true);
+        const dateB = parseDateString(b.date.end, true);
+        return dateA.getTime() - dateB.getTime();
+      }
+      if (sortBy === "end_desc") {
+        const dateA = parseDateString(a.date.end, true);
+        const dateB = parseDateString(b.date.end, true);
+        return dateB.getTime() - dateA.getTime();
+      }
+      if (sortBy === "duration_asc") {
+        return getProjectDurationMs(a) - getProjectDurationMs(b);
+      }
+      if (sortBy === "duration_desc") {
+        return getProjectDurationMs(b) - getProjectDurationMs(a);
+      }
+      return 0;
+    });
+    return cloned;
+  }, [filteredProjects, sortBy]);
 
   return (
     <div className="space-y-6" id="projects-list-container">
@@ -153,12 +216,27 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
               </option>
             ))}
           </select>
+
+          {/* Sorting Dropdown */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="px-3 py-1.5 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-700 font-medium"
+          >
+            <option value="default">{translate("Sortuj według", lang)}: {translate("Domyślnie", lang)}</option>
+            <option value="start_asc">{translate("Data startu (rosnąco)", lang)}</option>
+            <option value="start_desc">{translate("Data startu (malejąco)", lang)}</option>
+            <option value="end_asc">{translate("Data zakończenia (rosnąco)", lang)}</option>
+            <option value="end_desc">{translate("Data zakończenia (malejąco)", lang)}</option>
+            <option value="duration_asc">{translate("Długość trwania (rosnąco)", lang)}</option>
+            <option value="duration_desc">{translate("Długość trwania (malejąco)", lang)}</option>
+          </select>
         </div>
       </div>
 
       {/* Grid of projects */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filteredProjects.map((p) => {
+        {sortedProjects.map((p) => {
           const hasNote = !!(notes[p.id]?.pl || notes[p.id]?.en);
 
           return (

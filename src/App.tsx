@@ -29,6 +29,7 @@ import {
   CheckCircle,
   Info,
   Settings,
+  Shield,
 } from "lucide-react";
 
 import { initialCVData } from "./initialData";
@@ -757,7 +758,13 @@ export default function App() {
 
         {/* Footer info block */}
         <footer className="pt-8 pb-12 border-t border-slate-200 text-center text-xs text-slate-400 print:hidden flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p>© {new Date().getFullYear()} Michał Sokołowski. {translate("Wszystkie prawa zastrzeżone.", lang)}</p>
+          <div className="flex flex-col items-center sm:items-start gap-1 text-left">
+            <p>© {new Date().getFullYear()} Michał Sokołowski. {translate("Wszystkie prawa zastrzeżone.", lang)}</p>
+            <p className="text-[10px] text-slate-400 flex items-center gap-1">
+              <Shield className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+              <span>{translate("Strona nie używa zewnętrznych ciasteczek (cookies) ani skryptów śledzących.", lang)}</span>
+            </p>
+          </div>
           
           <div className="flex items-center gap-2">
             {isAdmin ? (

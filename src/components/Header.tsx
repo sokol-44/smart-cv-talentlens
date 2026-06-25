@@ -220,7 +220,7 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         {/* Language selector and Local Panel with Statistics */}
-        <div className="flex flex-col gap-4 w-full md:w-auto md:min-w-[300px]">
+        <div className="flex flex-col gap-4 w-full md:w-auto md:min-w-[300px] relative z-30">
           {/* Language selector block */}
           <div className="flex flex-col gap-3 bg-slate-950/40 border border-slate-800/80 p-3.5 rounded-2xl print:hidden" id="header-lang-selector">
             <div className="flex items-center gap-2.5">
@@ -261,7 +261,7 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Local Panel with Statistics */}
-          <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl w-full">
+          <div className="bg-slate-950/60 border border-slate-800/80 p-4 rounded-2xl w-full relative z-40">
             <div className="grid grid-cols-2 gap-3 font-mono">
             {/* Box "Etaty" with hover list tooltip */}
             <div className="relative group/box bg-slate-900/50 p-2.5 rounded-xl border border-slate-800 hover:border-slate-700/60 transition cursor-help">
@@ -272,7 +272,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.jobsCount}</div>
               
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
+              <div className="absolute top-full mt-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-blue-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <Briefcase className="w-3 h-3" />
                   <span>{translate("Lista firm i stanowisk", lang)}:</span>
@@ -285,7 +285,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </li>
                   ))}
                 </ul>
-                <div className="absolute top-full right-1/2 translate-x-1/2 border-4 border-transparent border-t-slate-950" />
+                <div className="absolute bottom-full right-1/2 translate-x-1/2 border-4 border-transparent border-b-slate-950" />
               </div>
             </div>
 
@@ -298,7 +298,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.projectsCount}</div>
 
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
+              <div className="absolute top-full mt-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-emerald-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <FolderGit2 className="w-3 h-3" />
                   <span>{translate("Główne realizowane projekty", lang)}:</span>
@@ -310,7 +310,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </li>
                   ))}
                 </ul>
-                <div className="absolute top-full right-1/2 translate-x-1/2 border-4 border-transparent border-t-slate-950" />
+                <div className="absolute bottom-full right-1/2 translate-x-1/2 border-4 border-transparent border-b-slate-950" />
               </div>
             </div>
 
@@ -323,7 +323,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.certsCount}</div>
 
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
+              <div className="absolute top-full mt-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-purple-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <Award className="w-3 h-3" />
                   <span>{translate("Uzyskane certyfikaty", lang)}:</span>
@@ -336,7 +336,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </li>
                   ))}
                 </ul>
-                <div className="absolute top-full right-1/2 translate-x-1/2 border-4 border-transparent border-t-slate-950" />
+                <div className="absolute bottom-full right-1/2 translate-x-1/2 border-4 border-transparent border-b-slate-950" />
               </div>
             </div>
 
@@ -349,7 +349,7 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="text-lg font-bold text-slate-200 mt-0.5">{stats.skillsCount}</div>
 
               {/* Tooltip */}
-              <div className="absolute bottom-full mb-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
+              <div className="absolute top-full mt-2.5 right-1/2 translate-x-1/2 hidden group-hover/box:block z-50 w-64 bg-slate-950 border border-slate-800 text-white text-[10px] p-3 rounded-xl shadow-2xl leading-relaxed font-sans pointer-events-none animate-fade-in">
                 <div className="font-bold border-b border-slate-850 pb-1 mb-1.5 text-amber-400 uppercase tracking-wider text-[9px] flex items-center gap-1">
                   <GraduationCap className="w-3 h-3" />
                   <span>{translate("Wszystkie umiejętności", lang)}:</span>
@@ -362,7 +362,7 @@ export const Header: React.FC<HeaderProps> = ({
                     </li>
                   ))}
                 </ul>
-                <div className="absolute top-full right-1/2 translate-x-1/2 border-4 border-transparent border-t-slate-950" />
+                <div className="absolute bottom-full right-1/2 translate-x-1/2 border-4 border-transparent border-b-slate-950" />
               </div>
             </div>
           </div>

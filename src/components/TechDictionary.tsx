@@ -210,6 +210,11 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvDa
                 <span className="font-semibold text-slate-700">{translate("Ogólna znajomość / Baza wiedzy", lang)}</span>
                 <span className="text-slate-400 font-mono text-[10px]">{lang === "pl" ? "(Podstawowa modyfikacja, rozumienie kodu)" : "(Basic modification, code understanding)"}</span>
               </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-slate-400" />
+                <span className="font-semibold text-slate-700">{translate("Poziom podstawowy", lang)}</span>
+                <span className="text-slate-400 font-mono text-[10px]">({translate("Wie o narzędziu, ale nie używał go w praktyce", lang)})</span>
+              </div>
             </div>
           </div>
 
@@ -218,30 +223,38 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({ dictionary, cvDa
             <span className="font-bold text-slate-700 block mb-2 font-mono uppercase tracking-wider text-[10px]">
               {lang === "pl" ? "Ikony kategorii technologicznych:" : "Technology Category Icons:"}
             </span>
-            <div className="grid grid-cols-2 gap-1 text-[11px] text-slate-600">
+            <div className="grid grid-cols-2 gap-y-1 gap-x-3 text-[11px] text-slate-600">
               <div className="flex items-center gap-1.5">
-                <Code className="w-3.5 h-3.5 text-blue-500" />
-                <span>{lang === "pl" ? "Języki programowania" : "Programming Languages"}</span>
+                <Code className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                <span>{translate("Języki programowania", lang)}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-indigo-500" />
-                <span>{lang === "pl" ? "Frameworki i biblioteki" : "Frameworks & Libraries"}</span>
+                <Layers className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
+                <span>{translate("Frameworki i biblioteki", lang)}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <HardDrive className="w-3.5 h-3.5 text-emerald-500" />
-                <span>{lang === "pl" ? "Bazy danych i Storage" : "Databases & Storage"}</span>
+                <HardDrive className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                <span>{translate("Bazy danych i Storage", lang)}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Cloud className="w-3.5 h-3.5 text-cyan-500" />
-                <span>{lang === "pl" ? "Narzędzia i Chmura" : "Cloud & Tools"}</span>
+                <Cloud className="w-3.5 h-3.5 text-cyan-500 shrink-0" />
+                <span>{translate("Narzędzia i Chmura", lang)}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Terminal className="w-3.5 h-3.5 text-amber-500" />
-                <span>{lang === "pl" ? "OS i Administracja" : "OS & Administration"}</span>
+                <Terminal className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+                <span>{translate("OS i Administracja", lang)}</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Server className="w-3.5 h-3.5 text-rose-500" />
-                <span>{lang === "pl" ? "API i Integracje" : "API & Integrations"}</span>
+                <Server className="w-3.5 h-3.5 text-rose-500 shrink-0" />
+                <span>{translate("API i Integracje", lang)}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Cpu className="w-3.5 h-3.5 text-teal-500 shrink-0" />
+                <span>{translate("Usługi sieciowe i Serwery", lang)}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <Tag className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                <span>{translate("Inne narzędzia / GIT", lang)}</span>
               </div>
             </div>
           </div>

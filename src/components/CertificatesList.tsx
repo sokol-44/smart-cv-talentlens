@@ -49,6 +49,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
   const [noteTextPl, setNoteTextPl] = useState("");
   const [noteTextEn, setNoteTextEn] = useState("");
   const [selectedYear, setSelectedYear] = useState<string>("all");
+  const [sortBy, setSortBy] = useState<string>("default");
 
   const handleOpenNote = (id: string) => {
     setActiveNoteCertId(id);
@@ -59,6 +60,21 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
   const handleSaveNote = (id: string) => {
     onSaveNote(id, noteTextPl, noteTextEn);
     setActiveNoteCertId(null);
+  };
+
+  const parseDateString = (dateStr: string): Date => {
+    if (!dateStr) return new Date(0);
+    const parts = dateStr.trim().split(".");
+    if (parts.length === 2) {
+      const month = parseInt(parts[0], 10) - 1;
+      const year = parseInt(parts[1], 10);
+      return new Date(year, month, 1);
+    }
+    if (/^\d{4}$/.test(dateStr.trim())) {
+      const year = parseInt(dateStr.trim(), 10);
+      return new Date(year, 0, 1);
+    }
+    return new Date(0);
   };
 
   const availableYears = useMemo(() => {
@@ -98,6 +114,37 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
       return matchText || matchTech;
     });
   }, [certs, searchTerm, selectedYear, lang]);
+
+  const sortedCerts = useMemo(() => {
+    const cloned = [...filteredCerts];
+    if (sortBy === "default") {
+      return cloned;
+    }
+    cloned.sort((a, b) => {
+      if (sortBy === "start_asc" || sortBy === "end_asc") {
+        const dateA = parseDateString(a.date);
+        const dateB = parseDateString(b.date);
+        return dateA.getTime() - dateB.getTime();
+      }
+      if (sortBy === "start_desc" || sortBy === "end_desc") {
+        const dateA = parseDateString(a.date);
+        const dateB = parseDateString(b.date);
+        return dateB.getTime() - dateA.getTime();
+      }
+      if (sortBy === "duration_asc") {
+        const durA = parseFloat(a.durationHours || "0") || 0;
+        const durB = parseFloat(b.durationHours || "0") || 0;
+        return durA - durB;
+      }
+      if (sortBy === "duration_desc") {
+        const durA = parseFloat(a.durationHours || "0") || 0;
+        const durB = parseFloat(b.durationHours || "0") || 0;
+        return durB - durA;
+      }
+      return 0;
+    });
+    return cloned;
+  }, [filteredCerts, sortBy]);
 
   return (
     <div className="space-y-6" id="certifications-list-container">
@@ -144,11 +191,26 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
               className="w-full pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
+
+          {/* Sorting Dropdown */}
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="px-3 py-1.5 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-700 font-medium cursor-pointer"
+          >
+            <option value="default">{translate("Sortuj według", lang)}: {translate("Domyślnie", lang)}</option>
+            <option value="start_asc">{translate("Data startu (rosnąco)", lang)}</option>
+            <option value="start_desc">{translate("Data startu (malejąco)", lang)}</option>
+            <option value="end_asc">{translate("Data zakończenia (rosnąco)", lang)}</option>
+            <option value="end_desc">{translate("Data zakończenia (malejąco)", lang)}</option>
+            <option value="duration_asc">{translate("Długość trwania (rosnąco)", lang)}</option>
+            <option value="duration_desc">{translate("Długość trwania (malejąco)", lang)}</option>
+          </select>
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filteredCerts.map((c) => {
+        {sortedCerts.map((c) => {
           const hasNote = !!(notes[c.id]?.pl || notes[c.id]?.en);
 
           return (
