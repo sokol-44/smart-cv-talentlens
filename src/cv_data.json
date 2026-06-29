@@ -858,7 +858,26 @@
         "SOAP API",
         "MS SQL",
         "administrator systemów Linux"
-      ]
+      ],
+      "versions": {
+        "PHP": [
+          "7.x"
+        ]
+      },
+      "notableFeatures": {
+        "pl": [
+          "Projekt oparty na wcześniejszym TKN-CONNECT.",
+          "Inteligentna nowa wyszukiwarka produktów dopracowana do wymagań klienta.",
+          "Zwiększenie stopnia synchronizacji danych produktów, kategorii i klientów poprzez SOAP API.",
+          "Dodanie automatycznej synchronizacji kursów walut przez SOAP z przeliczaniem wartości produktów."
+        ],
+        "en": [
+          "A project based on the earlier TKN-CONNECT.",
+          "A smart new product search engine tailored to the client's requirements.",
+          "Improved synchronization of product, category, and customer data via SOAP API.",
+          "Added automatic synchronization of exchange rates via SOAP, including product price conversion."
+        ]
+      }
     },
     {
       "id": "proj-7",
@@ -981,12 +1000,18 @@
       ],
       "notableFeatures": {
         "pl": [
-          "Samodzielne opracowanie i zastosowanie wzorców projektowych.",
-          "Lekka i skuteczna architektura umożliwiająca wysoką wydajność, mimo ograniczeń serwerów w momencie powstania."
+          "Lekka i skuteczna architektura umożliwiająca wysoką wydajność, mimo ograniczeń serwerów w momencie powstania.",
+          "System szablonów zarówno do strony www, jak i wiadomości email.",
+          "System szablonów opierających się na komponencie (głównej funkcji strony) i modułach (elementach pomocniczych).",
+          "Intuicyjna implementacja wzorców projektowych, poprzez samodzielne ich opracowanie.",
+          "Główny wizualny projekt strony oparty na jQuery, jQueryUI i YAML 3.3 CSS Framework."
         ],
         "en": [
-          "Independent development and application of design patterns.",
-          "Lightweight and efficient architecture enabling high performance despite server limitations at inception."
+          "A lightweight and effective architecture that enables high performance despite server limitations at the time of development.",
+          "A template system for both the website and email messages.",
+          "A template system based on components (the main functions of the site) and modules (supporting elements).",
+          "Intuitive implementation of design patterns through independent development.",
+          "The main visual design of the website is based on jQuery, jQueryUI, and the YAML 3.3 CSS Framework."
         ]
       }
     },
@@ -1025,6 +1050,18 @@
         "PHP": [
           "5.x",
           "7.x"
+        ]
+      },
+      "notableFeatures": {
+        "pl": [
+          "Rozbudowany panel administracyjny, pozwalający na pełną edycję produktów, koszyków, zamówień, klientów i opiekunów handlowych.",
+          "Inteligentna synchronizacja produktów i ich cen. Nowe produkty przechodzą przez kategorie buforową, gdzie są dopracowane.",
+          "Edycja koszyków zamówień umożliwia dodanie, odjęcie i zmianę ilości produktów przed ostatecznym zatwierdzeniem."
+        ],
+        "en": [
+          "A comprehensive admin panel that allows for full editing of products, shopping carts, orders, customers, and sales representatives.",
+          "Smart synchronization of products and their prices. New products go through a buffer category, where they are refined.",
+          "Editing shopping carts allows you to add, remove, and change product quantities before final confirmation."
         ]
       }
     },
