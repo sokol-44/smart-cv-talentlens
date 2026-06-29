@@ -66,6 +66,31 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
   const defaultPasjeText = lang === "pl" ? pasjePl : pasjeEn;
   const currentPasjeText = pasje ? (pasje[lang] || pasje["pl"] || pasje["en"]) : defaultPasjeText;
 
+  const sortedEducation = React.useMemo(() => {
+    const parseEducationDate = (dateStr: string): Date => {
+      if (!dateStr) return new Date(0);
+      const parts = dateStr.trim().split(".");
+      if (parts.length === 2) {
+        const month = parseInt(parts[0], 10) - 1;
+        const year = parseInt(parts[1], 10);
+        return new Date(year, month, 1);
+      }
+      if (/^\d{4}$/.test(dateStr.trim())) {
+        const year = parseInt(dateStr.trim(), 10);
+        return new Date(year, 0, 1);
+      }
+      return new Date(0);
+    };
+
+    return education
+      .map((edu, originalIndex) => ({ edu, originalIndex }))
+      .sort((a, b) => {
+        const dateA = parseEducationDate(a.edu.date.start);
+        const dateB = parseEducationDate(b.edu.date.start);
+        return dateB.getTime() - dateA.getTime();
+      });
+  }, [education]);
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8" id="education-and-hobbies-container">
       {/* Education column */}
@@ -76,7 +101,7 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
         </h2>
 
         <div className="space-y-4">
-          {education.map((edu, idx) => {
+          {sortedEducation.map(({ edu, originalIndex }, idx) => {
             const matchingEmpTechs = employment
               .filter((emp) => emp.company.trim() === edu.institution.trim())
               .flatMap((emp) => emp.technologies || []);
@@ -108,7 +133,7 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
                     </span>
                     {isAdmin && onEditEducation && (
                       <button
-                        onClick={() => onEditEducation(edu, idx)}
+                        onClick={() => onEditEducation(edu, originalIndex)}
                         className="p-1 text-slate-400 hover:text-indigo-600 hover:bg-slate-50 rounded-lg transition cursor-pointer"
                         title={translate("Edytuj", lang)}
                       >

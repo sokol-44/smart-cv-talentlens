@@ -1110,10 +1110,7 @@
         "en": "A modern, intelligent, and interactive professional competency showcase platform (Smart CV / TalentLens) featuring automated role-matching algorithms. The application was fully designed and implemented using the innovative 'Vibe Coding' methodology powered by state-of-the-art AI assistants and LLM models."
       },
       "technologies": [
-        "Vibe Coding",
-        "TypeScript",
-        "HTML",
-        "JSON"
+        "Vibe Coding"
       ],
       "versions": {},
       "designPatterns": [

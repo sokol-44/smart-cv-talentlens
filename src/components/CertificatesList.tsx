@@ -49,7 +49,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
   const [noteTextPl, setNoteTextPl] = useState("");
   const [noteTextEn, setNoteTextEn] = useState("");
   const [selectedYear, setSelectedYear] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<string>("default");
+  const [sortBy, setSortBy] = useState<string>("start_desc");
 
   const handleOpenNote = (id: string) => {
     setActiveNoteCertId(id);

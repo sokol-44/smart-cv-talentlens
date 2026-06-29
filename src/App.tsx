@@ -296,8 +296,7 @@ export default function App() {
           Array.isArray(parsed.skills) &&
           Array.isArray(parsed.certificates) &&
           Array.isArray(parsed.education) &&
-          Array.isArray(parsed.additionalSkillsAndHobbies) &&
-          parsed.techDictionaries
+          Array.isArray(parsed.additionalSkillsAndHobbies)
         ) {
           // Merge newly added person fields (like portfolio, email, tel, and descriptions)
           const mergedPerson = {
@@ -383,27 +382,23 @@ export default function App() {
             )
           ];
 
-          // Merge newly added skills
+          // Merge newly added skills with enrichment for old local storage schemas
           const mergedSkills = [
-            ...parsed.skills,
+            ...parsed.skills.map((ps: any) => {
+              const initialSkill = initialCVData.skills.find(
+                (s) => s.name.toLowerCase() === ps.name.toLowerCase()
+              );
+              return {
+                ...initialSkill,
+                ...ps,
+                skillType: ps.skillType || initialSkill?.skillType || "otherTools",
+                synonyms: ps.synonyms || initialSkill?.synonyms || []
+              };
+            }),
             ...initialCVData.skills.filter(
               (s) => !parsed.skills.some((parsedSkill: any) => parsedSkill.name.toLowerCase() === s.name.toLowerCase())
             )
           ];
-
-          // Merge newly added techDictionaries categories
-          const mergedTechDictionaries = { ...parsed.techDictionaries };
-          Object.keys(initialCVData.techDictionaries).forEach((cat) => {
-            const initialCatArray = initialCVData.techDictionaries[cat as keyof typeof initialCVData.techDictionaries] || [];
-            const parsedCatArray = parsed.techDictionaries[cat] || [];
-            
-            mergedTechDictionaries[cat] = [
-              ...parsedCatArray,
-              ...initialCatArray.filter(
-                (item: any) => !parsedCatArray.some((parsedItem: any) => parsedItem.name.toLowerCase() === item.name.toLowerCase())
-              )
-            ];
-          });
 
           const mergedParsed = {
             ...initialCVData,
@@ -414,7 +409,6 @@ export default function App() {
             certificates: mergedCertificates,
             employment: mergedEmployment,
             skills: mergedSkills,
-            techDictionaries: mergedTechDictionaries,
             additionalSkillsAndHobbies: initialCVData.additionalSkillsAndHobbies
           };
 
@@ -819,7 +813,6 @@ export default function App() {
           {activeTab === "dictionary" && (
             <section className="print:hidden animate-fade-in">
               <TechDictionary
-                dictionary={cvData.techDictionaries}
                 cvData={cvData}
                 lang={lang}
                 isAdmin={isAdmin}

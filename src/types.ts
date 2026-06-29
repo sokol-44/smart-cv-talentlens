@@ -174,7 +174,9 @@ export interface Project {
  */
 export interface Skill {
   name: string;
-  proficiencyLevel: string; // e.g. "zaawansowany", "średni", "podstawowy"
+  skillType: string; // e.g. "programmingLanguages"
+  proficiencyLevel?: string; // e.g. "zaawansowany", "średni", "podstawowy", "zasłyszany"
+  synonyms: string[];
 }
 
 /**
@@ -218,7 +220,6 @@ export interface CVData {
   projects: Project[];
   skills: Skill[];
   additionalSkillsAndHobbies: { pl: string; en: string }[];
-  techDictionaries: TechDictionaries;
   rolePresets?: RolePreset[];
   recruiterNotes?: Record<string, { pl: string; en: string }>;
 }

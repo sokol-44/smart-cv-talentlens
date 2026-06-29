@@ -17,7 +17,6 @@ import { translate } from "../utils/translations";
  * @interface TechDictionaryProps
  */
 interface TechDictionaryProps {
-  dictionary: TechDictionaries;
   cvData: CVData;
   onTagClick?: (tag: string) => void;
   lang: "pl" | "en";
@@ -34,7 +33,6 @@ interface TechDictionaryProps {
  * @returns {JSX.Element} The rendered TechDictionary component.
  */
 export const TechDictionary: React.FC<TechDictionaryProps> = ({
-  dictionary,
   cvData,
   onTagClick,
   lang,
@@ -44,6 +42,32 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
+
+  // Build the dictionary computed from the flat skills array dynamically
+  const dictionary = useMemo<TechDictionaries>(() => {
+    const categories: TechDictionaries = {
+      programmingLanguages: [],
+      frameworksAndLibraries: [],
+      databasesAndStorage: [],
+      cloudToolsAndPlatforms: [],
+      operatingSystemsAndAdmin: [],
+      apiProtocolsAndIntegrations: [],
+      networkAndServerServices: [],
+      otherTools: [],
+    };
+
+    cvData.skills.forEach((skill) => {
+      const cat = (skill.skillType || "otherTools") as keyof TechDictionaries;
+      if (categories[cat]) {
+        categories[cat].push({
+          name: skill.name,
+          synonyms: skill.synonyms || [],
+        });
+      }
+    });
+
+    return categories;
+  }, [cvData.skills]);
 
   // States for Technology Editor
   const [editingTag, setEditingTag] = useState<TechDictionaryElement | null>(null);
@@ -61,12 +85,17 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
     const existingSkill = cvData.skills.find(s => s.name.toLowerCase() === tagObj.name.toLowerCase());
     if (existingSkill) {
       const level = existingSkill.proficiencyLevel;
-      if (["zaawansowany", "średni", "podstawowy", "zasłyszany"].includes(level)) {
-        setEditLevel(level);
-        setEditCustomLevel("");
+      if (level) {
+        if (["zaawansowany", "średni", "podstawowy", "zasłyszany"].includes(level)) {
+          setEditLevel(level);
+          setEditCustomLevel("");
+        } else {
+          setEditLevel("custom");
+          setEditCustomLevel(level);
+        }
       } else {
-        setEditLevel("custom");
-        setEditCustomLevel(level);
+        setEditLevel("brak");
+        setEditCustomLevel("");
       }
     } else {
       setEditLevel("brak");
@@ -86,34 +115,32 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
       .map(s => s.trim())
       .filter(s => s.length > 0);
 
-    // 1. Update synonyms inside the techDictionaries under the given category
-    const categoryList = updatedCvData.techDictionaries[editingCategory];
-    if (categoryList) {
-      const targetItem = categoryList.find(t => t.name.toLowerCase() === editingTag.name.toLowerCase());
-      if (targetItem) {
-        targetItem.synonyms = newSynonyms;
-      }
-    }
-
-    // 2. Update level in skills
     const targetLevel = editLevel === "custom" ? editCustomLevel.trim() : editLevel;
     const existingSkillIndex = updatedCvData.skills.findIndex(
       s => s.name.toLowerCase() === editingTag.name.toLowerCase()
     );
 
-    if (targetLevel === "brak" || targetLevel === "") {
-      if (existingSkillIndex !== -1) {
-        updatedCvData.skills.splice(existingSkillIndex, 1);
+    if (existingSkillIndex !== -1) {
+      updatedCvData.skills[existingSkillIndex] = {
+        ...updatedCvData.skills[existingSkillIndex],
+        synonyms: newSynonyms,
+        skillType: editingCategory,
+      };
+      if (targetLevel === "brak" || targetLevel === "") {
+        delete updatedCvData.skills[existingSkillIndex].proficiencyLevel;
+      } else {
+        updatedCvData.skills[existingSkillIndex].proficiencyLevel = targetLevel;
       }
     } else {
-      if (existingSkillIndex !== -1) {
-        updatedCvData.skills[existingSkillIndex].proficiencyLevel = targetLevel;
-      } else {
-        updatedCvData.skills.push({
-          name: editingTag.name,
-          proficiencyLevel: targetLevel
-        });
+      const newSkill: any = {
+        name: editingTag.name,
+        skillType: editingCategory,
+        synonyms: newSynonyms,
+      };
+      if (targetLevel !== "brak" && targetLevel !== "") {
+        newSkill.proficiencyLevel = targetLevel;
       }
+      updatedCvData.skills.push(newSkill);
     }
 
     onUpdateCvData(updatedCvData);
@@ -208,10 +235,10 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
   const getSkillRatingInfo = (tag: string) => {
     const lower = tag.toLowerCase();
     const rating = cvData.skills.find((s) => s.name.toLowerCase() === lower);
-    if (!rating) {
+    if (!rating || !rating.proficiencyLevel) {
       return {
         level: null,
-        icon: <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />,
+        icon: <CheckCircle2 className="w-3.5 h-3.5 text-slate-400" />,
         color: "text-slate-500",
       };
     }
@@ -523,7 +550,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                 <span className="px-3 py-1 bg-indigo-600 text-white rounded-lg text-sm font-bold shadow-sm">
                   {selectedTag}
                 </span>
-                {tagConnections.skillRating && (
+                {tagConnections.skillRating && tagConnections.skillRating.proficiencyLevel && (
                   <div className="flex items-center gap-1.5 text-xs text-indigo-700 font-medium">
                     <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                     <span>{translate("Deklarowany poziom:", lang)}</span>

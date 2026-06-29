@@ -347,7 +347,9 @@ export const Header: React.FC<HeaderProps> = ({
                   {skills.map((s, idx) => (
                     <li key={idx}>
                       <span className="font-medium text-white">{s.name}</span>
-                      <span className="text-slate-400 text-[9px]"> ({translate(s.proficiencyLevel, lang)})</span>
+                      {s.proficiencyLevel && (
+                        <span className="text-slate-400 text-[9px]"> ({translate(s.proficiencyLevel, lang)})</span>
+                      )}
                     </li>
                   ))}
                 </ul>
