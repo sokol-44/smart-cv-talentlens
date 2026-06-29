@@ -22,7 +22,7 @@
     },
     "portfolio": "https://msokolow.waw.pl/",
     "github": "https://github.com/sokol-44/",
-    "linkedin": "https://www.linkedin.com/in/micha%C5%82-soko%C5%82owski-0033516/",
+    "linkedin": "https://WWW.linkedin.com/in/micha%C5%82-soko%C5%82owski-0033516/",
     "email": "",
     "tel": "",
     "passions": {
@@ -359,8 +359,8 @@
       },
       "duties": {
         "pl": [
-          "Modernizacja aplikacji www do automatyki domowej opartej na AngularJS obsługującej komputery stacjonarne/urządzenia mobilne.",
-          "Tworzenie uniwersalnej aplikacji mobilnej (Android/iOS) opartej na frameworku Ionic Framework i Angular."
+          "Modernizacja aplikacji WWW do automatyki domowej opartej na AngularJS obsługującej komputery stacjonarne/urządzenia mobilne.",
+          "Stworzenie od zera uniwersalnej aplikacji mobilnej (Android/iOS) opartej na frameworku Ionic Framework i Angular."
         ],
         "en": [
           "Modernization of AngularJS-based home automation web application serving desktop and mobile devices",
@@ -404,7 +404,7 @@
           "zarządzanie zespołem projektowym",
           "dyrektor działu rozwoju",
           "programista PHP (czysty PHP, Zend Framework 1, Symfony)",
-          "tworzenie stron www (JavaScript/HTML/CSS)",
+          "tworzenie stron WWW (JavaScript/HTML/CSS)",
           "administrator systemów Linux (Ubuntu, Debian, Red Hat/CentOs, PLD Linux Distribution)",
           "koordynator tworzenia kopii zapasowych",
           "programista skryptów shell (bash)",
@@ -488,7 +488,7 @@
       },
       "company": "2MNET Sp. z o.o.",
       "position": {
-        "pl": "Tworzenie stron www, Administrator systemów Linux",
+        "pl": "Tworzenie stron WWW, Administrator systemów Linux",
         "en": "Web Development, Linux System Administrator"
       },
       "description": {
@@ -498,7 +498,7 @@
       "duties": {
         "pl": [
           "Administracja serwerami Linux (Ubuntu, Red Hat/CentOs)",
-          "Tworzenie stron www (PHP/JS/HTML/CSS)",
+          "Tworzenie stron WWW (PHP/JS/HTML/CSS)",
           "JavaScript"
         ],
         "en": [
@@ -750,7 +750,7 @@
     {
       "id": "proj-3",
       "name": "RoofMaster",
-      "url": "https://www.dachholding.com/roofmaster",
+      "url": "https://WWW.dachholding.com/roofmaster",
       "company": [
         "ZenSystem Home Automation"
       ],
@@ -1001,7 +1001,7 @@
       "notableFeatures": {
         "pl": [
           "Lekka i skuteczna architektura umożliwiająca wysoką wydajność, mimo ograniczeń serwerów w momencie powstania.",
-          "System szablonów zarówno do strony www, jak i wiadomości email.",
+          "System szablonów zarówno do strony WWW, jak i wiadomości email.",
           "System szablonów opierających się na komponencie (głównej funkcji strony) i modułach (elementach pomocniczych).",
           "Intuicyjna implementacja wzorców projektowych, poprzez samodzielne ich opracowanie.",
           "Główny wizualny projekt strony oparty na jQuery, jQueryUI i YAML 3.3 CSS Framework."
@@ -1133,6 +1133,108 @@
     },
     {
       "id": "proj-12",
+      "name": "HBZ (administracja serwerami)",
+      "company": [
+        "HBZ Sp. z o.o.",
+        "Freelancer"
+      ],
+      "date": {
+        "start": "09.2015",
+        "end": "06.2026"
+      },
+      "description": {
+        "pl": "Przejęcie administracji nad niejednorodnym systemem hostingowym, przeniesienie z infrastruktury uruchomionej na fizycznych serwerach na wirtualizacje Hyper-V. Migracja części serwisów na nowe wersje oprogramowania.",
+        "en": "Taking over administration of a heterogeneous hosting system; migrating from an infrastructure running on physical servers to Hyper-V virtualization; migrating some services to new software versions."
+      },
+      "technologies": [
+        "administrator systemów Linux",
+        "DNS",
+        "DKIM",
+        "Posfix",
+        "DMARC",
+        "SPF",
+        "SSH",
+        "SSL",
+        "Samba",
+        "NFS",
+        "FTP",
+        "HTTP",
+        "PLD Linux Distribution",
+        "Debian",
+        "Ubuntu",
+        "Hyper-V",
+        "VServer",
+        "Shell",
+        "ISPConfig",
+        "GitLab",
+        "Borg Backup"
+      ],
+      "notableFeatures": {
+        "pl": [
+          "Opieka nad systemem hostem hostingowym obsługujących DNSy, pocztę i strony WWW klientów firmy.",
+          "Opieka nad stronami: Ewa Bem, Detektyw Rutkowski Solidarity of Arts, Ambasada Irlandi, OSIR Żoliborz, Związek Firm Public Relations",
+          "Opieka nad stronami Grupa ALAB: Weterynaria, ALABGen, ALAB (sprzęt i odczynniki diagnostyczne), Intranet, New Pathology, Raporty (dla handlowców)",
+          "Opieka nad pierwszą i drugą generacją hostingu strony firmy ALAB Laboratoria oraz pierwszą poczty elektronicznej.",
+          "Instalacja, konfiguracja i opieka nad serwerem GitLab dla firmy.",
+          "Instalacja i konfiguracja nowych maszyn wirtualnych obsługiwanych przez ISPConfig dla potrzeb nowych klientów.",
+          "Zapewnienie backupów, modyfikacji i aktualizacji przy wymaganej ciągłości pracy."
+        ],
+        "en": [
+          "Maintenance of the hosting system that supports DNS, email, and the company's clients' websites.",
+          "Website maintenance: Ewa Bem, Detective Rutkowski, Solidarity of Arts, Irish Embassy, OSIR Żoliborz, Association of Public Relations Firms (Poland)",
+          "Maintaining the ALAB Group websites: Veterinary Services, ALABGen, ALAb (equipment and diagnostic reagents), Intranet, New Pathology, Reports (for sales representatives),",
+          "Maintaining the first- and second-generation hosting for the ALAB Laboratoria website and the first-generation email system.",
+          "Installation, configuration, and maintenance of a GitLab server for a company.",
+          "Installation and configuration of new virtual machines supported by ISPConfig for new customers.",
+          "Providing backups, modifications, and updates while ensuring required business continuity."
+        ]
+      }
+    },
+    {
+      "id": "proj-13",
+      "name": "ALAB Laboratoria (migracja serwerów)",
+      "company": [
+        "HBZ Sp. z o.o."
+      ],
+      "date": {
+        "start": "02.2020",
+        "end": "04.2020"
+      },
+      "description": {
+        "pl": "Migracja serwerów stron WWW należących do ALAB Laboratoria na serwery wirtualne przygotowane przez IT firmy. Zapewnienie minimalnych przerw w działaniu. Zbudowanie analogicznej infrastruktury bezpieczeństwa i backupów.",
+        "en": "Migration of ALAB Laboratoria’s web servers to virtual servers set up by the company’s IT department. Ensuring minimal downtime. Building an equivalent security and backup infrastructure."
+      },
+      "technologies": [
+        "administrator systemów Linux",
+        "SSH",
+        "SSL",
+        "NFS",
+        "FTP",
+        "HTTP",
+        "Shell",
+        "Ubuntu",
+        "ISPConfig",
+        "Borg Backup"
+      ],
+      "notableFeatures": {
+        "pl": [
+          "Przygotowanie pięciu środowisk serwerowych: produkcja WWW, produkcja SQL, backup, testing, staging.",
+          "Wykonanie codziennego aplikacyjnego backupu stron WWW, baz SQL oraz logów dostępu opartego na Borg Backup.",
+          "Backup zgodny z filozofią: narzędzie kopii bezpieczeństwa odwołuje się do maszyn produkcyjnych, maszyny produkcyjne nie łączą się nigdy z maszyną kopii.",
+          "Wybrany Borg Backup jako narzędzie umożliwiające wykonanie dużej ilości kopii zapasowych z szybkim dostępem do migawek (dzięki deduplikacji i kompresji)",
+          "Utworzenie skryptów do backup, szybkiego odzyskiwania danych i przywracaniu pracy stron."
+        ],
+        "en": [
+          "Set up five server environments: web production, SQL production, backup, testing, and staging.",
+          "Performing daily application backups of web pages, SQL databases, and access logs using Borg Backup.",
+          "Backup in line with the philosophy: the backup tool accesses production servers, and production servers never connect to the backup server.",
+          "Borg Backup was selected as the tool enabling the creation of a large number of backups with fast access to snapshots (thanks to deduplication and compression).",
+          "Creating scripts for backup, rapid data recovery, and restoring website operations."
+        ]
+      }
+    },
+    {
+      "id": "proj-14",
       "name": "Smart CV / TalentLens",
       "url": "https://github.com/sokol-44/smart-cv-talentlens",
       "company": [
@@ -1172,6 +1274,40 @@
           "Creating an advanced weighted algorithm matching professional keywords and synonyms with recruiter job profiles (TalentLens).",
           "Implementing a client-side data storage layer enabling persistent edits, bookmarked elements, and custom recruiter notes.",
           "Full application bilingualism (Polish and English) with comprehensive dynamic localization."
+        ]
+      }
+    },
+    {
+      "id": "proj-15",
+      "name": "2MNET Sp. z o.o. (administracja serwerami)",
+      "company": [
+        "2MNET Sp. z o.o."
+      ],
+      "date": {
+        "start": "07.2007",
+        "end": "08.2015"
+      },
+      "description": {
+        "pl": "Przejęcie administracji nas serwerami klientów, administracja DNS, WWW i poczty klientów przez panele hostingowe. Głównie obsługa Linux ale okazyjna obsługa Windows Server.",
+        "en": "Taking over the administration of clients' servers, as well as the administration of clients' DNS, web, and email services via hosting control panels. Primarily Linux support, but occasional Windows Server support."
+      },
+      "technologies": [
+        "administrator systemów Linux",
+        "DNS",
+        "SSH",
+        "FTP",
+        "HTTP",
+        "Hyper-V",
+        "Shell"
+      ],
+      "notableFeatures": {
+        "pl": [
+          "Opieka nad różnorodnymi wersjami systemów uruchomionych u klientów.",
+          "Sprawowanie opieki i pomocy w zakresie ustawień DNS, poczty, FTP i innych."
+        ],
+        "en": [
+          "Maintaining various versions of systems deployed at customer sites.",
+          "Providing support and assistance with DNS, email, FTP, and other settings."
         ]
       }
     }
@@ -1563,6 +1699,26 @@
       ]
     },
     {
+      "name": "ISPConfig",
+      "skillType": "cloudToolsAndPlatforms",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "Hosting Control Panel Software",
+        "Hosting",
+        "ISP",
+        "Internet service provider"
+      ]
+    },
+    {
+      "name": "VServer",
+      "skillType": "cloudToolsAndPlatforms",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "Linux-VServer",
+        "Secure Sockets Layer"
+      ]
+    },
+    {
       "name": "VirtualBox",
       "skillType": "cloudToolsAndPlatforms",
       "proficiencyLevel": "średni",
@@ -1590,6 +1746,12 @@
       ]
     },
     {
+      "name": "Windows Server",
+      "skillType": "cloudToolsAndPlatforms",
+      "proficiencyLevel": "podstawowy",
+      "synonyms": []
+    },
+    {
       "name": "QEMU",
       "skillType": "cloudToolsAndPlatforms",
       "proficiencyLevel": "średni",
@@ -1615,15 +1777,6 @@
       "synonyms": [
         "Ubuntu Linux",
         "Canonical Ubuntu"
-      ]
-    },
-    {
-      "name": "Red Hat Linux",
-      "skillType": "operatingSystemsAndAdmin",
-      "proficiencyLevel": "zaawansowany",
-      "synonyms": [
-        "RHEL",
-        "Red Hat Enterprise Linux"
       ]
     },
     {
@@ -1684,7 +1837,9 @@
       "skillType": "operatingSystemsAndAdmin",
       "proficiencyLevel": "zaawansowany",
       "synonyms": [
-        "RedHatLinux"
+        "RedHatLinux",
+        "RHEL",
+        "Red Hat Enterprise Linux"
       ]
     },
     {
@@ -1811,8 +1966,18 @@
       ]
     },
     {
+      "name": "Postfix",
+      "skillType": "networkAndServerServices",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "Apache HTTP Server",
+        "httpd"
+      ]
+    },
+    {
       "name": "apache2",
       "skillType": "networkAndServerServices",
+      "proficiencyLevel": "średni",
       "synonyms": [
         "Apache HTTP Server",
         "httpd"
@@ -1821,22 +1986,16 @@
     {
       "name": "nginx",
       "skillType": "networkAndServerServices",
+      "proficiencyLevel": "podstawowy",
       "synonyms": [
         "Engine-X",
         "NGINX Web Server"
       ]
     },
     {
-      "name": "postfix",
-      "skillType": "networkAndServerServices",
-      "synonyms": [
-        "Postfix MTA",
-        "Mail Transfer Agent"
-      ]
-    },
-    {
       "name": "dovecot",
       "skillType": "networkAndServerServices",
+      "proficiencyLevel": "podstawowy",
       "synonyms": [
         "Dovecot IMAP/POP3"
       ]
@@ -1844,6 +2003,7 @@
     {
       "name": "powerdns",
       "skillType": "networkAndServerServices",
+      "proficiencyLevel": "podstawowy",
       "synonyms": [
         "PDNS",
         "PowerDNS Server"
@@ -1885,6 +2045,7 @@
     {
       "name": "NAT",
       "skillType": "networkAndServerServices",
+      "proficiencyLevel": "podstawowy",
       "synonyms": [
         "Network Address Translation"
       ]
@@ -1892,16 +2053,9 @@
     {
       "name": "VPN",
       "skillType": "networkAndServerServices",
+      "proficiencyLevel": "podstawowy",
       "synonyms": [
         "Virtual Private Network"
-      ]
-    },
-    {
-      "name": "SSL",
-      "skillType": "networkAndServerServices",
-      "synonyms": [
-        "TLS",
-        "Secure Sockets Layer"
       ]
     },
     {
@@ -1936,6 +2090,51 @@
         "Secure Shell",
         "OpenSSH",
         "SSH Key"
+      ]
+    },
+    {
+      "name": "FTP",
+      "skillType": "networkAndServerServices",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "File Transfer Protocol"
+      ]
+    },
+    {
+      "name": "HTTP",
+      "skillType": "networkAndServerServices",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "Hypertext Transfer Protocol"
+      ]
+    },
+    {
+      "name": "Samba",
+      "skillType": "networkAndServerServices",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "Server Message Block)",
+        "SMB",
+        "Common Internet File System",
+        "CIFS"
+      ]
+    },
+    {
+      "name": "NFS",
+      "skillType": "networkAndServerServices",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "Network File System"
+      ]
+    },
+    {
+      "name": "SSL",
+      "skillType": "networkAndServerServices",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "Secure Sockets Layer",
+        "TLS",
+        "Transport Layer Security"
       ]
     },
     {
@@ -1976,7 +2175,7 @@
     {
       "name": "scss",
       "skillType": "otherTools",
-      "proficiencyLevel": "średni",
+      "proficiencyLevel": "podstawowy",
       "synonyms": [
         "Sassy CSS",
         "SASS"
@@ -1994,6 +2193,7 @@
     {
       "name": "Raspberry Pi",
       "skillType": "otherTools",
+      "proficiencyLevel": "podstawowy",
       "synonyms": [
         "RPi",
         "RaspberryPi"
@@ -2004,14 +2204,6 @@
       "skillType": "otherTools",
       "proficiencyLevel": "podstawowy",
       "synonyms": []
-    },
-    {
-      "name": "AI Prompt",
-      "skillType": "otherTools",
-      "proficiencyLevel": "średni",
-      "synonyms": [
-        "AIPrompt"
-      ]
     },
     {
       "name": "SelfHosting",
@@ -2085,6 +2277,17 @@
         "Mobile Application",
         "Aplikacje mobilne",
         "Hybrid App"
+      ]
+    },
+    {
+      "name": "AI",
+      "skillType": "otherTools",
+      "proficiencyLevel": "średni",
+      "synonyms": [
+        "AIPrompt",
+        "prompt",
+        "LLM",
+        "Large language models"
       ]
     },
     {
@@ -2229,7 +2432,7 @@
         "Python",
         "deterministryczne użycie LLM",
         "nauczanie maszynowe",
-        "AI Prompt"
+        "AI"
       ],
       "description": "Nowoczesna rola skupiona na integracji dużych modeli językowych (LLM) z systemami firmowymi, budowie baz RAG w oparciu o Python/Docker/Ollama oraz automatyzacji procesów biznesowych.",
       "description_en": "Modern role focused on integrating large language models (LLMs) with business applications, building RAG vector stores with Python/Docker/Ollama, and automating workflows."
