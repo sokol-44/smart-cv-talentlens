@@ -3,8 +3,8 @@
     "firstName": "Michał",
     "lastName": "Sokołowski",
     "title": {
-      "pl": "Inżynier oprogramowania z ponad 20-letnim doświadczeniem w tworzeniu systemów na dużą skalę, administracji Linux, DevOps oraz strategiach backupowych.",
-      "en": "Software engineer with over 20 years of experience in developing large-scale systems, Linux administration, DevOps, and backup strategies."
+      "pl": "Inżynier oprogramowania i Full-Stack Developer z ponad 20-letnim doświadczeniem w ekosystemie PHP/JS, specjalizujący się w optymalizacji SQL, architekturze systemów e-commerce oraz bezpiecznej migracji i utrzymaniu systemów legacy. Rozwijający umiejętności wdrażania rozwiązań AI, modeli LLM oraz metodologii Vibe Coding.",
+      "en": "A software engineer and full-stack developer with over 20 years of experience in the PHP/JS ecosystem, specializing in SQL optimization, e-commerce system architecture, and the secure migration and maintenance of legacy systems. Currently developing skills in implementing AI solutions, LLM models, and the Vibe Coding methodology."
     },
     "description": {
       "pl": [
