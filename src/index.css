@@ -2,7 +2,7 @@
 
 /* Custom scrollbar styling to increase visibility of the scrollbar in side-scrollers and lists */
 .custom-scrollbar::-webkit-scrollbar {
-  height: 8px;
+  height: 11px;
   width: 8px;
 }
 .custom-scrollbar::-webkit-scrollbar-track {

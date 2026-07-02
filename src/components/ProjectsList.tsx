@@ -184,7 +184,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
             <FolderGit2 className="w-6 h-6 text-emerald-600" />
             {translate("Główne Projekty", lang)}
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             {translate("Filtruj i przeszukuj systemy, które Michał rozwijał i projektował.", lang)}
           </p>
         </div>
@@ -199,7 +199,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={translate("Szukaj w projektach...", lang)}
-              className="w-full pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
@@ -207,7 +207,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
           <select
             value={selectedTech}
             onChange={(e) => setSelectedTech(e.target.value)}
-            className="px-3 py-1.5 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             <option value="all">{translate("Wszystkie technologie", lang)}</option>
             {allProjectTechs.map((tech) => (
@@ -221,7 +221,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 py-1.5 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-700 font-medium"
+            className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-700 font-medium"
           >
             <option value="default">{translate("Sortuj według", lang)}: {translate("Domyślnie", lang)}</option>
             <option value="start_asc">{translate("Data startu (rosnąco)", lang)}</option>
@@ -326,7 +326,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
 
                 {/* Recruiter Note showing */}
                 {isAdmin && hasNote && activeNoteProjId !== p.id && (
-                  <div className="mb-4 p-2.5 bg-emerald-50/50 border border-emerald-100/60 rounded-xl text-xs text-slate-700">
+                  <div className="mb-4 p-2.5 bg-emerald-50/50 border border-emerald-100/60 rounded-xl text-sm text-slate-700">
                     <span className="font-bold text-emerald-700 font-mono text-[10px] uppercase block mb-0.5">{translate("NOTATKA:", lang)}</span>
                     <p className="italic leading-relaxed">{notes[p.id]?.[lang] || notes[p.id]?.pl || notes[p.id]?.en}</p>
                     <button
@@ -342,39 +342,39 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
                 {isAdmin && activeNoteProjId === p.id && (
                   <div className="mb-4 p-3 bg-emerald-50 border border-emerald-200 rounded-xl space-y-3">
                     <div>
-                      <label className="block text-xs font-bold text-emerald-800 uppercase mb-1">
+                      <label className="block text-sm font-bold text-emerald-800 uppercase mb-1">
                         {translate("Notatki dla rekrutera", lang)} (PL)
                       </label>
                       <textarea
                         value={noteTextPl}
                         onChange={(e) => setNoteTextPl(e.target.value)}
                         placeholder="Wpisz polską notatkę..."
-                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         rows={1}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-bold text-emerald-800 uppercase mb-1">
+                      <label className="block text-sm font-bold text-emerald-800 uppercase mb-1">
                         {translate("Notatki dla rekrutera", lang)} (EN)
                       </label>
                       <textarea
                         value={noteTextEn}
                         onChange={(e) => setNoteTextEn(e.target.value)}
                         placeholder="Wpisz angielską notatkę..."
-                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         rows={1}
                       />
                     </div>
                     <div className="flex justify-end gap-2 pt-1">
                       <button
                         onClick={() => setActiveNoteProjId(null)}
-                        className="px-2 py-0.5 text-xs text-slate-500 hover:underline cursor-pointer"
+                        className="px-2 py-0.5 text-sm text-slate-500 hover:underline cursor-pointer"
                       >
                         {translate("Anuluj", lang)}
                       </button>
                       <button
                         onClick={() => handleSaveNote(p.id)}
-                        className="flex items-center gap-1 px-2.5 py-0.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer"
+                        className="flex items-center gap-1 px-2.5 py-0.5 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700 transition cursor-pointer"
                       >
                         <Save className="w-3.5 h-3.5" />
                         <span>{translate("Zapisz", lang)}</span>
@@ -389,7 +389,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
                     <AlignLeft className="w-3.5 h-3.5 text-slate-400" />
                     {translate("Opis", lang)}
                   </h4>
-                  <div className="text-xs text-slate-600 leading-relaxed bg-slate-50/40 p-2.5 rounded-xl border border-slate-100/50">
+                  <div className="text-sm text-slate-600 leading-relaxed bg-slate-50/40 p-2.5 rounded-xl border border-slate-100/50">
                     <SupplementaryText text={p.description ? (p.description[lang] || p.description.pl || p.description.en || "") : ""} />
                   </div>
                 </div>
@@ -479,7 +479,7 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
                   </div>
 
                   {/* Versions & Patterns inside footer */}
-                  <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-100/60 mt-3 text-xs">
+                  <div className="flex flex-wrap gap-4 pt-4 border-t border-slate-100/60 mt-3 text-sm">
                     {/* Versions (versions) */}
                     {p.versions && Object.keys(p.versions).length > 0 && (
                       <div className="w-full sm:w-auto min-w-[150px] mt-2">
@@ -539,14 +539,14 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
               </button>
             </div>
 
-            <p className="text-xs text-slate-400 mb-2 font-mono uppercase tracking-wider">
+            <p className="text-sm text-slate-400 mb-2 font-mono uppercase tracking-wider">
               {translate("Dla elementu:", lang)}
             </p>
-            <blockquote className="bg-slate-50 p-2.5 rounded-lg text-xs text-slate-600 border-l-4 border-indigo-400 italic mb-4 leading-relaxed">
+            <blockquote className="bg-slate-50 p-2.5 rounded-lg text-sm text-slate-600 border-l-4 border-indigo-400 italic mb-4 leading-relaxed">
               {editingTooltip.label}
             </blockquote>
 
-            <label className="block text-xs font-bold text-slate-700 uppercase mb-1.5">
+            <label className="block text-sm font-bold text-slate-700 uppercase mb-1.5">
               {translate("Treść komentarza (krótka):", lang)}
             </label>
             <input
@@ -561,13 +561,13 @@ export const ProjectsList: React.FC<ProjectsListProps> = ({
             <div className="flex justify-end gap-2.5">
               <button
                 onClick={() => setEditingTooltip(null)}
-                className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:underline cursor-pointer"
+                className="px-3 py-1.5 text-sm font-medium text-slate-500 hover:underline cursor-pointer"
               >
                 {translate("Anuluj", lang)}
               </button>
               <button
                 onClick={handleSaveTooltipClick}
-                className="flex items-center gap-1.5 px-4 py-1.5 bg-indigo-600 text-white rounded-xl text-xs font-semibold hover:bg-indigo-700 transition cursor-pointer shadow-sm"
+                className="flex items-center gap-1.5 px-4 py-1.5 bg-indigo-600 text-white rounded-xl text-sm font-semibold hover:bg-indigo-700 transition cursor-pointer shadow-sm"
               >
                 <Save className="w-3.5 h-3.5" />
                 <span>{translate("Zapisz", lang)}</span>

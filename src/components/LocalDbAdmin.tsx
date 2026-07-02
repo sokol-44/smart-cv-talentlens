@@ -128,7 +128,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
         <div className="flex flex-wrap gap-2 shrink-0">
           <button
             onClick={onBackToEdit}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl border border-slate-700 transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold rounded-xl border border-slate-700 transition cursor-pointer"
             id="back-to-edit-btn"
           >
             <ArrowLeft className="w-3.5 h-3.5 text-blue-400" />
@@ -143,7 +143,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
           />
           <button
             onClick={triggerFileInput}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl border border-slate-700 transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-semibold rounded-xl border border-slate-700 transition cursor-pointer"
             id="import-db-btn"
           >
             <Upload className="w-3.5 h-3.5" />
@@ -151,7 +151,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
           </button>
           <button
             onClick={handleExportJson}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold rounded-xl transition cursor-pointer"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl transition cursor-pointer"
             id="export-db-btn"
           >
             <Download className="w-3.5 h-3.5" />
@@ -181,7 +181,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
       {/* Schema / stats summary */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-mono">{lang === "pl" ? "Status Bazy" : "DB Status"}</div>
+          <div className="text-sm text-slate-500 uppercase font-mono">{lang === "pl" ? "Status Bazy" : "DB Status"}</div>
           <div className="text-sm font-bold text-slate-200 mt-1 flex items-center gap-2">
             <span className={`w-2.5 h-2.5 rounded-full ${isDbModified ? "bg-amber-400 animate-pulse" : "bg-emerald-400"}`} />
             {isDbModified
@@ -191,23 +191,23 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
         </div>
 
         <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-mono">{lang === "pl" ? "Kodowanie Dat" : "Date Format"}</div>
+          <div className="text-sm text-slate-500 uppercase font-mono">{lang === "pl" ? "Kodowanie Dat" : "Date Format"}</div>
           <div className="text-sm font-bold text-slate-300 mt-1">{lang === "pl" ? "Format MM.YYYY" : "MM.YYYY format"}</div>
         </div>
 
         <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-mono">{lang === "pl" ? "Polityka Bezpieczeństwa" : "Security Policy"}</div>
+          <div className="text-sm text-slate-500 uppercase font-mono">{lang === "pl" ? "Polityka Bezpieczeństwa" : "Security Policy"}</div>
           <div className="text-sm font-bold text-slate-300 mt-1">{lang === "pl" ? "100% Offline (Brak chmury)" : "100% Offline (No Cloud)"}</div>
         </div>
 
         <div className="bg-slate-950/40 p-4 rounded-xl border border-slate-800">
-          <div className="text-xs text-slate-500 uppercase font-mono">{lang === "pl" ? "Metoda zapisu" : "Storage Method"}</div>
+          <div className="text-sm text-slate-500 uppercase font-mono">{lang === "pl" ? "Metoda zapisu" : "Storage Method"}</div>
           <div className="text-sm font-bold text-slate-300 mt-1">{lang === "pl" ? "Klucze relacyjne (UUID-like)" : "Relational keys (UUID-like)"}</div>
         </div>
       </div>
 
       {/* Table selector Tabs */}
-      <div className="flex border-b border-slate-800 mb-6 font-mono text-xs">
+      <div className="flex border-b border-slate-800 mb-6 font-mono text-sm">
         <button
           onClick={() => setActiveTable("employment")}
           className={`px-4 py-2.5 font-semibold border-b-2 transition cursor-pointer ${
@@ -252,7 +252,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
 
       {/* Raw Table Preview */}
       <div className="bg-slate-950/80 rounded-2xl border border-slate-800 overflow-hidden animate-fade-in">
-        <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between text-xs font-mono text-slate-400">
+        <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between text-sm font-mono text-slate-400">
           <div className="flex items-center gap-1.5">
             <Eye className="w-3.5 h-3.5" />
             <span>{translate("Podgląd tabeli: ", lang)} {activeTable}</span>
@@ -260,7 +260,7 @@ export const LocalDbAdmin: React.FC<LocalDbAdminProps> = ({
           <span>{lang === "pl" ? "Format: JSON Relacyjny" : "Format: Relational JSON"}</span>
         </div>
 
-        <div className="max-h-96 overflow-y-auto p-4 font-mono text-xs text-indigo-300">
+        <div className="max-h-96 overflow-y-auto p-4 font-mono text-sm text-indigo-300">
           {activeTable === "employment" && (
             <pre className="whitespace-pre-wrap leading-relaxed">{JSON.stringify(cvData.employment, null, 2)}</pre>
           )}

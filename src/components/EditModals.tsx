@@ -311,7 +311,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
           {jobToEdit && (
             <form onSubmit={handleSaveJob} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Firma / Pracodawca" : "Company / Employer"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Firma / Pracodawca" : "Company / Employer"}</label>
                 <input
                   type="text"
                   value={jobFirma}
@@ -322,7 +322,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Stanowisko (rozdzielaj przecinkami)" : "Position (separate with commas)"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Stanowisko (rozdzielaj przecinkami)" : "Position (separate with commas)"}</label>
                 <input
                   type="text"
                   value={jobStanowisko}
@@ -334,7 +334,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {lang === "pl" ? "Rozpoczęcie (MM.YYYY)" : "Start date (MM.YYYY)"}
                   </label>
@@ -348,7 +348,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {lang === "pl" ? "Zakończenie (MM.YYYY / obecnie)" : "End date (MM.YYYY / currently)"}
                   </label>
@@ -363,7 +363,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                   <Tag className="w-3.5 h-3.5" />
                   {lang === "pl" ? "Technologie (rozdzielaj przecinkami)" : "Technologies (separate with commas)"}
                 </label>
@@ -371,12 +371,12 @@ export const EditModals: React.FC<EditModalsProps> = ({
                   type="text"
                   value={jobTechs}
                   onChange={(e) => setJobTechs(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">
                   {lang === "pl" ? "Opis stanowiska (PL)" : "Role description (PL)"}
                 </label>
                 <textarea
@@ -389,7 +389,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">
                   {lang === "pl" ? "Opis stanowiska (EN)" : "Role description (EN)"}
                 </label>
                 <textarea
@@ -402,26 +402,26 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">
                   {lang === "pl" ? "Obowiązki (PL, każdy w nowej linii)" : "Duties (PL, each in a new line)"}
                 </label>
                 <textarea
                   value={jobObowiazkiPl}
                   onChange={(e) => setJobObowiazkiPl(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"
                   rows={3}
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">
                   {lang === "pl" ? "Obowiązki (EN, każdy w nowej linii)" : "Duties (EN, each in a new line)"}
                 </label>
                 <textarea
                   value={jobObowiazkiEn}
                   onChange={(e) => setJobObowiazkiEn(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono text-sm"
                   rows={3}
                   required
                 />
@@ -450,7 +450,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
           {projectToEdit && (
             <form onSubmit={handleSaveProject} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Nazwa Projektu" : "Project Name"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Nazwa Projektu" : "Project Name"}</label>
                 <input
                   type="text"
                   value={projNazwa}
@@ -461,7 +461,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Firmy / Freelancerzy (przecinek)" : "Companies / Freelancers (comma)"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Firmy / Freelancerzy (przecinek)" : "Companies / Freelancers (comma)"}</label>
                 <input
                   type="text"
                   value={projFirma}
@@ -473,7 +473,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {lang === "pl" ? "Rozpoczęcie (MM.YYYY)" : "Start date (MM.YYYY)"}
                   </label>
@@ -487,7 +487,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {lang === "pl" ? "Zakończenie (MM.YYYY / obecnie)" : "End date (MM.YYYY / currently)"}
                   </label>
@@ -502,7 +502,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "URL projektu (opcjonalny)" : "Project URL (optional)"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "URL projektu (opcjonalny)" : "Project URL (optional)"}</label>
                 <input
                   type="url"
                   value={projUrl}
@@ -512,7 +512,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                   <Tag className="w-3.5 h-3.5" />
                   {lang === "pl" ? "Technologie (rozdzielaj przecinkami)" : "Technologies (separate with commas)"}
                 </label>
@@ -520,48 +520,48 @@ export const EditModals: React.FC<EditModalsProps> = ({
                   type="text"
                   value={projTechs}
                   onChange={(e) => setProjTechs(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Opis projektu (PL)" : "Project description (PL)"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Opis projektu (PL)" : "Project description (PL)"}</label>
                 <textarea
                   value={projOpisPl}
                   onChange={(e) => setProjOpisPl(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
                   rows={3}
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Opis projektu (EN)" : "Project description (EN)"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Opis projektu (EN)" : "Project description (EN)"}</label>
                 <textarea
                   value={projOpisEn}
                   onChange={(e) => setProjOpisEn(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm"
                   rows={3}
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Wyróżniające elementy (PL, każda linia to jeden element)" : "Notable features (PL, each line is one item)"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Wyróżniające elementy (PL, każda linia to jeden element)" : "Notable features (PL, each line is one item)"}</label>
                 <textarea
                   value={projFeaturesPl}
                   onChange={(e) => setProjFeaturesPl(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-sm"
                   rows={3}
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Wyróżniające elementy (EN, każda linia to jeden element)" : "Notable features (EN, each line is one item)"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Wyróżniające elementy (EN, każda linia to jeden element)" : "Notable features (EN, each line is one item)"}</label>
                 <textarea
                   value={projFeaturesEn}
                   onChange={(e) => setProjFeaturesEn(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono text-sm"
                   rows={3}
                 />
               </div>
@@ -589,7 +589,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
           {certToEdit && (
             <form onSubmit={handleSaveCert} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Nazwa Szkolenia / Certyfikatu" : "Course / Certificate Name"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Nazwa Szkolenia / Certyfikatu" : "Course / Certificate Name"}</label>
                 <input
                   type="text"
                   value={certNazwa}
@@ -600,7 +600,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Instytucja certyfikująca" : "Certifying institution"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Instytucja certyfikująca" : "Certifying institution"}</label>
                 <input
                   type="text"
                   value={certInstytucja}
@@ -612,7 +612,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {lang === "pl" ? "Data certyfikatu (MM.YYYY / YYYY)" : "Certificate date (MM.YYYY / YYYY)"}
                   </label>
@@ -626,7 +626,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     {lang === "pl" ? "Czas trwania (godziny)" : "Duration (hours)"}
                   </label>
                   <input
@@ -640,7 +640,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                   <Tag className="w-3.5 h-3.5" />
                   {lang === "pl" ? "Powiązane tagi / technologie (przecinek)" : "Linked tags / technologies (comma)"}
                 </label>
@@ -648,12 +648,12 @@ export const EditModals: React.FC<EditModalsProps> = ({
                   type="text"
                   value={certTechs}
                   onChange={(e) => setCertTechs(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 font-mono text-xs"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500 font-mono text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Dodatkowe informacje" : "Additional information"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Dodatkowe informacje" : "Additional information"}</label>
                 <textarea
                   value={certOpis}
                   onChange={(e) => setCertOpis(e.target.value)}
@@ -685,7 +685,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
           {educationToEdit && (
             <form onSubmit={handleSaveEducation} className="space-y-4">
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Instytucja / Uczelnia" : "Institution / University"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Instytucja / Uczelnia" : "Institution / University"}</label>
                 <input
                   type="text"
                   value={eduInstitution}
@@ -696,7 +696,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Typ studiów / szkoły" : "Type of studies / school"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Typ studiów / szkoły" : "Type of studies / school"}</label>
                 <input
                   type="text"
                   value={eduType}
@@ -707,7 +707,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Kierunek / Profil" : "Major / Profile"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Kierunek / Profil" : "Major / Profile"}</label>
                 <input
                   type="text"
                   value={eduMajor}
@@ -719,7 +719,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {lang === "pl" ? "Start (MM.YYYY)" : "Start (MM.YYYY)"}
                   </label>
@@ -733,7 +733,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
+                  <label className="block text-sm font-bold text-slate-500 uppercase mb-1 flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" />
                     {lang === "pl" ? "Koniec (MM.YYYY)" : "End (MM.YYYY)"}
                   </label>
@@ -749,7 +749,7 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Potwierdzenie / Dyplom" : "Confirmation / Diploma"}</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">{lang === "pl" ? "Potwierdzenie / Dyplom" : "Confirmation / Diploma"}</label>
                 <input
                   type="text"
                   value={eduConfirmation}
@@ -759,21 +759,21 @@ export const EditModals: React.FC<EditModalsProps> = ({
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Opis (PL)</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">Opis (PL)</label>
                 <textarea
                   value={eduDescriptionPl}
                   onChange={(e) => setEduDescriptionPl(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs text-slate-700"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-700"
                   rows={3}
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-500 uppercase mb-1">Description (EN)</label>
+                <label className="block text-sm font-bold text-slate-500 uppercase mb-1">Description (EN)</label>
                 <textarea
                   value={eduDescriptionEn}
                   onChange={(e) => setEduDescriptionEn(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-xs text-slate-700"
+                  className="w-full px-3 py-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm text-slate-700"
                   rows={3}
                 />
               </div>

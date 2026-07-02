@@ -318,7 +318,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
             <span className="font-bold text-slate-700 block mb-2 font-mono uppercase tracking-wider text-[10px]">
               {lang === "pl" ? "Ikonki przy konkretnych elementach (Poziomy znajomości):" : "Icons next to elements (Knowledge Levels):"}
             </span>
-            <div className="space-y-2 text-xs text-slate-600">
+            <div className="space-y-2 text-sm text-slate-600">
               <div className="flex items-center gap-2">
                 <Award className="w-4 h-4 text-amber-500 fill-amber-100 animate-pulse" />
                 <span className="font-semibold text-slate-700">{translate("Poziom zaawansowany / ekspert", lang)}</span>
@@ -389,7 +389,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
       <div className="flex flex-wrap gap-2 mb-6">
         <button
           onClick={() => setActiveCategory(null)}
-          className={`px-3 py-1.5 rounded-xl text-xs font-medium border transition ${
+          className={`px-3 py-1.5 rounded-xl text-sm font-medium border transition ${
             activeCategory === null
               ? "bg-slate-900 text-white border-slate-900"
               : "bg-slate-50 text-slate-600 border-slate-200/80 hover:bg-slate-100"
@@ -404,7 +404,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium border transition cursor-pointer ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium border transition cursor-pointer ${
                 activeCategory === cat
                   ? "bg-slate-900 text-white border-slate-900"
                   : "bg-slate-50 text-slate-600 border-slate-200/80 hover:bg-slate-100"
@@ -431,7 +431,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                 <div className={`p-1.5 rounded-lg border ${meta.color}`}>
                   <Icon className="w-4 h-4" />
                 </div>
-                <h3 className="text-xs font-mono font-bold text-slate-700 tracking-wider uppercase">
+                <h3 className="text-sm font-mono font-bold text-slate-700 tracking-wider uppercase">
                   {meta.label}
                 </h3>
               </div>
@@ -448,7 +448,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                       {isAdmin ? (
                         <button
                           onClick={() => handleSelectTag(tag)}
-                          className={`flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 text-xs rounded-lg border transition duration-150 cursor-pointer ${
+                          className={`flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 text-sm rounded-lg border transition duration-150 cursor-pointer ${
                             selectedTag === tag
                               ? "bg-indigo-600 text-white border-indigo-600 shadow-sm"
                               : "bg-white hover:bg-indigo-50 hover:text-indigo-900 text-slate-700 border-slate-200/60"
@@ -469,7 +469,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                         </button>
                       ) : (
                         <div
-                          className="flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-lg border bg-white text-slate-700 border-slate-200/60 shadow-xs cursor-default"
+                          className="flex items-center gap-1.5 px-2.5 py-1 text-sm rounded-lg border bg-white text-slate-700 border-slate-200/60 shadow-xs cursor-default"
                         >
                           {skillRating.icon}
                           <span>{translate(tag, lang)}</span>
@@ -551,7 +551,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                   {selectedTag}
                 </span>
                 {tagConnections.skillRating && tagConnections.skillRating.proficiencyLevel && (
-                  <div className="flex items-center gap-1.5 text-xs text-indigo-700 font-medium">
+                  <div className="flex items-center gap-1.5 text-sm text-indigo-700 font-medium">
                     <CheckCircle2 className="w-4 h-4 text-indigo-600" />
                     <span>{translate("Deklarowany poziom:", lang)}</span>
                     <span className="font-bold uppercase px-1.5 py-0.5 bg-indigo-200/50 text-indigo-800 rounded-md">
@@ -562,7 +562,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
               </div>
               <button
                 onClick={() => setSelectedTag(null)}
-                className="text-xs text-indigo-600 hover:text-indigo-800 font-mono hover:underline cursor-pointer"
+                className="text-sm text-indigo-600 hover:text-indigo-800 font-mono hover:underline cursor-pointer"
               >
                 {translate("Zamknij panel [x]", lang)}
               </button>
@@ -571,16 +571,16 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
               {/* Linked Jobs */}
               <div className="bg-white p-3.5 rounded-xl border border-indigo-100/40 shadow-xs">
-                <h4 className="text-xs font-mono font-bold text-slate-500 uppercase mb-2 flex items-center gap-1">
+                <h4 className="text-sm font-mono font-bold text-slate-500 uppercase mb-2 flex items-center gap-1">
                   <Briefcase className="w-3.5 h-3.5 text-slate-400" />
                   {translate("Powiązane zatrudnienie", lang)} ({tagConnections.jobs.length})
                 </h4>
                 {tagConnections.jobs.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic">{translate("Brak bezpośrednich wpisów etatowych.", lang)}</p>
+                  <p className="text-sm text-slate-400 italic">{translate("Brak bezpośrednich wpisów etatowych.", lang)}</p>
                 ) : (
                   <ul className="space-y-2">
                     {tagConnections.jobs.map((job, i) => (
-                      <li key={i} className="text-xs border-l-2 border-indigo-300 pl-2">
+                      <li key={i} className="text-sm border-l-2 border-indigo-300 pl-2">
                         <div className="font-semibold text-slate-800">{job.company}</div>
                         <div className="text-slate-500 text-[10px]">
                           {Array.isArray(job.position) ? job.position.map(s => translate(s, lang)).join(", ") : translate(job.position, lang)} ({job.date.start} - {job.date.end || translate("obecnie", lang)})
@@ -593,16 +593,16 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
 
               {/* Linked Projects */}
               <div className="bg-white p-3.5 rounded-xl border border-indigo-100/40 shadow-xs">
-                <h4 className="text-xs font-mono font-bold text-slate-500 uppercase mb-2 flex items-center gap-1">
+                <h4 className="text-sm font-mono font-bold text-slate-500 uppercase mb-2 flex items-center gap-1">
                   <FolderGit2 className="w-3.5 h-3.5 text-slate-400" />
                   {translate("Powiązane projekty", lang)} ({tagConnections.projects.length})
                 </h4>
                 {tagConnections.projects.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic">{translate("Brak powiązanych projektów w bazie.", lang)}</p>
+                  <p className="text-sm text-slate-400 italic">{translate("Brak powiązanych projektów w bazie.", lang)}</p>
                 ) : (
                   <ul className="space-y-2">
                     {tagConnections.projects.map((p, i) => (
-                      <li key={i} className="text-xs border-l-2 border-indigo-300 pl-2">
+                      <li key={i} className="text-sm border-l-2 border-indigo-300 pl-2">
                         <div className="font-semibold text-slate-800">{p.name}</div>
                         <div className="text-slate-500 text-[10px]">{p.date.start} - {p.date.end || translate("obecnie", lang)}</div>
                       </li>
@@ -613,16 +613,16 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
 
               {/* Linked Certifications */}
               <div className="bg-white p-3.5 rounded-xl border border-indigo-100/40 shadow-xs">
-                <h4 className="text-xs font-mono font-bold text-slate-500 uppercase mb-2 flex items-center gap-1">
+                <h4 className="text-sm font-mono font-bold text-slate-500 uppercase mb-2 flex items-center gap-1">
                   <Award className="w-3.5 h-3.5 text-slate-400" />
                   {translate("Certyfikaty i szkolenia", lang)} ({tagConnections.certs.length})
                 </h4>
                 {tagConnections.certs.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic">{translate("Brak szkoleń powiązanych z tagiem.", lang)}</p>
+                  <p className="text-sm text-slate-400 italic">{translate("Brak szkoleń powiązanych z tagiem.", lang)}</p>
                 ) : (
                   <ul className="space-y-2">
                     {tagConnections.certs.map((c, i) => (
-                      <li key={i} className="text-xs border-l-2 border-indigo-300 pl-2">
+                      <li key={i} className="text-sm border-l-2 border-indigo-300 pl-2">
                         <div className="font-semibold text-slate-800">{c.name}</div>
                         <div className="text-slate-500 text-[10px]">{c.institution} • {c.date}</div>
                       </li>
@@ -657,26 +657,26 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
               <div className="space-y-4">
                 {/* Tech Name (Read-Only) */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">
+                  <label className="block text-sm font-semibold text-slate-500 mb-1">
                     {lang === "pl" ? "Nazwa technologii:" : "Technology name:"}
                   </label>
                   <input
                     type="text"
                     value={editingTag.name}
                     disabled
-                    className="w-full px-3 py-2 border border-slate-200 bg-slate-50 rounded-xl text-xs font-semibold text-slate-500 cursor-not-allowed focus:outline-none"
+                    className="w-full px-3 py-2 border border-slate-200 bg-slate-50 rounded-xl text-sm font-semibold text-slate-500 cursor-not-allowed focus:outline-none"
                   />
                 </div>
 
                 {/* Proficiency Level Select */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">
+                  <label className="block text-sm font-semibold text-slate-500 mb-1">
                     {lang === "pl" ? "Stopień zaawansowania:" : "Proficiency level:"}
                   </label>
                   <select
                     value={editLevel}
                     onChange={(e) => setEditLevel(e.target.value)}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   >
                     <option value="brak">
                       {lang === "pl" ? "Brak / Usuń z umiejętności" : "None / Remove from skills"}
@@ -702,7 +702,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                 {/* Custom Level Text Input (shown only if 'custom' is selected) */}
                 {editLevel === "custom" && (
                   <div className="animate-fade-in">
-                    <label className="block text-xs font-semibold text-slate-500 mb-1">
+                    <label className="block text-sm font-semibold text-slate-500 mb-1">
                       {lang === "pl" ? "Wpisz własny stopień zaawansowania:" : "Type custom proficiency level:"}
                     </label>
                     <input
@@ -710,14 +710,14 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                       value={editCustomLevel}
                       onChange={(e) => setEditCustomLevel(e.target.value)}
                       placeholder={lang === "pl" ? "np. ekspert, upper-intermediate" : "e.g. expert, upper-intermediate"}
-                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                      className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                     />
                   </div>
                 )}
 
                 {/* Synonyms list */}
                 <div>
-                  <label className="block text-xs font-semibold text-slate-500 mb-1">
+                  <label className="block text-sm font-semibold text-slate-500 mb-1">
                     {lang === "pl" ? "Synonimy (rozdzielone przecinkami):" : "Synonyms (comma-separated):"}
                   </label>
                   <input
@@ -725,7 +725,7 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                     value={editSynonyms}
                     onChange={(e) => setEditSynonyms(e.target.value)}
                     placeholder={lang === "pl" ? "np. JS, ES6, JavaScript" : "e.g. JS, ES6, JavaScript"}
-                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                   />
                   <p className="text-[10px] text-slate-400 mt-1 leading-normal">
                     {lang === "pl"
@@ -743,14 +743,14 @@ export const TechDictionary: React.FC<TechDictionaryProps> = ({
                     setEditingTag(null);
                     setEditingCategory(null);
                   }}
-                  className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer font-medium"
+                  className="px-3 py-1.5 text-sm text-slate-500 hover:underline cursor-pointer font-medium"
                 >
                   {lang === "pl" ? "Anuluj" : "Cancel"}
                 </button>
                 <button
                   type="button"
                   onClick={handleSaveEdit}
-                  className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+                  className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-sm font-semibold transition cursor-pointer"
                 >
                   {lang === "pl" ? "Zapisz" : "Save"}
                 </button>

@@ -120,14 +120,14 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
                     <h3 className="font-bold text-sm text-slate-950 mt-1.5 leading-snug">
                       <SupplementaryText text={translate(edu.major, lang)} />
                     </h3>
-                    <div className="text-xs text-slate-500 font-semibold mt-1 flex items-center gap-1">
+                    <div className="text-sm text-slate-500 font-semibold mt-1 flex items-center gap-1">
                       <BookOpen className="w-3.5 h-3.5" />
                       {edu.institution}
                     </div>
                   </div>
 
                   <div className="flex flex-col items-end gap-2 shrink-0">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-xs font-mono text-slate-600">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-slate-50 border border-slate-200/80 rounded-xl text-sm font-mono text-slate-600">
                       <Calendar className="w-3.5 h-3.5 text-blue-500" />
                       {edu.date.start} – {edu.date.end}
                     </span>
@@ -144,13 +144,13 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
                 </div>
 
                 {edu.description && (
-                  <div className="mt-3 text-xs text-slate-600 leading-relaxed border-l-2 border-slate-200 pl-2.5">
+                  <div className="mt-3 text-sm text-slate-600 leading-relaxed border-l-2 border-slate-200 pl-2.5">
                     <SupplementaryText text={lang === "pl" ? edu.description.pl : edu.description.en} />
                   </div>
                 )}
 
                 {edu.confirmation && (
-                  <div className="mt-3 text-xs p-2.5 bg-slate-50 border border-slate-150 rounded-lg text-slate-600 flex items-start gap-1.5">
+                  <div className="mt-3 text-sm p-2.5 bg-slate-50 border border-slate-150 rounded-lg text-slate-600 flex items-start gap-1.5">
                     <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
                     <div>
                       <span className="font-bold text-slate-700">{translate("Uzyskane potwierdzenie:", lang)}</span>{" "}
@@ -229,13 +229,13 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
           )}
 
           {isEditingPasje ? (
-            <div className="space-y-3 mb-4 text-xs">
+            <div className="space-y-3 mb-4 text-sm">
               <div>
                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1">PL:</label>
                 <textarea
                   value={pasjePl}
                   onChange={(e) => setPasjePl(e.target.value)}
-                  className="w-full p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs text-slate-700"
+                  className="w-full p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-700"
                   rows={2}
                 />
               </div>
@@ -244,13 +244,13 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
                 <textarea
                   value={pasjeEn}
                   onChange={(e) => setPasjeEn(e.target.value)}
-                  className="w-full p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-xs text-slate-700"
+                  className="w-full p-2 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm text-slate-700"
                   rows={2}
                 />
               </div>
             </div>
           ) : (
-            <p className="text-xs text-slate-500 mb-4 pr-8">
+            <p className="text-sm text-slate-500 mb-4 pr-8">
               {currentPasjeText}
             </p>
           )}
@@ -270,7 +270,7 @@ export const EducationAndHobbies: React.FC<EducationAndHobbiesProps> = ({
               return (
                 <div
                   key={idx}
-                  className="p-3 bg-slate-50/50 hover:bg-slate-50 border border-slate-100/80 rounded-xl text-xs text-slate-700 flex items-start gap-2.5 transition"
+                  className="p-3 bg-slate-50/50 hover:bg-slate-50 border border-slate-100/80 rounded-xl text-sm text-slate-700 flex items-start gap-2.5 transition"
                 >
                   <span className="text-teal-500 font-bold mt-0.5">•</span>
                   <div>

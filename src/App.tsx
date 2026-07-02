@@ -716,12 +716,12 @@ export default function App() {
                     <CheckCircle className="w-5 h-5 text-amber-500" />
                     {translate("Wybrane i zapisane sekcje (Zakładki rekrutacyjne)", lang)}
                   </h3>
-                  <p className="text-xs text-slate-500 mb-4">
+                  <p className="text-sm text-slate-500 mb-4">
                     {translate("Poniższe elementy zostały zaznaczone jako istotne podczas analizy CV:", lang)}
                   </p>
                   <div className="space-y-3">
                     {cvData.employment.filter((j) => bookmarks[j.id]).map((j) => (
-                      <div key={j.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-xs flex justify-between items-center">
+                      <div key={j.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-sm flex justify-between items-center">
                         <div>
                           <strong className="text-slate-800">{Array.isArray(j.position) ? j.position.map(s => translate(s, lang)).join(", ") : typeof j.position === "object" ? (lang === "pl" ? j.position.pl : j.position.en) : translate(j.position, lang)}</strong> w <span className="font-semibold text-slate-600">{j.company}</span>
                         </div>
@@ -729,7 +729,7 @@ export default function App() {
                       </div>
                     ))}
                     {cvData.projects.filter((p) => bookmarks[p.id]).map((p) => (
-                      <div key={p.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-xs flex justify-between items-center">
+                      <div key={p.id} className="p-3 bg-white border border-amber-200/50 rounded-xl text-sm flex justify-between items-center">
                         <div>
                           {translate("Projekt", lang)} <strong className="text-slate-800">{p.name}</strong>
                         </div>
@@ -842,7 +842,7 @@ export default function App() {
         </main>
 
         {/* Footer info block */}
-        <footer className="pt-8 pb-12 border-t border-slate-200 text-center text-xs text-slate-400 print:hidden flex flex-col sm:flex-row items-center justify-between gap-4">
+        <footer className="pt-8 pb-12 border-t border-slate-200 text-center text-sm text-slate-400 print:hidden flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-center sm:items-start gap-1 text-left">
             <p>© {new Date().getFullYear()} Michał Sokołowski. {translate("Wszystkie prawa zastrzeżone.", lang)}</p>
             <p className="text-[10px] text-slate-400 flex items-center gap-1">
@@ -856,7 +856,7 @@ export default function App() {
             <div className="relative">
               <button
                 onClick={() => setShowExportMenu(!showExportMenu)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-600 hover:text-slate-800 transition cursor-pointer text-xs font-semibold shadow-xs"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-600 hover:text-slate-800 transition cursor-pointer text-sm font-semibold shadow-xs"
                 title={lang === "pl" ? "Eksportuj dane CV do pliku Markdown (.md)" : "Export CV data to Markdown file (.md)"}
                 id="markdown-export-button"
               >
@@ -881,7 +881,7 @@ export default function App() {
                       } // END IF
                       setShowExportMenu(false);
                     }}
-                    className="w-full text-left px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50 hover:text-indigo-650 transition cursor-pointer font-medium flex items-center gap-2"
+                    className="w-full text-left px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-indigo-650 transition cursor-pointer font-medium flex items-center gap-2"
                   >
                     <span>🇵🇱</span>
                     <span>Polski (PL)</span>
@@ -894,7 +894,7 @@ export default function App() {
                       } // END IF
                       setShowExportMenu(false);
                     }}
-                    className="w-full text-left px-3 py-1.5 text-xs text-slate-700 hover:bg-slate-50 hover:text-indigo-650 transition cursor-pointer font-medium flex items-center gap-2"
+                    className="w-full text-left px-3 py-1.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-indigo-650 transition cursor-pointer font-medium flex items-center gap-2"
                   >
                     <span>🇬🇧</span>
                     <span>English (EN)</span>
@@ -905,7 +905,7 @@ export default function App() {
 
             <button
               onClick={handleReloadFromJson}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-600 hover:text-slate-800 transition cursor-pointer text-xs font-semibold shadow-xs"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl text-slate-600 hover:text-slate-800 transition cursor-pointer text-sm font-semibold shadow-xs"
               title={lang === "pl" ? "Załaduj ponownie z pliku cv_data.json" : "Reload from cv_data.json file"}
               id="reload-json-button"
             >
@@ -984,7 +984,7 @@ export default function App() {
                   value={loginPassword}
                   onChange={(e) => setLoginPassword(e.target.value)}
                   placeholder={translate("Hasło...", lang)}
-                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full p-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   autoFocus
                 />
                 {loginError && <p className="text-[10px] text-red-500 mt-1 font-semibold">{loginError}</p>}
@@ -998,13 +998,13 @@ export default function App() {
                     setLoginPassword("");
                     setLoginError("");
                   }}
-                  className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer"
+                  className="px-3 py-1.5 text-sm text-slate-500 hover:underline cursor-pointer"
                 >
                   {translate("Anuluj", lang)}
                 </button>
                 <button
                   type="submit"
-                  className="px-3 py-1.5 bg-slate-900 text-white rounded-xl text-xs font-semibold hover:bg-slate-800 transition cursor-pointer"
+                  className="px-3 py-1.5 bg-slate-900 text-white rounded-xl text-sm font-semibold hover:bg-slate-800 transition cursor-pointer"
                 >
                   {translate("Zaloguj", lang)}
                 </button>
@@ -1032,7 +1032,7 @@ export default function App() {
               </div>
             </div>
 
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               {lang === "pl"
                 ? "Czy na pewno chcesz przywrócić domyślne CV z pliku JSON? Wszystkie wprowadzone modyfikacje, notatki, zakładki i podpowiedzi zostaną usunięte."
                 : "Are you sure you want to restore the default CV from the JSON file? All entered modifications, notes, bookmarks, and tooltips will be deleted."}
@@ -1041,13 +1041,13 @@ export default function App() {
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowResetConfirm(false)}
-                className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer font-medium"
+                className="px-3 py-1.5 text-sm text-slate-500 hover:underline cursor-pointer font-medium"
               >
                 {translate("Anuluj", lang)}
               </button>
               <button
                 onClick={executeResetDb}
-                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl text-sm font-semibold transition cursor-pointer"
               >
                 {lang === "pl" ? "Przywróć dane" : "Restore data"}
               </button>
@@ -1074,7 +1074,7 @@ export default function App() {
               </div>
             </div>
 
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-sm text-slate-600 leading-relaxed">
               {lang === "pl"
                 ? "Czy chcesz ponownie załadować dane z pliku cv_data.json? Wszystkie Twoje lokalne modyfikacje w bazie zostaną nadpisane oryginalną zawartością pliku."
                 : "Do you want to reload data from cv_data.json? All your local modifications in the database will be overwritten by the original file contents."}
@@ -1083,13 +1083,13 @@ export default function App() {
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowReloadConfirm(false)}
-                className="px-3 py-1.5 text-xs text-slate-500 hover:underline cursor-pointer font-medium"
+                className="px-3 py-1.5 text-sm text-slate-500 hover:underline cursor-pointer font-medium"
               >
                 {translate("Anuluj", lang)}
               </button>
               <button
                 onClick={executeReloadFromJson}
-                className="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+                className="px-4 py-1.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-sm font-semibold transition cursor-pointer"
               >
                 {lang === "pl" ? "Załaduj z pliku" : "Reload from file"}
               </button>
@@ -1110,7 +1110,7 @@ export default function App() {
               <h3 className="font-bold text-slate-900 text-sm">
                 {lang === "pl" ? "Sukces!" : "Success!"}
               </h3>
-              <p className="text-xs text-slate-500">
+              <p className="text-sm text-slate-500">
                 {lang === "pl"
                   ? "Dane zostały pomyślnie załadowane z pliku cv_data.json! Strona zostanie teraz odświeżona."
                   : "Data has been successfully reloaded from cv_data.json! The page will now be refreshed."}
@@ -1123,7 +1123,7 @@ export default function App() {
                   setShowReloadSuccess(false);
                   window.location.reload();
                 }}
-                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold transition cursor-pointer"
+                className="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-semibold transition cursor-pointer"
               >
                 OK
               </button>

@@ -205,7 +205,7 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
       <div className="bg-white p-4 rounded-2xl border border-slate-200/80 mb-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="max-w-2xl">
           <h4 className="text-sm font-bold text-slate-800 mb-1">{presets[selectedPreset]?.title}</h4>
-          <p className="text-xs text-slate-500 leading-relaxed">{presets[selectedPreset]?.description}</p>
+          <p className="text-sm text-slate-500 leading-relaxed">{presets[selectedPreset]?.description}</p>
         </div>
         <div className="flex flex-wrap gap-1 max-w-md">
           {presets[selectedPreset]?.tags.slice(0, 8).map((tag) => (
@@ -227,11 +227,11 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
         <div className="lg:col-span-4 bg-slate-900 text-white p-6 rounded-2xl flex flex-col items-center justify-center text-center relative overflow-hidden">
           <div className="absolute top-0 left-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-2xl" />
           <div className="relative z-10">
-            <div className="text-slate-400 text-xs uppercase font-mono tracking-wider mb-2">{lang === "pl" ? "Dopasowanie Techniczne" : "Technical Matching"}</div>
+            <div className="text-slate-400 text-sm uppercase font-mono tracking-wider mb-2">{lang === "pl" ? "Dopasowanie Techniczne" : "Technical Matching"}</div>
             <div className="relative flex items-center justify-center mb-3">
               <div className="text-5xl font-bold text-white tracking-tight">{scoreDetails.score}%</div>
             </div>
-            <div className="px-4 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-xs font-mono border border-indigo-500/30">
+            <div className="px-4 py-1.5 bg-indigo-500/20 text-indigo-300 rounded-full text-sm font-mono border border-indigo-500/30">
               {scoreDetails.uniqueMatches.length} / {activeTags.length} {lang === "pl" ? "zaliczonych tagów" : "matching tags"}
             </div>
           </div>
@@ -251,16 +251,16 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
             {/* List of actual validated credentials */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
               <div className="space-y-2">
-                <h4 className="text-xs font-mono font-bold text-slate-400 uppercase flex items-center gap-1">
+                <h4 className="text-sm font-mono font-bold text-slate-400 uppercase flex items-center gap-1">
                   <Folder className="w-3.5 h-3.5 text-blue-500" />
                   {lang === "pl" ? "Powiązane Projekty" : "Linked Projects"} ({scoreDetails.matchingProjects.length})
                 </h4>
                 {scoreDetails.matchingProjects.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic">{lang === "pl" ? "Brak idealnie pasujących projektów." : "No perfectly matching projects."}</p>
+                  <p className="text-sm text-slate-400 italic">{lang === "pl" ? "Brak idealnie pasujących projektów." : "No perfectly matching projects."}</p>
                 ) : (
                   <div className="max-h-40 overflow-y-auto space-y-1.5 pr-1">
                     {scoreDetails.matchingProjects.slice(0, 3).map((p, idx) => (
-                      <div key={idx} className="flex flex-col gap-1 p-2 bg-slate-50 rounded-lg border border-slate-100/80 animate-fade-in text-xs">
+                      <div key={idx} className="flex flex-col gap-1 p-2 bg-slate-50 rounded-lg border border-slate-100/80 animate-fade-in text-sm">
                         <div className="flex items-center justify-between">
                           <span className="font-semibold text-slate-800 truncate max-w-[150px]">{p.name}</span>
                           <span className="text-[10px] font-mono font-bold text-indigo-600 bg-indigo-50 px-1.5 py-0.5 rounded">
@@ -283,16 +283,16 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
               </div>
 
               <div className="space-y-2">
-                <h4 className="text-xs font-mono font-bold text-slate-400 uppercase flex items-center gap-1">
+                <h4 className="text-sm font-mono font-bold text-slate-400 uppercase flex items-center gap-1">
                   <Award className="w-3.5 h-3.5 text-purple-500" />
                   {lang === "pl" ? "Potwierdzona Nauka & Szkolenia" : "Confirmed Learning & Training"} ({scoreDetails.matchingCerts.length})
                 </h4>
                 {scoreDetails.matchingCerts.length === 0 ? (
-                  <p className="text-xs text-slate-400 italic">{lang === "pl" ? "Brak certyfikatu z tymi technologiami." : "No certs with these technologies."}</p>
+                  <p className="text-sm text-slate-400 italic">{lang === "pl" ? "Brak certyfikatu z tymi technologiami." : "No certs with these technologies."}</p>
                 ) : (
                   <div className="max-h-36 overflow-y-auto space-y-1 pr-1">
                     {scoreDetails.matchingCerts.slice(0, 5).map((c, idx) => (
-                      <div key={idx} className="flex items-center justify-between text-xs p-1.5 bg-slate-50 rounded-lg border border-slate-100 animate-fade-in">
+                      <div key={idx} className="flex items-center justify-between text-sm p-1.5 bg-slate-50 rounded-lg border border-slate-100 animate-fade-in">
                         <span className="font-medium text-slate-700 truncate max-w-[180px]">{c.name}</span>
                         <span className="text-[10px] text-slate-400">{c.date}</span>
                       </div>
@@ -308,7 +308,7 @@ export const RecruiterMatch: React.FC<RecruiterMatchProps> = ({ cvData, lang }) 
             </div>
           </div>
 
-          <div className="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-xs">
+          <div className="mt-4 pt-4 border-t border-slate-100 flex justify-between items-center text-sm">
             <span className="text-slate-400 flex items-center gap-1">
               <ClipboardList className="w-4 h-4 text-slate-300" />
               {lang === "pl" ? "Relacje sprawdzane w czasie rzeczywistym" : "Relations verified in real-time"}

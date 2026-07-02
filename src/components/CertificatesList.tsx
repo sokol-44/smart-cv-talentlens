@@ -154,7 +154,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
             <Award className="w-6 h-6 text-purple-600" />
             {translate("Dodatkowe Kursy i Certyfikaty", lang)}
           </h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="text-sm text-slate-500 mt-1">
             {translate("Lista szkoleń z zakresu AI, zarządzania projektami (PMI), systemów Linux (SUSE, LPI) i cyberbezpieczeństwa.", lang)}
           </p>
         </div>
@@ -166,7 +166,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(e.target.value)}
-              className="appearance-none bg-white border border-slate-200 rounded-xl px-4 py-1.5 pr-8 text-xs font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
+              className="appearance-none bg-white border border-slate-200 rounded-xl px-4 py-1.5 pr-8 text-sm font-semibold text-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-500 cursor-pointer"
             >
               <option value="all">{translate("Wszystkie lata", lang)}</option>
               {availableYears.map((yr) => (
@@ -188,7 +188,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder={translate("Szukaj certyfikatów...", lang)}
-              className="w-full pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-xs focus:outline-none focus:ring-2 focus:ring-purple-500"
+              className="w-full pl-9 pr-4 py-1.5 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
             />
           </div>
 
@@ -196,7 +196,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-3 py-1.5 border border-slate-200 rounded-xl text-xs bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-700 font-medium cursor-pointer"
+            className="px-3 py-1.5 border border-slate-200 rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-purple-500 text-slate-700 font-medium cursor-pointer"
           >
             <option value="default">{translate("Sortuj według", lang)}: {translate("Domyślnie", lang)}</option>
             <option value="start_asc">{translate("Data startu (rosnąco)", lang)}</option>
@@ -229,7 +229,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
                       <h3 className="font-bold text-sm text-slate-900 leading-tight">
                         {translate(c.name, lang)}
                       </h3>
-                      <div className="text-xs font-semibold text-slate-500 mt-0.5">
+                      <div className="text-sm font-semibold text-slate-500 mt-0.5">
                         {c.institution}
                       </div>
                     </div>
@@ -277,7 +277,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
 
                 {/* Recruiter custom notes */}
                 {isAdmin && hasNote && activeNoteCertId !== c.id && (
-                  <div className="mb-3 p-2 bg-emerald-50/50 border border-emerald-100/60 rounded-xl text-xs text-slate-600">
+                  <div className="mb-3 p-2 bg-emerald-50/50 border border-emerald-100/60 rounded-xl text-sm text-slate-600">
                     <span className="font-bold text-emerald-700 font-mono text-[10px]">{translate("NOTATKA:", lang)}</span>
                     <p className="italic">{notes[c.id]?.[lang] || notes[c.id]?.pl || notes[c.id]?.en}</p>
                   </div>
@@ -294,7 +294,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
                         value={noteTextPl}
                         onChange={(e) => setNoteTextPl(e.target.value)}
                         placeholder="Polski komentarz..."
-                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         rows={1}
                       />
                     </div>
@@ -306,20 +306,20 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
                         value={noteTextEn}
                         onChange={(e) => setNoteTextEn(e.target.value)}
                         placeholder="English comment..."
-                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-xs focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                        className="w-full p-2 bg-white border border-emerald-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                         rows={1}
                       />
                     </div>
                     <div className="flex justify-end gap-2 pt-1">
                       <button
                         onClick={() => setActiveNoteCertId(null)}
-                        className="px-2 py-0.5 text-xs text-slate-500 hover:underline cursor-pointer"
+                        className="px-2 py-0.5 text-sm text-slate-500 hover:underline cursor-pointer"
                       >
                         {translate("Anuluj", lang)}
                       </button>
                       <button
                         onClick={() => handleSaveNote(c.id)}
-                        className="flex items-center gap-1 px-2.5 py-0.5 bg-emerald-600 text-white rounded-lg text-xs font-semibold hover:bg-emerald-700 transition cursor-pointer"
+                        className="flex items-center gap-1 px-2.5 py-0.5 bg-emerald-600 text-white rounded-lg text-sm font-semibold hover:bg-emerald-700 transition cursor-pointer"
                       >
                         <Save className="w-3 h-3" />
                         <span>{translate("Zapisz", lang)}</span>
@@ -335,7 +335,7 @@ export const CertificatesList: React.FC<CertificatesListProps> = ({
                       <AlignLeft className="w-3.5 h-3.5 text-slate-400" />
                       {translate("Opis", lang)}
                     </h4>
-                    <div className="text-xs text-slate-600 leading-relaxed bg-slate-50/40 p-2.5 rounded-xl border border-slate-100/50">
+                    <div className="text-sm text-slate-600 leading-relaxed bg-slate-50/40 p-2.5 rounded-xl border border-slate-100/50">
                       <SupplementaryText text={
                         typeof c.description === "object"
                           ? c.description[lang] || c.description.pl || c.description.en || ""

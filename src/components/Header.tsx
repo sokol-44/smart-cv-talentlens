@@ -91,7 +91,7 @@ export const Header: React.FC<HeaderProps> = ({
           </h1>
 
           {isEditingHeadline ? (
-            <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/50 mb-4 max-w-2xl animate-fade-in font-sans text-xs">
+            <div className="bg-slate-800/80 p-4 rounded-2xl border border-slate-700/50 mb-4 max-w-2xl animate-fade-in font-sans text-sm">
               <div className="mb-3">
                 <label className="block text-[10px] font-bold text-slate-400 uppercase mb-1 tracking-wider">
                   {lang === "pl" ? "Nagłówek (PL)" : "Headline (PL)"}
@@ -99,7 +99,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <textarea
                   value={headlinePl}
                   onChange={(e) => setHeadlinePl(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-xs"
+                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-sm"
                   rows={2}
                 />
               </div>
@@ -110,7 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <textarea
                   value={headlineEn}
                   onChange={(e) => setHeadlineEn(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-xs"
+                  className="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded-xl text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans text-sm"
                   rows={2}
                 />
               </div>
@@ -217,7 +217,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <Globe className="w-4 h-4 animate-pulse" />
               </div>
               <div className="min-w-0">
-                <span className="text-xs font-bold text-slate-200 block leading-tight">
+                <span className="text-sm font-bold text-slate-200 block leading-tight">
                   {lang === "pl" ? "Język prezentacji" : "Presentation language"}
                 </span>
                 <span className="text-[10px] text-slate-400 block font-sans truncate">
@@ -363,7 +363,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Expanded about me side scroller: "Kandydat o sobie" with all description elements */}
       <div className="mt-6 pt-6 border-t border-slate-800/80">
-        <h3 className="text-xs font-mono font-semibold text-blue-400 mb-3 uppercase tracking-wider">
+        <h3 className="text-sm font-mono font-semibold text-blue-400 mb-3 uppercase tracking-wider">
           {translate("Kandydat o sobie", lang)}
         </h3>
         
@@ -374,7 +374,7 @@ export const Header: React.FC<HeaderProps> = ({
               key={idx}
               className="min-w-[280px] md:min-w-[340px] max-w-[360px] flex-shrink-0 bg-slate-950/40 p-4 rounded-xl border border-slate-800/60 text-sm text-slate-300 animate-fade-in"
             >
-              <p className="leading-relaxed text-xs">
+              <p className="leading-relaxed text-sm">
                 <SupplementaryText text={bullet} />
               </p>
             </div>

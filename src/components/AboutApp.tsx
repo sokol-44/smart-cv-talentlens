@@ -33,7 +33,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
   const content = {
     pl: {
       title: "O Aplikacji",
-      subtitle: "Interaktywne CV i System Dopasowania Kandydata",
+      subtitle: "Interaktywne CV i System Dopasowania Kandydata - Vibe Coding Showcase",
       purposeTitle: "Cel utworzenia",
       purposeText: "Aplikacja została stworzona w celu nowoczesnej, interaktywnej i wielojęzycznej prezentacji kwalifikacji zawodowych, historii zatrudnienia, zrealizowanych projektów oraz uzyskanych certyfikatów. Projekt stanowi również praktyczny pokaz 'Vibe Coding' – nowoczesnego podejścia do wytwarzania oprogramowania we współpracy z modelami AI (Gemini 3.5 Flash w Google AI Studio) przy minimalnym nakładzie ręcznego pisania kodu. System został zoptymalizowany dla rekruterów oraz menedżerów technicznych poszukujących odpowiednich kandydatów na stanowiska inżynieryjne, umożliwiając szybkie dopasowanie profili do specyfiki ról projektowych.",
       creationTitle: "Sposób utworzenia i architektura",
@@ -78,7 +78,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
     },
     en: {
       title: "About Application",
-      subtitle: "Interactive CV & Candidate Role Matching System",
+      subtitle: "Interactive CV & Candidate Role Matching System - Vibe Coding Showcase",
       purposeTitle: "Purpose of Creation",
       purposeText: "This application was created to provide a modern, interactive, and bilingual presentation of professional qualifications, employment history, completed projects, and certifications. The system also serves as a practical showcase of 'Vibe Coding' – a modern approach to software development in collaboration with AI models (Gemini 3.5 Flash in Google AI Studio) with minimal manual code drafting. The system is optimized for recruiters and engineering managers looking for candidates for engineering roles, enabling rapid matching of profiles against project requirements.",
       creationTitle: "Creation Method & Architecture",
@@ -151,19 +151,19 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
         </div>
         <div className="relative z-10 w-full space-y-3">
           <div className="flex items-center justify-between gap-4 flex-wrap sm:flex-nowrap">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-xs font-mono text-indigo-300">
-              <Info className="w-3.5 h-3.5" />
-              Vibe Coding Showcase
-            </span>
             <a
               href="https://github.com/sokol-44/smart-cv-talentlens"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 rounded-xl text-xs font-medium text-indigo-200 hover:text-white transition-colors shadow-xs shrink-0"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 border border-indigo-400/30 rounded-xl text-sm font-medium text-indigo-200 hover:text-white transition-colors shadow-xs shrink-0"
             >
               <Github className="w-4 h-4" />
               <span>{t.githubRepoText}</span>
             </a>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-indigo-500/20 border border-indigo-400/30 rounded-full text-sm font-mono text-indigo-300">
+              <Info className="w-3.5 h-3.5" />
+              Vibe Coding Showcase
+            </span>
           </div>
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{t.title}</h1>
           <p className="text-slate-300 text-sm md:text-base leading-relaxed max-w-3xl">{t.subtitle}</p>
@@ -206,11 +206,11 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
             <div className="space-y-3">
               {(t as any).archPoints?.map((item: any, idx: number) => (
                 <div key={idx} className="space-y-1 p-3 bg-slate-50/60 rounded-xl border border-slate-100/50">
-                  <h4 className="text-xs font-bold text-indigo-950 flex items-center gap-1.5 font-sans">
+                  <h4 className="text-sm font-bold text-indigo-950 flex items-center gap-1.5 font-sans">
                     <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 shrink-0" />
                     {item.title}
                   </h4>
-                  <p className="text-xs text-slate-600 leading-relaxed pl-3 font-sans">
+                  <p className="text-sm text-slate-600 leading-relaxed pl-3 font-sans">
                     {item.desc}
                   </p>
                 </div>
@@ -228,7 +228,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
             </h2>
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {t.features.map((feat, idx) => (
-                <li key={idx} className="flex gap-2 text-xs text-slate-600 leading-relaxed">
+                <li key={idx} className="flex gap-2 text-sm text-slate-600 leading-relaxed">
                   <span className="text-indigo-500 font-bold shrink-0 mt-0.5">✓</span>
                   <span>{feat}</span>
                 </li>
@@ -247,7 +247,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
             
             <div className="space-y-4">
               <div className="flex flex-col md:flex-row gap-4 p-4 bg-slate-50/60 rounded-xl border border-slate-100">
-                <div className="space-y-2 text-xs text-slate-700 shrink-0 self-center">
+                <div className="space-y-2 text-sm text-slate-700 shrink-0 self-center">
                   <div className="font-bold text-slate-900 text-sm">
                     Michał Sokołowski
                   </div>
@@ -283,7 +283,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
               {techStack.map((tech) => (
                 <div key={tech.name} className="flex justify-between items-start border-b border-slate-50 pb-2">
                   <div>
-                    <span className="font-bold text-slate-800 text-xs font-sans block">{tech.name}</span>
+                    <span className="font-bold text-slate-800 text-sm font-sans block">{tech.name}</span>
                     <span className="text-slate-400 font-sans block mt-0.5">{tech.desc}</span>
                   </div>
                   <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200/50 shrink-0">
@@ -300,7 +300,7 @@ export const AboutApp: React.FC<AboutAppProps> = ({ lang, cvData }) => {
               <HelpCircle className="w-5 h-5 text-indigo-600" />
               {t.manualTitle}
             </h3>
-            <div className="space-y-4 text-xs text-slate-600">
+            <div className="space-y-4 text-sm text-slate-600">
               <div className="space-y-1">
                 <h4 className="font-bold text-indigo-900 flex items-center gap-1">
                   <User className="w-3.5 h-3.5 text-indigo-500" />
